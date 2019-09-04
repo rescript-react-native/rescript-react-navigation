@@ -39,14 +39,7 @@
     }
   },
   "workspaces": [
-    "reason-react-native",
-    "reason-react-native-template",
-    "bs-react-native-jsx3-compat",
-    "bs-react-native",
-    "bs-react-native-example",
     "reason-react-navigation",
-    "reason-react-navigation-example",
-    "@reason-react-native/*",
-    "website"
+    "reason-react-navigation-example"
   ]
 }
