@@ -17,8 +17,8 @@ external config:
   "";
 
 [@bs.module "react-navigation"]
-external make: Js.t('a) => Types.navigator = "createSwitchNavigator";
+external make: Js.t('a) => Navigator.t = "createSwitchNavigator";
 
 [@bs.module "react-navigation"]
-external makeWithConfig: (Js.t('a), config) => Types.navigator =
+external makeWithConfig: (Js.t('a), config) => Navigator.t =
   "createSwitchNavigator";

@@ -1,6 +1,5 @@
-type persistNavigationState = Types.navigationState => Js.Promise.t(unit);
-type loadNavigationState =
-  unit => Js.Promise.t(option(Types.navigationState));
+type persistNavigationState = NavigationState.t => Js.Promise.t(unit);
+type loadNavigationState = unit => Js.Promise.t(option(NavigationState.t));
 
 type appContainerProps('screenProps) = {
   .
@@ -12,11 +11,11 @@ type appContainerProps('screenProps) = {
 
 module Make = (S: {
                  type screenProps;
-                 let navigator: Types.navigator;
+                 let navigator: Navigator.t;
                }) => {
   [@bs.module "react-navigation"]
   external make:
-    Types.navigator => React.component(appContainerProps(S.screenProps)) =
+    Navigator.t => React.component(appContainerProps(S.screenProps)) =
     "createAppContainer";
 
   [@bs.obj]

@@ -53,8 +53,8 @@ external config:
   "";
 
 [@bs.module "react-navigation"]
-external make: Js.t('a) => Types.navigator = "createDrawerNavigator";
+external make: Js.t('a) => Navigator.t = "createDrawerNavigator";
 
 [@bs.module "react-navigation"]
-external makeWithConfig: (Js.t('a), config) => Types.navigator =
+external makeWithConfig: (Js.t('a), config) => Navigator.t =
   "createDrawerNavigator";
