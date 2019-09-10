@@ -5,7 +5,7 @@ external navigationContext: React.Context.t(t) = "NavigationContext";
 
 let useNavigation = () => React.useContext(navigationContext);
 
-[@bs.get] external state: t => Types.navigationState = "";
+[@bs.get] external state: t => NavigationState.t = "";
 
 [@bs.send] external navigate: (t, string) => unit = "";
 [@bs.send]
