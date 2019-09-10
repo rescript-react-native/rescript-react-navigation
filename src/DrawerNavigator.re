@@ -7,8 +7,9 @@ type contentComponentProps('screenProps) = {
 type contentComponent('screenProps) =
   React.component(contentComponentProps('screenProps));
 
-[@bs.module "react-navigation"]
-external drawerItems: contentComponent('screenProps) = "DrawerItems";
+[@bs.module "react-navigation-drawer"]
+external drawerNavigatorItems: contentComponent('screenProps) =
+  "DrawerNavigatorItems";
 
 type contentOptions;
 
@@ -52,9 +53,9 @@ external config:
   config =
   "";
 
-[@bs.module "react-navigation"]
+[@bs.module "react-navigation-drawer"]
 external make: Js.t('a) => Navigator.t = "createDrawerNavigator";
 
-[@bs.module "react-navigation"]
+[@bs.module "react-navigation-drawer"]
 external makeWithConfig: (Js.t('a), config) => Navigator.t =
   "createDrawerNavigator";

@@ -41,19 +41,19 @@ external config:
   "";
 
 module MaterialTop = {
-  [@bs.module "react-navigation"]
+  [@bs.module "react-navigation-tabs"]
   external make: Js.t('a) => Navigator.t = "createMaterialTopTabNavigator";
 
-  [@bs.module "react-navigation"]
+  [@bs.module "react-navigation-tabs"]
   external makeWithConfig: (Js.t('a), config) => Navigator.t =
     "createMaterialTopTabNavigator";
 };
 
 module Bottom = {
-  [@bs.module "react-navigation"]
+  [@bs.module "react-navigation-tabs"]
   external make: Js.t('a) => Navigator.t = "createBottomTabNavigator";
 
-  [@bs.module "react-navigation"]
+  [@bs.module "react-navigation-tabs"]
   external makeWithConfig: (Js.t('a), config) => Navigator.t =
     "createBottomTabNavigator";
 };

@@ -1,11 +1,8 @@
 {
   "name": "@reason-react-native/react-navigation",
-  "version": "3.11.0-alpha.0",
+  "version": "4.0.0-alpha.0",
   "publishConfig": {
     "access": "public"
-  },
-  "peerDependencies": {
-    "react-navigation": "^3.11.0"
   },
   "repository": "https://github.com/reason-react-native/react-navigation.git",
   "license": "MIT",
@@ -41,8 +38,12 @@
     "lint-staged": "^8.1.5",
     "npm-run-all": "^3.0.0",
     "prettier": "^1.16.4",
+    "react-navigation": "^4.0.2",
     "reason-react": "^0.7.0",
     "reason-react-native": "^0.60.0"
+  },
+  "peerDependencies": {
+    "react-navigation": "^4.0.0"
   },
   "prettier": {
     "trailingComma": "all",

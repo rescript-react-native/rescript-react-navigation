@@ -21,9 +21,9 @@ external config:
   config =
   "";
 
-[@bs.module "react-navigation"]
+[@bs.module "react-navigation-stack"]
 external make: Js.t('a) => Navigator.t = "createStackNavigator";
 
-[@bs.module "react-navigation"]
+[@bs.module "react-navigation-stack"]
 external makeWithConfig: (Js.t('a), config) => Navigator.t =
   "createStackNavigator";
