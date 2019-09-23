@@ -5,33 +5,23 @@
 
 ## Status
 
-WIP WIP WIP WIP
+Work in progress. These bindings are used successfully in several apps, but are
+not complete yet and still subject to change.
 
 ## Example
-
-Instantiate a navigation module with your `screenProps` type (Navigation.re):
-
-```reason
-include ReactNavigation.Make({
-  type screenProps = {
-    .
-    "someProp": int,
-  };
-});
-```
 
 A screen component with dynamic navigation options (Screen1.re):
 
 ```reason
 open ReactNative;
-open Navigation;
+open ReactNavigation;
 
 [@react.component]
 let make = (~navigation, ~screenProps) => {
-  <Text> {React.string("Hello world!")} </Text>,
+  <Text> {React.string("Hello world!")} </Text>;
 };
 
-make->setDynamicNavigationOptions(params => {
+make->NavigationOptions.setDynamicNavigationOptions(params => {
   let navigation = params##navigation;
   let navigationOptions = params##navigationOptions;
   let screenProps = params##screenProps;
@@ -44,7 +34,7 @@ make->setDynamicNavigationOptions(params => {
 A stack navigator containing this screen (MyStackNavigator.re):
 
 ```reason
-open Navigation;
+open ReactNavigation;
 
 let routes = {
   "Screen1": Screen1.make,
@@ -53,20 +43,45 @@ let routes = {
 };
 
 let navigator = StackNavigator.make(routes);
-navigator->setNavigationOptions(NavigationOptions.t(~gesturesEnabled=false, ()));
+
+navigator->NavigationOptions.setNavigationOptions(
+  NavigationOptions.t(~gesturesEnabled=false, ()),
+);
 ```
 
 The main React component of the app (App.re):
 
 ```reason
-open Navigation;
+open ReactNavigation;
 
-module AppContainer = (val makeAppContainer(MyStackNavigator.navigator));
+module MyAppContainer =
+  AppContainerFunctor.Make({
+    type screenProps = {. "someProp": int};
+    let navigator = MyStackNavigator.navigator;
+  });
 
 [@react.component]
 let make = () => {
   let screenProps = {"someProp": 42};
 
-  <AppContainer screenProps />;
+  <MyAppContainer screenProps />;
+};
+```
+
+Alternatively (without a functor, but using `React.createElement`):
+
+```reason
+open ReactNavigation;
+
+let appContainer = AppContainer.makeAppContainer(MyStackNavigator.navigator);
+
+[@react.component]
+let make = () => {
+  let screenProps = {"someProp": 42};
+
+  React.createElement(
+    appContainer,
+    AppContainer.makeProps(~screenProps, ()),
+  );
 };
 ```
