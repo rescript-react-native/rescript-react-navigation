@@ -1,9 +1,9 @@
 'use strict';
 
 
-var MaterialTop = /* module */[];
+var MaterialTop = { };
 
-var Bottom = /* module */[];
+var Bottom = { };
 
 exports.MaterialTop = MaterialTop;
 exports.Bottom = Bottom;

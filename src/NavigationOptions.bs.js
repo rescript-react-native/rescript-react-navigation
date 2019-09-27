@@ -1,17 +1,17 @@
 'use strict';
 
 
-var Header = /* module */[];
+var Header = { };
 
-var HeaderTitle = /* module */[];
+var HeaderTitle = { };
 
-var TabBarIcon = /* module */[];
+var TabBarIcon = { };
 
-var TabBarLabel = /* module */[];
+var TabBarLabel = { };
 
-var DrawerIcon = /* module */[];
+var DrawerIcon = { };
 
-var DrawerLabel = /* module */[];
+var DrawerLabel = { };
 
 exports.Header = Header;
 exports.HeaderTitle = HeaderTitle;
