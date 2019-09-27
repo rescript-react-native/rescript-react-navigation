@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@unimodules/react-native-adapter": "^2.0.1",
-    "bs-platform": "^5.0.4",
+    "bs-platform": "^5.2.0",
     "expo": "^33.0.7",
     "react": "16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",

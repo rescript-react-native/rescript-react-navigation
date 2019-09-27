@@ -94,7 +94,7 @@ The main React component of the app (App.re):
 open ReactNavigation;
 
 module MyAppContainer =
-  AppContainerFunctor.Make({
+  AppContainer.Make({
     type screenProps = {. "someProp": int};
     let navigator = MyStackNavigator.navigator;
   });
