@@ -1,5 +1,9 @@
 # `@reason-react-native/navigation`
 
+[![Build Status](https://github.com/reason-react-native/navigation/workflows/Build/badge.svg)](https://github.com/reason-react-native/navigation/actions)
+[![Version](https://img.shields.io/npm/v/@reason-react-native/navigation.svg)](https://www.npmjs.com/@reason-react-native/navigation)
+[![Chat](https://img.shields.io/discord/235176658175262720.svg?logo=discord&colorb=blue)](https://reasonml-community.github.io/reason-react-native/discord/)
+
 [ReasonML](https://reasonml.github.io) /
 [BuckleScript](https://bucklescript.github.io) bindings for
 [`react-navigation`](https://github.com/react-navigation/react-navigation).
