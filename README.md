@@ -1,12 +1,47 @@
 # `@reason-react-native/navigation`
 
-[Reason](https://reasonml.github.io) bindings to
-[react-navigation](https://github.com/react-navigation/react-navigation).
+[ReasonML](https://reasonml.github.io) /
+[BuckleScript](https://bucklescript.github.io) bindings for
+[`react-navigation`](https://github.com/react-navigation/react-navigation).
+
+Exposed as `ReactNavigation` module.
+
+`@reason-react-native/navigation` X.y._ means it's compatible with
+`react-navigation` X.y._
 
 ## Status
 
-Work in progress. These bindings are used successfully in several apps, but are
-not complete yet and still subject to change.
+⚠️ Work in progress. These bindings are used successfully in several apps, but
+are not complete yet and still subject to change.
+
+## Installation
+
+When
+[`react-navigation`](`https://github.com/react-navigation/react-navigation`) is
+properly installed & configured by following their installation instructions,
+you can install the bindings:
+
+```console
+npm install @reason-react-native/navigation
+# or
+yarn add @reason-react-native/navigation
+```
+
+`@reason-react-native/navigation` should be added to `bs-dependencies` in your
+`bsconfig.json`. Something like
+
+```diff
+{
+  //...
+  "bs-dependencies": [
+    "reason-react",
+    "reason-react-native",
+    // ...
++    "@reason-react-native/navigation"
+  ],
+  //...
+}
+```
 
 ## Example
 
