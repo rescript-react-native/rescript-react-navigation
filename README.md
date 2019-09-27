@@ -1,4 +1,4 @@
-# reason-react-navigation
+# `@reason-react-native/navigation`
 
 [Reason](https://reasonml.github.io) bindings to
 [react-navigation](https://github.com/react-navigation/react-navigation).
@@ -85,3 +85,20 @@ let make = () => {
   );
 };
 ```
+
+---
+
+## Changelog
+
+Check the [changelog](./CHANGELOG.md) for more informations about recent
+releases.
+
+## Contribute
+
+Read the [contribution guidelines](./CONTRIBUTING.md) before contributing.
+
+## Code of Conduct
+
+We want this community to be friendly and respectful to each other. Please read
+[our full code of conduct](./CODE_OF_CONDUCT.md) so that you can understand what
+actions will and will not be tolerated.

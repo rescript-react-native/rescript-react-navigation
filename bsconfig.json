@@ -1,5 +1,5 @@
 {
-  "name": "reason-react-navigation",
+  "name": "@reason-react-native/navigation",
   "namespace": "react-navigation",
   "refmt": 3,
   "reason": {

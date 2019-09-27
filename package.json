@@ -1,5 +1,5 @@
 {
-  "name": "@reason-react-native/react-navigation",
+  "name": "@reason-react-native/navigation",
   "version": "4.0.0-alpha.0",
   "peerDependencies": {
     "react-navigation": "^4.0.0",
