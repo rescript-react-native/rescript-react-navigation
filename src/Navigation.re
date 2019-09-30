@@ -27,7 +27,7 @@ external addListener:
         "key": string,
       },
       "context": string,
-      "type": [@bs.string] [ | `didBlur | `didFocus | `willBlur | `willFocus],
+      "type": [ | `didBlur | `didFocus | `willBlur | `willFocus],
     } =>
     unit
   ) =>
@@ -43,4 +43,3 @@ external addListener:
 [@bs.send] external openDrawer: t => unit = "";
 [@bs.send] external closeDrawer: t => unit = "";
 [@bs.send] external toggleDrawer: t => unit = "";
-
