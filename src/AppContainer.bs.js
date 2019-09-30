@@ -1,1 +1,13 @@
-/* This output is empty. Its source's type definitions, externals and/or unused code got optimized away. */
+'use strict';
+
+var ReactNavigation = require("react-navigation");
+
+function Make(S) {
+  var make = ReactNavigation.createAppContainer(S.navigator);
+  return {
+          make: make
+        };
+}
+
+exports.Make = Make;
+/* react-navigation Not a pure module */
