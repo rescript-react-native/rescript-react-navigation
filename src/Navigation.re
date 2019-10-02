@@ -1,5 +1,14 @@
 type t;
 
+type navigationEventPayload = {
+  .
+  "action": NavigationActions.action,
+  "context": string,
+  "type": string,
+  "state": NavigationState.t,
+  "lastState": Js.Nullable.t(NavigationState.t),
+};
+
 [@bs.val] [@bs.module "react-navigation"]
 external navigationContext: React.Context.t(t) = "NavigationContext";
 
@@ -18,22 +27,13 @@ external navigateWithParams: (t, string, Js.t({..})) => unit = "navigate";
 external addListener:
   (
     t,
-    string,
-    {
-      .
-      "action": {
-        .
-        "type": string,
-        "key": string,
-      },
-      "context": string,
-      "type": [ | `didBlur | `didFocus | `willBlur | `willFocus],
-    } =>
-    unit
+    [@bs.string] [ | `didBlur | `didFocus | `willBlur | `willFocus],
+    navigationEventPayload => unit
   ) =>
-  unit =
+  EventSubscription.t =
   "addListener";
-// TODO: addListener, setParams, ...
+
+// TODO: setParams, ...
 // Stack Actions
 // TODO: push, replace, ...
 [@bs.send] external pop: t => unit = "";
