@@ -1,3 +1,4 @@
+open ReactNative;
 type t;
 
 type navigationEventPayload = {
