@@ -24,7 +24,10 @@ module SearchHeader = {
 
 module SearchList = {
   [@react.component]
-  let make = (~navigation) => placeholder(~navigation, ~text="SearchList");
+  let make = (~navigation) => {
+    navigation.addListener(`didFocus, event => Js.log2("didFocus", event));
+    placeholder(~navigation, ~text="SearchList");
+  };
 
   NavigationOptions.(
     make->setDynamicNavigationOptions(params =>
