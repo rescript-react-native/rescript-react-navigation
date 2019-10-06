@@ -18,6 +18,11 @@ Exposed as `ReactNavigation` module.
 ⚠️ Work in progress. These bindings are used successfully in several apps, but
 are not complete yet and still subject to change.
 
+## Example
+
+An example project is available at
+[`navigation-example`](https://github.com/reason-react-native/navigation-example).
+
 ## Installation
 
 When
