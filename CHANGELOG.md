@@ -1,1 +1,1 @@
-# Changelog of `@reason-react-native/navigation`
+# Changelog of `reason-react-navigation`
