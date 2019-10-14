@@ -18,6 +18,6 @@
   "bs-dependencies": [
     "reason-react",
     "reason-react-native",
-    "@reason-react-native/navigation"
+    "reason-react-navigation"
   ]
 }

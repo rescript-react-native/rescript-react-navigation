@@ -1,7 +1,7 @@
-# `@reason-react-native/navigation`
+# `reason-react-navigation`
 
-[![Build Status](https://github.com/reason-react-native/navigation/workflows/Build/badge.svg)](https://github.com/reason-react-native/navigation/actions)
-[![Version](https://img.shields.io/npm/v/@reason-react-native/navigation.svg)](https://www.npmjs.com/@reason-react-native/navigation)
+[![Build Status](https://github.com/reason-react-native/reason-react-navigation/workflows/Build/badge.svg)](https://github.com/reason-react-native/reason-react-navigation/actions)
+[![Version](https://img.shields.io/npm/v/reason-react-navigation.svg)](https://www.npmjs.com/reason-react-navigation)
 [![Chat](https://img.shields.io/discord/235176658175262720.svg?logo=discord&colorb=blue)](https://reasonml-community.github.io/reason-react-native/discord/)
 
 [ReasonML](https://reasonml.github.io) /
@@ -10,8 +10,8 @@
 
 Exposed as `ReactNavigation` module.
 
-`@reason-react-native/navigation` X.y._ means it's compatible with
-`react-navigation` X.y._
+`reason-react-navigation` X.y._ means it's compatible with `react-navigation`
+X.y._
 
 ## Status
 
@@ -26,12 +26,12 @@ properly installed & configured by following their installation instructions,
 you can install the bindings:
 
 ```console
-npm install @reason-react-native/navigation
+npm install reason-react-navigation
 # or
-yarn add @reason-react-native/navigation
+yarn add reason-react-navigation
 ```
 
-`@reason-react-native/navigation` should be added to `bs-dependencies` in your
+`reason-react-navigation` should be added to `bs-dependencies` in your
 `bsconfig.json`. Something like
 
 ```diff
@@ -41,7 +41,7 @@ yarn add @reason-react-native/navigation
     "reason-react",
     "reason-react-native",
     // ...
-+    "@reason-react-native/navigation"
++    "reason-react-navigation"
   ],
   //...
 }
