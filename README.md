@@ -21,7 +21,7 @@ are not complete yet and still subject to change.
 ## Example
 
 An example project is available at
-[`navigation-example`](https://github.com/reason-react-native/navigation-example).
+[`navigation-example`](https://github.com/reason-react-native/reason-react-navigation-example).
 
 ## Installation
 
