@@ -1,14 +1,14 @@
 module HomeScreen = {
   open ReactNative;
   [@react.component]
-  let make = (~navigation) =>
+  let make = (~navigation, ~route) =>
     <Text> {j|Hello Reasonable Person!|j}->React.string </Text>;
 };
 
 module ModalScreen = {
   open ReactNative;
   [@react.component]
-  let make = (~navigation) =>
+  let make = (~navigation, ~route) =>
     <Text> {j|Hello From Modal|j}->React.string </Text>;
 };
 
@@ -18,7 +18,7 @@ module MainStackScreen = {
     type params = {. "name": string};
   });
   [@react.component]
-  let make = (~navigation) =>
+  let make = (~navigation, ~route) =>
     <Navigator>
       <Screen
         name="Home"

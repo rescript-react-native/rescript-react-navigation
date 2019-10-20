@@ -287,7 +287,12 @@ module Make = (M: {type params;}) => {
     "name": string,
     "options": option(optionsProps),
     "initialParams": option('params),
-    "component": React.component({. "navigation": navigation}),
+    "component":
+      React.component({
+        .
+        "navigation": navigation,
+        "route": route(M.params),
+      }),
   };
 
   [@bs.module "@react-navigation/stack"]
@@ -309,7 +314,11 @@ module Make = (M: {type params;}) => {
         ~name: string,
         ~options: optionsProps=?,
         ~initialParams: M.params=?,
-        ~component: React.component({. "navigation": navigation}),
+        ~component: React.component({
+                      .
+                      "navigation": navigation,
+                      "route": route(M.params),
+                    }),
         unit
       ) =>
       screenProps(M.params) =
