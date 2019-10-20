@@ -23,6 +23,7 @@ type navigationState('params) = {
 type navigation;
 
 module NavigationHelpersCommon = (M: {type params;}) => {
+  type nonrec route = route(M.params);
   [@bs.send]
   external dispatch: (navigation, NavigationActions.action) => unit = "";
 
