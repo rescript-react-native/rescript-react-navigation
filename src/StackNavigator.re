@@ -15,6 +15,7 @@ external config:
     ~cardStyle: ReactNative.Style.t=?,
     ~cardShadowEnabled: bool=?,
     ~cardOverlayEnabled: bool=?,
+    ~defaultNavigationOptions: NavigationOptions.t=?,
     // TODO: many more props
     unit
   ) =>
