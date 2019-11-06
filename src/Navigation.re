@@ -35,7 +35,7 @@ external addListener:
   EventSubscription.t =
   "addListener";
 
-// TODO: setParams, ...
+[@bs.send] external setParams: (t, Js.t('a)) => unit = "setParams";
 // Stack Actions
 // TODO: push, replace, ...
 [@bs.send] external pop: t => unit = "pop";
