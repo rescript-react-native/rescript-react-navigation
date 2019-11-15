@@ -137,6 +137,7 @@ external t:
     ~headerStyle: Style.t=?,
     ~headerLeftContainerStyle: Style.t=?,
     ~headerRightContainerStyle: Style.t=?,
+    ~headerShown: bool=?,
     // ~headerForceInset: HeaderForceInset.t=?,
     /* TODO: double check this as it's typed as: React.ReactNode | React.ReactType */
     ~headerBackground: React.element=?,
