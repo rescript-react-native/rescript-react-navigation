@@ -26,6 +26,8 @@ external navigateWithParams: (t, string, Js.t({..})) => unit = "navigate";
 [@bs.send] external getParam: (t, string) => Js.nullable('a) = "getParam";
 [@bs.send] external getParamWithDefault: (t, string, 'a) => 'a = "getParam";
 [@bs.send]
+external reset: (t, array(NavigationActions.action), int) => unit = "reset";
+[@bs.send]
 external addListener:
   (
     t,
