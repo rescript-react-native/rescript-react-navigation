@@ -25,7 +25,7 @@ type appContainerProps('screenProps) = {
   "persistNavigationState": option(persistNavigationState),
   "loadNavigationState": option(loadNavigationState),
   "screenProps": option('screenProps),
-  "setNavigatorRef": Js.Nullable.t(NavigationContainer.t) => unit,
+  "ref": Js.Nullable.t(NavigationContainer.t) => unit,
 };
 
 [@bs.obj]
@@ -34,7 +34,7 @@ external makeProps:
     ~persistNavigationState: persistNavigationState=?,
     ~loadNavigationState: loadNavigationState=?,
     ~screenProps: 'screenProps=?,
-    ~setNavigatorRef: Js.Nullable.t(NavigationContainer.t) => unit=?,
+    ~ref: Js.Nullable.t(NavigationContainer.t) => unit=?,
     ~key: string=?,
     unit
   ) =>
@@ -79,7 +79,7 @@ module Make = (S: {
       ~persistNavigationState: persistNavigationState=?,
       ~loadNavigationState: loadNavigationState=?,
       ~screenProps: S.screenProps=?,
-      ~setNavigatorRef: Js.Nullable.t(NavigationContainer.t) => unit=?,
+      ~ref: Js.Nullable.t(NavigationContainer.t) => unit=?,
       ~key: string=?,
       unit
     ) =>
