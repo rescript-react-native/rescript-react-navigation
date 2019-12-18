@@ -25,14 +25,14 @@ module MainStackScreen = {
         component=HomeScreen.make
         options={props =>
           options(
-            ~headerLeft=
+            ~headerRight=
               _ =>
                 <Button
                   onPress={_ =>
                     props##navigation->Navigation.navigate("MyModal")
                   }
                   title="Info"
-                  color="#fff"
+                  color="#f00"
                 />,
             ~title=
               switch (props##route##params) {
@@ -50,6 +50,7 @@ module RootStackScreen = {
   include Stack.Make({
     type params = unit;
   });
+  [@react.component]
   let make = () =>
     <Native.NavigationNativeContainer>
       <Navigator mode=`modal headerMode=`none>

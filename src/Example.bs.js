@@ -8,6 +8,7 @@ var Native = require("@react-navigation/native");
 
 function Example$HomeScreen(Props) {
   Props.navigation;
+  Props.route;
   return React.createElement(ReactNative.Text, {
               children: "Hello Reasonable Person!"
             });
@@ -19,6 +20,7 @@ var HomeScreen = {
 
 function Example$ModalScreen(Props) {
   Props.navigation;
+  Props.route;
   return React.createElement(ReactNative.Text, {
               children: "Hello From Modal"
             });
@@ -36,6 +38,7 @@ var $$Navigator = include.Navigator;
 
 function Example$MainStackScreen(Props) {
   Props.navigation;
+  Props.route;
   return React.createElement($$Navigator.make, {
               children: React.createElement($$Screen.make, {
                     name: "Home",
@@ -43,9 +46,9 @@ function Example$MainStackScreen(Props) {
                         var match = props.route.params;
                         return {
                                 title: match !== undefined ? Caml_option.valFromOption(match).name : "Reason",
-                                headerLeft: (function (param) {
+                                headerRight: (function (param) {
                                     return React.createElement(ReactNative.Button, {
-                                                color: "#fff",
+                                                color: "#f00",
                                                 onPress: (function (param) {
                                                     props.navigation.navigate("MyModal");
                                                     return /* () */0;
@@ -66,15 +69,12 @@ var MainStackScreen_HeaderTitle = include.HeaderTitle;
 
 var MainStackScreen_Header = include.Header;
 
-var MainStackScreen_TransitionSpec = include.TransitionSpec;
-
 var MainStackScreen_stack = include.stack;
 
 var MainStackScreen = {
   Navigation: MainStackScreen_Navigation,
   HeaderTitle: MainStackScreen_HeaderTitle,
   Header: MainStackScreen_Header,
-  TransitionSpec: MainStackScreen_TransitionSpec,
   stack: MainStackScreen_stack,
   Screen: $$Screen,
   Navigator: $$Navigator,
@@ -87,7 +87,7 @@ var $$Screen$1 = include$1.Screen;
 
 var $$Navigator$1 = include$1.Navigator;
 
-function make(param) {
+function Example$RootStackScreen(Props) {
   return React.createElement(Native.NavigationNativeContainer, {
               children: React.createElement($$Navigator$1.make, {
                     mode: "modal",
@@ -109,19 +109,16 @@ var RootStackScreen_HeaderTitle = include$1.HeaderTitle;
 
 var RootStackScreen_Header = include$1.Header;
 
-var RootStackScreen_TransitionSpec = include$1.TransitionSpec;
-
 var RootStackScreen_stack = include$1.stack;
 
 var RootStackScreen = {
   Navigation: RootStackScreen_Navigation,
   HeaderTitle: RootStackScreen_HeaderTitle,
   Header: RootStackScreen_Header,
-  TransitionSpec: RootStackScreen_TransitionSpec,
   stack: RootStackScreen_stack,
   Screen: $$Screen$1,
   Navigator: $$Navigator$1,
-  make: make
+  make: Example$RootStackScreen
 };
 
 exports.HomeScreen = HomeScreen;

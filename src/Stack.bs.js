@@ -4,6 +4,8 @@ var Interop = require("./Interop");
 var Core$ReactNavigation = require("./Core.bs.js");
 var Stack = require("@react-navigation/stack");
 
+var TransitionSpec = { };
+
 function StackNavigationScreenProp(M) {
   var include = Core$ReactNavigation.NavigationScreenProp(M);
   return {
@@ -47,7 +49,6 @@ function Make(M) {
     render: render$1,
     null: $$null
   };
-  var TransitionSpec = { };
   var stack = Stack.createStackNavigator();
   var make = stack.Screen;
   var $$Screen = {
@@ -61,13 +62,25 @@ function Make(M) {
           Navigation: Navigation,
           HeaderTitle: HeaderTitle,
           Header: Header,
-          TransitionSpec: TransitionSpec,
           stack: stack,
           Screen: $$Screen,
           Navigator: $$Navigator
         };
 }
 
+var TransitionSpecs = { };
+
+var CardStyleInterpolators = { };
+
+var HeaderStyleInterpolators = { };
+
+var TransitionPresets = { };
+
+exports.TransitionSpec = TransitionSpec;
 exports.StackNavigationScreenProp = StackNavigationScreenProp;
 exports.Make = Make;
+exports.TransitionSpecs = TransitionSpecs;
+exports.CardStyleInterpolators = CardStyleInterpolators;
+exports.HeaderStyleInterpolators = HeaderStyleInterpolators;
+exports.TransitionPresets = TransitionPresets;
 /* ./Interop Not a pure module */

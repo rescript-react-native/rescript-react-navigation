@@ -2,6 +2,124 @@ open Core;
 
 type options;
 
+type layout = {
+  .
+  "width": float,
+  "height": float,
+};
+
+//TODO
+type any;
+type animatedNode = ReactNative.Animated.Value.t;
+
+type stackHeaderStyleInterpolator =
+  stackHeaderInterpolationProps => stackHeaderInterpolatedStyle
+and stackHeaderInterpolationProps = {
+  .
+  "current": {. "progress": animatedNode},
+  "next": option({. "progress": animatedNode}),
+  "layouts": {
+    .
+    "screen": layout,
+    "title": option(layout),
+    "leftLabel": option(layout),
+  },
+}
+and stackHeaderInterpolatedStyle = {
+  .
+  "leftLabelStyle": option(any),
+  "leftButtonStyle": option(any),
+  "rightButtonStyle": option(any),
+  "titleStyle": option(any),
+  "backgroundStyle": option(any),
+};
+
+type stackCardStyleInterpolator =
+  stackCardInterpolationProps => stackCardInterpolatedStyle
+and stackCardInterpolationProps = {
+  .
+  "current": {. "progress": animatedNode},
+  "next": option({. "progress": animatedNode}),
+  "index": int,
+  "closing": animatedNode,
+  "layouts": {. "screen": layout},
+  "insets": {
+    .
+    "top": float,
+    "right": float,
+    "bottom": float,
+    "left": float,
+  },
+}
+and stackCardInterpolatedStyle = {
+  .
+  "containerStyle": option(any),
+  "cardStyle": option(any),
+  "overlayStyle": option(any),
+  "shadowStyle": option(any),
+};
+
+type layoutChangeEvent;
+
+type backImage = {. "tintColor": ReactNative.Color.t} => React.element;
+type stackHeaderLeftButtonProps = {
+  .
+  "disabled": option(bool),
+  "onPress": option(unit => unit),
+  "pressColorAndroid": option(ReactNative.Color.t),
+  "backImage": option(backImage),
+  "tintColor": option(ReactNative.Color.t),
+  "label": option(string),
+  "truncatedLabel": option(string),
+  "labelVisible": option(bool),
+  "labelStyle": option(ReactNative.Style.t),
+  "allowFontScaling": option(bool),
+  "onLabelLayout": option(layoutChangeEvent => unit),
+  "screenLayout": option(layout),
+  "titleLayout": option(layout),
+  "canGoBack": option(bool),
+};
+
+module TransitionSpec = {
+  type t;
+
+  [@bs.obj]
+  external spring:
+    (
+      ~animation: [@bs.string] [ | `spring],
+      ~config: {
+                 .
+                 "damping": int,
+                 "mass": int,
+                 "stiffness": int,
+                 "restSpeedThreshold": int,
+                 "restDisplacementThreshold": int,
+                 "overshootClamping": bool,
+               }
+    ) =>
+    t =
+    "";
+
+  [@bs.obj]
+  external timing:
+    (
+      ~animation: [@bs.string] [ | `timing],
+      ~config: {
+                 .
+                 "duration": int,
+                 "easing": ReactNative.Easing.t,
+               }
+    ) =>
+    t =
+    "";
+};
+
+type transitionSpec = {
+  .
+  "open": TransitionSpec.t,
+  "close": TransitionSpec.t,
+};
+
 module StackNavigationScreenProp = (M: {
                                       type params;
                                       type options;
@@ -19,8 +137,6 @@ module StackNavigationScreenProp = (M: {
 };
 
 module Make = (M: {type params;}) => {
-  type layoutChangeEvent;
-
   module Navigation =
     StackNavigationScreenProp({
       include M;
@@ -55,63 +171,6 @@ module Make = (M: {type params;}) => {
 
     let string = s => t(`String(s));
     let render = x => t(`Render(x));
-  };
-
-  type layout = {
-    .
-    "width": float,
-    "height": float,
-  };
-
-  //TODO
-  type any;
-  type animatedNode = ReactNative.Animated.Value.t;
-
-  type stackHeaderStyleInterpolator =
-    stackHeaderInterpolationProps => stackHeaderInterpolatedStyle
-  and stackHeaderInterpolationProps = {
-    .
-    "current": {. "progress": animatedNode},
-    "next": option({. "progress": animatedNode}),
-    "layouts": {
-      .
-      "screen": layout,
-      "title": option(layout),
-      "leftLabel": option(layout),
-    },
-  }
-  and stackHeaderInterpolatedStyle = {
-    .
-    "leftLabelStyle": option(any),
-    "leftButtonStyle": option(any),
-    "rightButtonStyle": option(any),
-    "titleStyle": option(any),
-    "backgroundStyle": option(any),
-  };
-
-  type stackCardStyleInterpolator =
-    stackCardInterpolationProps => stackCardInterpolatedStyle
-  and stackCardInterpolationProps = {
-    .
-    "current": {. "progress": animatedNode},
-    "next": option({. "progress": animatedNode}),
-    "index": int,
-    "closing": animatedNode,
-    "layouts": {. "screen": layout},
-    "insets": {
-      .
-      "top": float,
-      "right": float,
-      "bottom": float,
-      "left": float,
-    },
-  }
-  and stackCardInterpolatedStyle = {
-    .
-    "containerStyle": option(any),
-    "cardStyle": option(any),
-    "overlayStyle": option(any),
-    "shadowStyle": option(any),
   };
 
   type mode = string; //TODO: [ | `float | `screen | `none]
@@ -163,59 +222,6 @@ module Make = (M: {type params;}) => {
     let null = t(`Null(Js.Null.empty));
   };
 
-  type backImage = {. "tintColor": ReactNative.Color.t} => React.element;
-  type stackHeaderLeftButtonProps = {
-    .
-    "disabled": option(bool),
-    "onPress": option(unit => unit),
-    "pressColorAndroid": option(ReactNative.Color.t),
-    "backImage": option(backImage),
-    "tintColor": option(ReactNative.Color.t),
-    "label": option(string),
-    "truncatedLabel": option(string),
-    "labelVisible": option(bool),
-    "labelStyle": option(ReactNative.Style.t),
-    "allowFontScaling": option(bool),
-    "onLabelLayout": option(layoutChangeEvent => unit),
-    "screenLayout": option(layout),
-    "titleLayout": option(layout),
-    "canGoBack": option(bool),
-  };
-
-  module TransitionSpec = {
-    type t;
-
-    [@bs.obj]
-    external spring:
-      (
-        ~animation: [@bs.string] [ | `spring],
-        ~config: {
-                   .
-                   "damping": int,
-                   "mass": int,
-                   "stiffness": int,
-                   "restSpeedThreshold": int,
-                   "restDisplacementThreshold": int,
-                   "overshootClamping": bool,
-                 }
-      ) =>
-      t =
-      "";
-
-    [@bs.obj]
-    external timing:
-      (
-        ~animation: [@bs.string] [ | `timing],
-        ~config: {
-                   .
-                   "duration": int,
-                   "easing": ReactNative.Easing.t,
-                 }
-      ) =>
-      t =
-      "";
-  };
-
   [@bs.obj]
   external options:
     (
@@ -228,7 +234,8 @@ module Make = (M: {type params;}) => {
       ~animationEnabled: bool=?,
       ~gestureEnabled: bool=?,
       ~gestureResponseDistance: gestureResponseDistance=?,
-      //StackHeaderOptions
+      // StackHeaderOptions
+      ~headerShown: bool=?,
       ~headerTitle: HeaderTitle.t=?,
       ~headerTitleStyle: ReactNative.Style.t=?,
       ~headerTitleContainerStyle: ReactNative.Style.t=?,
@@ -250,14 +257,9 @@ module Make = (M: {type params;}) => {
       ~headerBackground: unit => React.element=?,
       ~headerStyle: ReactNative.Style.t=?,
       ~headerTransparent: bool=?,
-      //TransitionPreset
+      // TransitionPreset
       ~gestureDirection: [@bs.string] [ | `horizontal | `vertical]=?,
-      ~transitionSpec: {
-                         .
-                         "open": TransitionSpec.t,
-                         "close": TransitionSpec.t,
-                       }
-                         =?,
+      ~transitionSpec: transitionSpec=?,
       ~cardStyleInterpolator: stackCardStyleInterpolator=?,
       ~headerStyleInterpolator: stackHeaderStyleInterpolator=?,
       unit
@@ -344,3 +346,87 @@ module Make = (M: {type params;}) => {
     let make = stack##"Navigator";
   };
 };
+
+module TransitionSpecs = {
+  /* Exact values from UINavigationController's animation configuration */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionSpecs"]
+  external transitionIOSSpec: transitionSpec = "TransitionIOSSpec";
+  /* Configuration for activity open animation from Android Nougat */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionSpecs"]
+  external fadeInFromBottomAndroidSpec: transitionSpec =
+    "FadeInFromBottomAndroidSpec";
+  /* Configuration for activity close animation from Android Nougat */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionSpecs"]
+  external fadeOutToBottomAndroidSpec: transitionSpec =
+    "FadeOutToBottomAndroidSpec";
+  /* Approximate configuration for activity open animation from Android Pie */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionSpecs"]
+  external revealFromBottomAndroidSpec: transitionSpec =
+    "RevealFromBottomAndroidSpec";
+};
+
+module CardStyleInterpolators = {
+  /* Standard iOS-style slide in from the right */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "CardStyleInterpolators"]
+  external forHorizontalIOS: stackCardStyleInterpolator = "forHorizontalIOS";
+  /* Standard iOS-style slide in from the bottom (used for modals) */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "CardStyleInterpolators"]
+  external forVerticalIOS: stackCardStyleInterpolator = "forVerticalIOS";
+  /* Standard iOS-style modal animation in iOS 13 */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "CardStyleInterpolators"]
+  external forModalPresentationIOS: stackCardStyleInterpolator =
+    "forModalPresentationIOS";
+  /* Standard Android-style fade in from the bottom for Android Oreo */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "CardStyleInterpolators"]
+  external forFadeFromBottomAndroid: stackCardStyleInterpolator =
+    "forFadeFromBottomAndroid";
+  /* Standard Android-style reveal from the bottom for Android Pie */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "CardStyleInterpolators"]
+  external forRevealFromBottomAndroid: stackCardStyleInterpolator =
+    "forRevealFromBottomAndroid";
+};
+
+module HeaderStyleInterpolators = {
+  /* Standard UIKit style animation for the header where the title fades into the back button label */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "HeaderStyleInterpolators"]
+  external forUIKit: stackHeaderStyleInterpolator = "forUIKit";
+  /* Simple fade animation for the header elements */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "HeaderStyleInterpolators"]
+  external forFade: stackHeaderStyleInterpolator = "forFade";
+  /* Simple translate animation to translate the header along with the sliding screen */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "HeaderStyleInterpolators"]
+  external forStatic: stackHeaderStyleInterpolator = "forStatic";
+};
+
+module TransitionPresets = {
+  /* Standard iOS navigation transition. */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionPresets"]
+  external slideFromRightIOS: options = "SlideFromRightIOS";
+
+  /* Standard iOS navigation transition for modals. */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionPresets"]
+  external modalSlideFromBottomIOS: options = "ModalSlideFromBottomIOS";
+
+  /* Standard iOS modal presentation style (introduced in iOS 13). */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionPresets"]
+  external modalPresentationIOS: options = "ModalPresentationIOS";
+
+  /* Standard Android navigation transition when opening or closing an Activity on Android < 9 (Oreo). */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionPresets"]
+  external fadeFromBottomAndroid: options = "FadeFromBottomAndroid";
+
+  /* Standard Android navigation transition when opening or closing an Activity on Android >= 9 (Pie). */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionPresets"]
+  external revealFromBottomAndroid: options = "RevealFromBottomAndroid";
+
+  /* Default navigation transition for the current platform. */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionPresets"]
+  external defaultTransition: options = "DefaultTransition";
+
+  /* Default modal transition for the current platform. */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionPresets"]
+  external modalTransition: options = "ModalTransition";
+};
+
+[@bs.val]
+external mergeOptions: (options, options) => options = "Object.assign";
