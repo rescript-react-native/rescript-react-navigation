@@ -13,3 +13,6 @@ module NavigationNativeContainer = {
     React.element =
     "NavigationNativeContainer";
 };
+
+[@bs.module "@react-navigation/native"]
+external useIsFocused: unit => bool = "useIsFocused";
