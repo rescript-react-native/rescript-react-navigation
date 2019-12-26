@@ -3,7 +3,7 @@
 var ReactNavigation = require("react-navigation");
 
 function Make(S) {
-  var make = ReactNavigation.createAppContainer(S.navigator);
+  var make = ReactNavigation.createAppContainer(S.$$navigator);
   return {
           make: make
         };
