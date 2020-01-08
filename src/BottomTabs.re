@@ -156,7 +156,7 @@ module Make = (M: {type params;}) => {
     } =
     "createBottomTabNavigator";
 
-  let stack = make();
+  let bottomTabs = make();
 
   module Screen = {
     [@bs.obj]
@@ -170,7 +170,7 @@ module Make = (M: {type params;}) => {
       ) =>
       screenProps =
       "";
-    let make = stack##"Screen";
+    let make = bottomTabs##"Screen";
   };
 
   module Navigator = {
@@ -188,6 +188,6 @@ module Make = (M: {type params;}) => {
       navigatorProps =
       "";
 
-    let make = stack##"Navigator";
+    let make = bottomTabs##"Navigator";
   };
 };

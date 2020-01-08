@@ -20,18 +20,18 @@ function Make(M) {
     navigateByKey: Navigation_navigateByKey,
     navigateByName: Navigation_navigateByName
   };
-  var stack = BottomTabs.createBottomTabNavigator();
-  var make = stack.Screen;
+  var bottomTabs = BottomTabs.createBottomTabNavigator();
+  var make = bottomTabs.Screen;
   var $$Screen = {
     make: make
   };
-  var make$1 = stack.Navigator;
+  var make$1 = bottomTabs.Navigator;
   var $$Navigator = {
     make: make$1
   };
   return {
           Navigation: Navigation,
-          stack: stack,
+          bottomTabs: bottomTabs,
           Screen: $$Screen,
           Navigator: $$Navigator
         };
