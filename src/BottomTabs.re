@@ -110,9 +110,21 @@ module Make = (M: {type params;}) => {
     (
       ~title: string=?,
       //TODO: dynamic, missing static option: React.ReactNode
-      ~tabBarLabel: scene => React.element=?,
-      //TODO: dynamic, missing static option: React.ReactNode
-      ~tabBarIcon: scene => React.element=?,
+      ~tabBarLabel: {
+                      .
+                      "focused": bool,
+                      "color": string,
+                    } =>
+                    React.element
+                      =?,
+      ~tabBarIcon: {
+                     .
+                     "focused": bool,
+                     "color": string,
+                     "size": float,
+                   } =>
+                   React.element
+                     =?,
       ~tabBarAccessibilityLabel: string=?,
       ~tabBarTestID: string=?,
       ~tabBarVisible: bool=?,
