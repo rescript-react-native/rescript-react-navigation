@@ -99,7 +99,8 @@ module Make = (M: {type params;}) => {
       ~tabStyle: ReactNative.Style.t=?,
       ~labelPosition: {. "deviceOrientation": string} => string=?,
       ~adaptive: bool=?,
-      ~style: ReactNative.Style.t=?
+      ~style: ReactNative.Style.t=?,
+      unit
     ) =>
     bottomTabBarOptions =
     "";
