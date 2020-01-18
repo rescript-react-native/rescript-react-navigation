@@ -15,7 +15,7 @@ external backParams:
   "";
 
 [@bs.module "react-navigation"] [@bs.scope "NavigationActions"]
-external navigate: navigateParams => action = "";
+external navigate: navigateParams => action = "navigate";
 
 [@bs.module "react-navigation"] [@bs.scope "NavigationActions"]
-external back: backParams => action = "";
+external back: backParams => action = "back";

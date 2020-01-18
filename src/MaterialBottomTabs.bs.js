@@ -4,23 +4,12 @@ var Interop = require("./Interop");
 var Core$ReactNavigation = require("./Core.bs.js");
 var MaterialBottomTabs = require("@react-navigation/material-bottom-tabs");
 
-function MaterialBottomTabNavigationProp(M) {
-  var include = Core$ReactNavigation.NavigationScreenProp(M);
-  return {
-          navigateByKey: include.navigateByKey,
-          navigateByName: include.navigateByName
-        };
-}
+var MaterialBottomTabNavigationProp = Core$ReactNavigation.NavigationScreenProp;
 
 function Make(M) {
   var M$1 = { };
   var include = Core$ReactNavigation.NavigationScreenProp(M$1);
-  var Navigation_navigateByKey = include.navigateByKey;
-  var Navigation_navigateByName = include.navigateByName;
-  var Navigation = {
-    navigateByKey: Navigation_navigateByKey,
-    navigateByName: Navigation_navigateByName
-  };
+  var Navigation = include;
   var t = function (prim) {
     return Interop.identity(prim[1]);
   };
@@ -35,7 +24,7 @@ function Make(M) {
   };
   var TabBarBadge = {
     t: t,
-    boolean: $$boolean,
+    $$boolean: $$boolean,
     number: number,
     string: string
   };
@@ -52,8 +41,8 @@ function Make(M) {
           Navigation: Navigation,
           TabBarBadge: TabBarBadge,
           stack: stack,
-          Screen: $$Screen,
-          Navigator: $$Navigator
+          $$Screen: $$Screen,
+          $$Navigator: $$Navigator
         };
 }
 

@@ -1,23 +1,14 @@
 type route('params) = {
-  .
-  "key": string,
-  "name": string,
-  "params": option('params),
-};
-
-type navigationState('params) = {
-  .
-  "key": string,
-  "index": int,
-  "routeNames": array(string),
-  "routes":
-    array({
-      .
-      "key": string,
-      "name": string,
-      "params": option('params),
-      "state": option(navigationState('params)),
-    }),
+  key: string,
+  name: string,
+  params: option('params),
+  state: option(navigationState('params)),
+}
+and navigationState('params) = {
+  key: string,
+  index: int,
+  routeNames: array(string),
+  routes: array(route('params)),
 };
 
 type navigation;
@@ -25,7 +16,8 @@ type navigation;
 module NavigationHelpersCommon = (M: {type params;}) => {
   type nonrec route = route(M.params);
   [@bs.send]
-  external dispatch: (navigation, NavigationActions.action) => unit = "";
+  external dispatch: (navigation, NavigationActions.action) => unit =
+    "dispatch";
 
   [@bs.send] external navigate: (navigation, string) => unit = "navigate";
   [@bs.send]
@@ -47,7 +39,7 @@ module NavigationHelpersCommon = (M: {type params;}) => {
 
   [@bs.send] external navigateBy: navigationParams => unit = "navigate";
 
-  let navigateByKey = (~key: string, ~params: option(M.params)=?, unit) =>
+  let navigateByKey = (~key: string, ~params: option(M.params)=?, _) =>
     navigateBy(navigateByKeyParams(~key, ~params?, ()));
 
   let navigateByName =
@@ -55,7 +47,7 @@ module NavigationHelpersCommon = (M: {type params;}) => {
         ~name: string,
         ~key: option(string)=?,
         ~params: option(M.params)=?,
-        unit,
+        _,
       ) =>
     navigateBy(navigateByNameParams(~name, ~key?, ~params?, ()));
 
@@ -77,15 +69,15 @@ module NavigationHelpersCommon = (M: {type params;}) => {
 };
 
 module EventConsumer = (M: {type params;}) => {
-  type eventListenerCallback('data) =
-    {
-      .
-      "type": string,
-      "defaultPrevented": bool,
-      [@bs.meth] "preventDefault": unit => unit,
-      "data": option('data),
-    } =>
-    unit;
+  type eventListenerOptions('data) = {
+    [@bs.as "type"]
+    type_: string,
+    defaultPrevented: bool,
+    [@bs.meth]
+    preventDefault: unit => unit,
+    data: option('data),
+  };
+  type eventListenerCallback('data) = eventListenerOptions('data) => unit;
 
   type unsubscribe = unit => unit;
 
@@ -97,7 +89,7 @@ module EventConsumer = (M: {type params;}) => {
       eventListenerCallback('data)
     ) =>
     unsubscribe =
-    "";
+    "addListener";
   [@bs.send]
   external removeListener:
     (
@@ -106,7 +98,7 @@ module EventConsumer = (M: {type params;}) => {
       eventListenerCallback('data)
     ) =>
     unsubscribe =
-    "";
+    "removeListener";
 };
 
 module NavigationScreenProp = (M: {
@@ -116,11 +108,15 @@ module NavigationScreenProp = (M: {
   include NavigationHelpersCommon(M);
   include EventConsumer(M);
 
-  [@bs.send] external setParams: (navigation, M.params) => unit = "";
-  [@bs.send] external setOptions: (navigation, M.options) => unit = "";
-
-  [@bs.send] external isFirstRouteInParent: (navigation, unit) => bool = "";
+  [@bs.send] external setParams: (navigation, M.params) => unit = "setParams";
+  [@bs.send]
+  external setOptions: (navigation, M.options) => unit = "setOptions";
 
   [@bs.send]
-  external dangerouslyGetParent: navigation => Js.nullable(navigation) = "";
+  external isFirstRouteInParent: (navigation, unit) => bool =
+    "isFirstRouteInParent";
+
+  [@bs.send]
+  external dangerouslyGetParent: navigation => Js.nullable(navigation) =
+    "dangerouslyGetParent";
 };

@@ -66,13 +66,12 @@ module Make = (M: {type params;}) => {
     options =
     "";
 
-  type optionsProps =
-    {
-      .
-      "navigation": navigation,
-      "route": route(M.params),
-    } =>
-    options;
+  type optionsProps = {
+    navigation,
+    route: route(M.params),
+  };
+
+  type optionsCallback = optionsProps => options;
 
   type navigatorProps;
 
@@ -95,7 +94,7 @@ module Make = (M: {type params;}) => {
     external makeProps:
       (
         ~name: string,
-        ~options: optionsProps=?,
+        ~options: optionsCallback=?,
         ~initialParams: M.params=?,
         ~component: React.component({. "navigation": navigation}),
         unit
@@ -110,7 +109,7 @@ module Make = (M: {type params;}) => {
     external makeProps:
       (
         ~initialRouteName: string=?,
-        ~screenOptions: optionsProps=?,
+        ~screenOptions: optionsCallback=?,
         ~children: React.element,
         ~backBehavior: [@bs.string] [
                          | `initialRoute

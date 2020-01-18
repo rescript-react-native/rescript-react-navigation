@@ -3,7 +3,7 @@
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 
 function NavigationHelpersCommon(M) {
-  var navigateByKey = function (key, params, unit) {
+  var navigateByKey = function (key, params, param) {
     var tmp = {
       key: key
     };
@@ -13,7 +13,7 @@ function NavigationHelpersCommon(M) {
     tmp.navigate();
     return /* () */0;
   };
-  var navigateByName = function (name, key, params, unit) {
+  var navigateByName = function (name, key, params, param) {
     var tmp = {
       name: name
     };
@@ -37,7 +37,7 @@ function EventConsumer(M) {
 }
 
 function NavigationScreenProp(M) {
-  var navigateByKey = function (key, params, unit) {
+  var navigateByKey = function (key, params, param) {
     var tmp = {
       key: key
     };
@@ -47,7 +47,7 @@ function NavigationScreenProp(M) {
     tmp.navigate();
     return /* () */0;
   };
-  var navigateByName = function (name, key, params, unit) {
+  var navigateByName = function (name, key, params, param) {
     var tmp = {
       name: name
     };

@@ -1,7 +1,6 @@
 'use strict';
 
 var React = require("react");
-var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var ReactNative = require("react-native");
 var Stack$ReactNavigation = require("./Stack.bs.js");
 var Native = require("@react-navigation/native");
@@ -30,11 +29,13 @@ var ModalScreen = {
   make: Example$ModalScreen
 };
 
-var include = Stack$ReactNavigation.Make({ });
+var StakeParams = { };
 
-var $$Screen = include.Screen;
+var include = Stack$ReactNavigation.Make(StakeParams);
 
-var $$Navigator = include.Navigator;
+var $$Screen = include.$$Screen;
+
+var $$Navigator = include.$$Navigator;
 
 function Example$MainStackScreen(Props) {
   Props.navigation;
@@ -45,7 +46,7 @@ function Example$MainStackScreen(Props) {
                     options: (function (props) {
                         var match = props.route.params;
                         return {
-                                title: match !== undefined ? Caml_option.valFromOption(match).name : "Reason",
+                                title: match !== undefined ? match.name : "Reason",
                                 headerRight: (function (param) {
                                     return React.createElement(ReactNative.Button, {
                                                 color: "#f00",
@@ -72,20 +73,21 @@ var MainStackScreen_Header = include.Header;
 var MainStackScreen_stack = include.stack;
 
 var MainStackScreen = {
+  StakeParams: StakeParams,
   Navigation: MainStackScreen_Navigation,
   HeaderTitle: MainStackScreen_HeaderTitle,
   Header: MainStackScreen_Header,
   stack: MainStackScreen_stack,
-  Screen: $$Screen,
-  Navigator: $$Navigator,
+  $$Screen: $$Screen,
+  $$Navigator: $$Navigator,
   make: Example$MainStackScreen
 };
 
 var include$1 = Stack$ReactNavigation.Make({ });
 
-var $$Screen$1 = include$1.Screen;
+var $$Screen$1 = include$1.$$Screen;
 
-var $$Navigator$1 = include$1.Navigator;
+var $$Navigator$1 = include$1.$$Navigator;
 
 function Example$RootStackScreen(Props) {
   return React.createElement(Native.NavigationNativeContainer, {
@@ -116,8 +118,8 @@ var RootStackScreen = {
   HeaderTitle: RootStackScreen_HeaderTitle,
   Header: RootStackScreen_Header,
   stack: RootStackScreen_stack,
-  Screen: $$Screen$1,
-  Navigator: $$Navigator$1,
+  $$Screen: $$Screen$1,
+  $$Navigator: $$Navigator$1,
   make: Example$RootStackScreen
 };
 

@@ -3,23 +3,12 @@
 var Core$ReactNavigation = require("./Core.bs.js");
 var BottomTabs = require("@react-navigation/bottom-tabs");
 
-function BottomTabNavigationProp(M) {
-  var include = Core$ReactNavigation.NavigationScreenProp(M);
-  return {
-          navigateByKey: include.navigateByKey,
-          navigateByName: include.navigateByName
-        };
-}
+var BottomTabNavigationProp = Core$ReactNavigation.NavigationScreenProp;
 
 function Make(M) {
   var M$1 = { };
   var include = Core$ReactNavigation.NavigationScreenProp(M$1);
-  var Navigation_navigateByKey = include.navigateByKey;
-  var Navigation_navigateByName = include.navigateByName;
-  var Navigation = {
-    navigateByKey: Navigation_navigateByKey,
-    navigateByName: Navigation_navigateByName
-  };
+  var Navigation = include;
   var bottomTabs = BottomTabs.createBottomTabNavigator();
   var make = bottomTabs.Screen;
   var $$Screen = {
@@ -32,8 +21,8 @@ function Make(M) {
   return {
           Navigation: Navigation,
           bottomTabs: bottomTabs,
-          Screen: $$Screen,
-          Navigator: $$Navigator
+          $$Screen: $$Screen,
+          $$Navigator: $$Navigator
         };
 }
 

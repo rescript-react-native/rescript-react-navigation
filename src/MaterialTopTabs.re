@@ -1,8 +1,8 @@
 open Core;
+
 type layout = {
-  .
-  "width": float,
-  "height": float,
+  width: float,
+  height: float,
 };
 type options;
 
@@ -73,15 +73,16 @@ module Make = (M: {type params;}) => {
   type accessibilityRole = string;
   type accessibilityStates = array(string);
 
+  type routeOptions = {route: route(M.params)};
+
   class type virtual materialTopTabBarProps = {
     as 'self;
     constraint 'self = #materialTopTabBarOptions;
     pub state: navigationState(M.params);
     pub navigation: navigation;
-    //pub getLabelText: {. "route": route(M.params)} => ...;
-    pub getAccessibilityLabel:
-      {. "route": route(M.params)} => Js.nullable(string);
-    pub getTestID: {. "route": route(M.params)} => Js.nullable(string);
+    //pub getLabelText: routeOptions => ...;
+    pub getAccessibilityLabel: routeOptions => Js.nullable(string);
+    pub getTestID: routeOptions => Js.nullable(string);
     pub onTabPress:
       {
         .
@@ -89,7 +90,7 @@ module Make = (M: {type params;}) => {
         [@bs.meth] "preventDefault": unit => unit,
       } =>
       unit;
-    pub onTabLongPress: {. "route": route(M.params)} => unit;
+    pub onTabLongPress: routeOptions => unit;
     pub tabBarPosition: string; //`top | `bottom
     //SceneRendererProps
     pub layout: layout;
@@ -138,13 +139,12 @@ module Make = (M: {type params;}) => {
     options =
     "";
 
-  type optionsProps =
-    {
-      .
-      "navigation": navigation,
-      "route": route(M.params),
-    } =>
-    options;
+  type optionsProps = {
+    navigation,
+    route: route(M.params),
+  };
+
+  type optionsCallback = optionsProps => options;
 
   type navigatorProps;
 
@@ -167,7 +167,7 @@ module Make = (M: {type params;}) => {
     external makeProps:
       (
         ~name: string,
-        ~options: optionsProps=?,
+        ~options: optionsCallback=?,
         ~initialParams: M.params=?,
         ~component: React.component({. "navigation": navigation}),
         unit
@@ -182,7 +182,7 @@ module Make = (M: {type params;}) => {
     external makeProps:
       (
         ~initialRouteName: string=?,
-        ~screenOptions: optionsProps=?,
+        ~screenOptions: optionsCallback=?,
         ~children: React.element,
         ~lazyPlaceholderComponent: React.component({
                                      .

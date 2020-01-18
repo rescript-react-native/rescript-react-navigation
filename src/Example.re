@@ -14,9 +14,10 @@ module ModalScreen = {
 
 module MainStackScreen = {
   open ReactNative;
-  include Stack.Make({
-    type params = {. "name": string};
-  });
+  module StakeParams = {
+    type params = {name: string};
+  };
+  include Stack.Make(StakeParams);
   [@react.component]
   let make = (~navigation, ~route) =>
     <Navigator>
@@ -29,14 +30,14 @@ module MainStackScreen = {
               _ =>
                 <Button
                   onPress={_ =>
-                    props##navigation->Navigation.navigate("MyModal")
+                    props.navigation->Navigation.navigate("MyModal")
                   }
                   title="Info"
                   color="#f00"
                 />,
             ~title=
-              switch (props##route##params) {
-              | Some(params) => params##name
+              switch (props.route.params) {
+              | Some(params) => params.name
               | None => "Reason"
               },
             (),

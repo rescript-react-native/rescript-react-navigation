@@ -25,11 +25,12 @@ module Make = (M: {type params;}) => {
   type animatedNode = ReactNative.Animated.Value.t;
 
   type scene = {
-    .
-    "index": int,
-    "focused": bool,
-    "tintColor": string,
+    index: int,
+    focused: bool,
+    tintColor: string,
   };
+
+  type labelPositionArgs = {deviceOrientation: string};
 
   class type virtual baseBottomTabBarOptions = {
     pub keyboardHidesTabBar: option(bool);
@@ -40,7 +41,7 @@ module Make = (M: {type params;}) => {
     pub showIcon: option(bool);
     pub labelStyle: option(ReactNative.Style.t);
     pub tabStyle: option(ReactNative.Style.t);
-    pub labelPosition: option({. "deviceOrientation": string} => string);
+    pub labelPosition: option(labelPositionArgs => string);
     pub adaptive: option(bool);
     pub style: option(ReactNative.Style.t);
   };
@@ -54,32 +55,27 @@ module Make = (M: {type params;}) => {
 
   type accessibilityRole = string;
   type accessibilityStates = array(string);
+  type routeArgs = {route: route(M.params)};
+  type renderIconArgs = {
+    route: route(M.params),
+    focused: bool,
+    tintColor: string,
+    horizontal: bool,
+  };
   class type virtual bottomTabBarProps = {
     as 'self;
     constraint 'self = #baseBottomTabBarOptions;
     pub state: navigationState(M.params);
     pub navigation: navigation;
-    pub onTabPress: {. "route": route(M.params)} => unit;
-    pub onTabLongPress: {. "route": route(M.params)} => unit;
-    pub getAccessibilityLabel:
-      {. "route": route(M.params)} => Js.nullable(string);
-    pub getAccessibilityRole:
-      {. "route": route(M.params)} => Js.nullable(accessibilityRole);
-    pub getAccessibilityStates:
-      {. "route": route(M.params)} => Js.nullable(accessibilityStates);
-    pub getButtonComponent:
-      {. "route": route(M.params)} => Js.nullable(React.element);
-    //pub getLabelText: {. "route": route(M.params)} => ...;
-    pub getTestID: {. "route": route(M.params)} => Js.nullable(string);
-    pub renderIcon:
-      {
-        .
-        "route": route(M.params),
-        "focused": bool,
-        "tintColor": string,
-        "horizontal": bool,
-      } =>
-      React.element;
+    pub onTabPress: routeArgs => unit;
+    pub onTabLongPress: routeArgs => unit;
+    pub getAccessibilityLabel: routeArgs => Js.nullable(string);
+    pub getAccessibilityRole: routeArgs => Js.nullable(accessibilityRole);
+    pub getAccessibilityStates: routeArgs => Js.nullable(accessibilityStates);
+    pub getButtonComponent: routeArgs => Js.nullable(React.element);
+    //pub getLabelText: routeArgs => ...;
+    pub getTestID: routeArgs => Js.nullable(string);
+    pub renderIcon: renderIconArgs => React.element;
     pub activeTintColor: string;
     pub inactiveTintColor: string;
   };
@@ -97,7 +93,7 @@ module Make = (M: {type params;}) => {
       ~showIcon: bool=?,
       ~labelStyle: ReactNative.Style.t=?,
       ~tabStyle: ReactNative.Style.t=?,
-      ~labelPosition: {. "deviceOrientation": string} => string=?,
+      ~labelPosition: labelPositionArgs => string=?,
       ~adaptive: bool=?,
       ~style: ReactNative.Style.t=?,
       unit
@@ -105,26 +101,22 @@ module Make = (M: {type params;}) => {
     bottomTabBarOptions =
     "";
 
+  type tabBarLabelArgs = {
+    focused: bool,
+    color: string,
+  };
+  type tabBarIconArgs = {
+    focused: bool,
+    color: string,
+    size: float,
+  };
   [@bs.obj]
   external options:
     (
       ~title: string=?,
       //TODO: dynamic, missing static option: React.ReactNode
-      ~tabBarLabel: {
-                      .
-                      "focused": bool,
-                      "color": string,
-                    } =>
-                    React.element
-                      =?,
-      ~tabBarIcon: {
-                     .
-                     "focused": bool,
-                     "color": string,
-                     "size": float,
-                   } =>
-                   React.element
-                     =?,
+      ~tabBarLabel: tabBarLabelArgs => React.element=?,
+      ~tabBarIcon: tabBarIconArgs => React.element=?,
       ~tabBarAccessibilityLabel: string=?,
       ~tabBarTestID: string=?,
       ~tabBarVisible: bool=?,
@@ -134,13 +126,12 @@ module Make = (M: {type params;}) => {
     options =
     "";
 
-  type optionsProps =
-    {
-      .
-      "navigation": navigation,
-      "route": route(M.params),
-    } =>
-    options;
+  type optionsProps = {
+    navigation,
+    route: route(M.params),
+  };
+
+  type optionsCallback = optionsProps => options;
 
   type navigatorProps;
 
@@ -163,7 +154,7 @@ module Make = (M: {type params;}) => {
     external makeProps:
       (
         ~name: string,
-        ~options: optionsProps=?,
+        ~options: optionsCallback=?,
         ~initialParams: M.params=?,
         ~component: React.component({. "navigation": navigation}),
         unit
@@ -178,7 +169,7 @@ module Make = (M: {type params;}) => {
     external makeProps:
       (
         ~initialRouteName: string=?,
-        ~screenOptions: optionsProps=?,
+        ~screenOptions: optionsCallback=?,
         ~children: React.element,
         ~_lazy: bool=?,
         ~tabBarComponent: React.component(Js.t(bottomTabBarProps))=?,

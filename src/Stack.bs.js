@@ -6,23 +6,12 @@ var Stack = require("@react-navigation/stack");
 
 var TransitionSpec = { };
 
-function StackNavigationScreenProp(M) {
-  var include = Core$ReactNavigation.NavigationScreenProp(M);
-  return {
-          navigateByKey: include.navigateByKey,
-          navigateByName: include.navigateByName
-        };
-}
+var StackNavigationScreenProp = Core$ReactNavigation.NavigationScreenProp;
 
 function Make(M) {
   var M$1 = { };
   var include = Core$ReactNavigation.NavigationScreenProp(M$1);
-  var Navigation_navigateByKey = include.navigateByKey;
-  var Navigation_navigateByName = include.navigateByName;
-  var Navigation = {
-    navigateByKey: Navigation_navigateByKey,
-    navigateByName: Navigation_navigateByName
-  };
+  var Navigation = include;
   var t = function (prim) {
     return Interop.identity(prim[1]);
   };
@@ -47,7 +36,7 @@ function Make(M) {
   var Header = {
     t: t$1,
     render: render$1,
-    null: $$null
+    $$null: $$null
   };
   var stack = Stack.createStackNavigator();
   var make = stack.Screen;
@@ -63,8 +52,8 @@ function Make(M) {
           HeaderTitle: HeaderTitle,
           Header: Header,
           stack: stack,
-          Screen: $$Screen,
-          Navigator: $$Navigator
+          $$Screen: $$Screen,
+          $$Navigator: $$Navigator
         };
 }
 

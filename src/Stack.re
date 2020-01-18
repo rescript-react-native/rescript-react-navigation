@@ -3,121 +3,110 @@ open Core;
 type options;
 
 type layout = {
-  .
-  "width": float,
-  "height": float,
+  width: float,
+  height: float,
+};
+
+type layouts = {
+  screen: layout,
+  title: option(layout),
+  leftLabel: option(layout),
 };
 
 //TODO
 type any;
 type animatedNode = ReactNative.Animated.Value.t;
-
+type stackHeaderInterpolation = {progress: animatedNode};
+type stackHeaderInterpolationProps = {
+  current: stackHeaderInterpolation,
+  next: option(stackHeaderInterpolation),
+  layouts,
+};
+type stackHeaderInterpolatedStyle = {
+  leftLabelStyle: option(any),
+  leftButtonStyle: option(any),
+  rightButtonStyle: option(any),
+  titleStyle: option(any),
+  backgroundStyle: option(any),
+};
 type stackHeaderStyleInterpolator =
-  stackHeaderInterpolationProps => stackHeaderInterpolatedStyle
-and stackHeaderInterpolationProps = {
-  .
-  "current": {. "progress": animatedNode},
-  "next": option({. "progress": animatedNode}),
-  "layouts": {
-    .
-    "screen": layout,
-    "title": option(layout),
-    "leftLabel": option(layout),
-  },
-}
-and stackHeaderInterpolatedStyle = {
-  .
-  "leftLabelStyle": option(any),
-  "leftButtonStyle": option(any),
-  "rightButtonStyle": option(any),
-  "titleStyle": option(any),
-  "backgroundStyle": option(any),
+  stackHeaderInterpolationProps => stackHeaderInterpolatedStyle;
+
+type insets = {
+  top: float,
+  right: float,
+  bottom: float,
+  left: float,
 };
 
-type stackCardStyleInterpolator =
-  stackCardInterpolationProps => stackCardInterpolatedStyle
-and stackCardInterpolationProps = {
-  .
-  "current": {. "progress": animatedNode},
-  "next": option({. "progress": animatedNode}),
-  "index": int,
-  "closing": animatedNode,
-  "layouts": {. "screen": layout},
-  "insets": {
-    .
-    "top": float,
-    "right": float,
-    "bottom": float,
-    "left": float,
-  },
-}
-and stackCardInterpolatedStyle = {
-  .
-  "containerStyle": option(any),
-  "cardStyle": option(any),
-  "overlayStyle": option(any),
-  "shadowStyle": option(any),
+type stackCardInterpolationProps = {
+  current: stackHeaderInterpolation,
+  next: option(stackHeaderInterpolation),
+  index: int,
+  closing: animatedNode,
+  layouts,
+  insets,
 };
+type stackCardInterpolatedStyle = {
+  containerStyle: option(any),
+  cardStyle: option(any),
+  overlayStyle: option(any),
+  shadowStyle: option(any),
+};
+type stackCardStyleInterpolator =
+  stackCardInterpolationProps => stackCardInterpolatedStyle;
 
 type layoutChangeEvent;
 
-type backImage = {. "tintColor": ReactNative.Color.t} => React.element;
+type backImageProps = {tintColor: ReactNative.Color.t};
+type backImage = backImageProps => React.element;
 type stackHeaderLeftButtonProps = {
-  .
-  "disabled": option(bool),
-  "onPress": option(unit => unit),
-  "pressColorAndroid": option(ReactNative.Color.t),
-  "backImage": option(backImage),
-  "tintColor": option(ReactNative.Color.t),
-  "label": option(string),
-  "truncatedLabel": option(string),
-  "labelVisible": option(bool),
-  "labelStyle": option(ReactNative.Style.t),
-  "allowFontScaling": option(bool),
-  "onLabelLayout": option(layoutChangeEvent => unit),
-  "screenLayout": option(layout),
-  "titleLayout": option(layout),
-  "canGoBack": option(bool),
+  disabled: option(bool),
+  onPress: option(unit => unit),
+  pressColorAndroid: option(ReactNative.Color.t),
+  backImage: option(backImage),
+  tintColor: option(ReactNative.Color.t),
+  label: option(string),
+  truncatedLabel: option(string),
+  labelVisible: option(bool),
+  labelStyle: option(ReactNative.Style.t),
+  allowFontScaling: option(bool),
+  onLabelLayout: option(layoutChangeEvent => unit),
+  screenLayout: option(layout),
+  titleLayout: option(layout),
+  canGoBack: option(bool),
 };
 
 module TransitionSpec = {
   type t;
-
+  type springConfig = {
+    damping: int,
+    mass: int,
+    stiffness: int,
+    restSpeedThreshold: int,
+    restDisplacementThreshold: int,
+    overshootClamping: bool,
+  };
   [@bs.obj]
   external spring:
-    (
-      ~animation: [@bs.string] [ | `spring],
-      ~config: {
-                 .
-                 "damping": int,
-                 "mass": int,
-                 "stiffness": int,
-                 "restSpeedThreshold": int,
-                 "restDisplacementThreshold": int,
-                 "overshootClamping": bool,
-               }
-    ) =>
-    t =
+    (~animation: [@bs.string] [ | `spring], ~config: springConfig) => t =
     "";
+
+  type timingConfig = {
+    duration: int,
+    easing: ReactNative.Easing.t,
+  };
 
   [@bs.obj]
   external timing:
-    (
-      ~animation: [@bs.string] [ | `timing],
-      ~config: {
-                 .
-                 "duration": int,
-                 "easing": ReactNative.Easing.t,
-               }
-    ) =>
-    t =
+    (~animation: [@bs.string] [ | `timing], ~config: timingConfig) => t =
     "";
 };
 
 type transitionSpec = {
-  .
-  "open": TransitionSpec.t,
-  "close": TransitionSpec.t,
+  [@bs.as "open"]
+  open_: TransitionSpec.t,
+  close: TransitionSpec.t,
 };
 
 module StackNavigationScreenProp = (M: {
@@ -153,11 +142,10 @@ module Make = (M: {type params;}) => {
     type t;
 
     type headerTitleProps = {
-      .
-      "onLayout": layoutChangeEvent => unit,
-      "allowFontScaling": option(bool),
-      "style": option(ReactNative.Style.t), //textStyle
-      "children": option(string),
+      onLayout: layoutChangeEvent => unit,
+      allowFontScaling: option(bool),
+      style: option(ReactNative.Style.t), //textStyle
+      children: option(string),
     };
 
     [@bs.val] [@bs.module "./Interop"]
@@ -176,32 +164,30 @@ module Make = (M: {type params;}) => {
   type mode = string; //TODO: [ | `float | `screen | `none]
 
   module Header = {
+    type descriptor = {
+      render: unit => React.element,
+      options,
+      navigation,
+    };
+    type progress = {
+      current: animatedNode,
+      next: option(animatedNode),
+      previous: option(animatedNode),
+    };
     type headerProps('params) = {
-      .
-      "mode": mode,
-      "style": ReactNative.Style.t,
+      mode,
+      style: ReactNative.Style.t,
       /* extends NavigationSceneRendererProps */
-      "layout": layout,
-      "scene": scene(route('params)),
-      "previous": option(scene(route('params))),
-      "navigation": navigation,
-      "styleInterpolator": stackHeaderStyleInterpolator,
+      layout,
+      scene: scene(route('params)),
+      previous: option(scene(route('params))),
+      navigation,
+      styleInterpolator: stackHeaderStyleInterpolator,
     }
     and scene('t) = {
-      .
-      "route": 't,
-      "descriptor": {
-        .
-        "render": unit => React.element,
-        "options": options,
-        "navigation": navigation,
-      },
-      "progress": {
-        .
-        "current": animatedNode,
-        "next": option(animatedNode),
-        "previous": option(animatedNode),
-      },
+      route: 't,
+      descriptor,
+      progress,
     };
 
     type t;
@@ -221,6 +207,8 @@ module Make = (M: {type params;}) => {
 
     let null = t(`Null(Js.Null.empty));
   };
+
+  type headerRightOptions = {tintColor: option(ReactNative.Color.t)};
 
   [@bs.obj]
   external options:
@@ -248,9 +236,7 @@ module Make = (M: {type params;}) => {
       ~headerTruncatedBackTitle: string=?,
       ~headerLeft: stackHeaderLeftButtonProps => React.element=?,
       ~headerLeftContainerStyle: ReactNative.Style.t=?,
-      ~headerRight: {. "tintColor": option(ReactNative.Color.t)} =>
-                    React.element
-                      =?,
+      ~headerRight: headerRightOptions => React.element=?,
       ~headerRightContainerStyle: ReactNative.Style.t=?,
       ~headerBackImage: backImage=?,
       ~headerPressColorAndroid: ReactNative.Color.t=?,
@@ -266,30 +252,25 @@ module Make = (M: {type params;}) => {
     ) =>
     options =
     "";
-
-  type optionsProps =
-    {
-      .
-      "navigation": navigation,
-      "route": route(M.params),
-    } =>
-    options;
+  type optionsProps = {
+    navigation,
+    route: route(M.params),
+  };
+  type optionCallback = optionsProps => options;
 
   type navigatorProps = {
-    .
-    "initialRouteName": option(string),
-    "screenOptions": option(optionsProps),
-    "mode": option(string),
-    "headerMode": option(string),
-    "keyboardHandlingEnabled": option(bool),
+    initialRouteName: option(string),
+    screenOptions: option(optionCallback),
+    mode: option(string),
+    headerMode: option(string),
+    keyboardHandlingEnabled: option(bool),
   };
 
   type screenProps('params) = {
-    .
-    "name": string,
-    "options": option(optionsProps),
-    "initialParams": option('params),
-    "component":
+    name: string,
+    options: option(optionCallback),
+    initialParams: option('params),
+    component:
       React.component({
         .
         "navigation": navigation,
@@ -310,11 +291,12 @@ module Make = (M: {type params;}) => {
   let stack = make();
 
   module Screen = {
+    type componentProps = {navigation};
     [@bs.obj]
     external makeProps:
       (
         ~name: string,
-        ~options: optionsProps=?,
+        ~options: optionCallback=?,
         ~initialParams: M.params=?,
         ~component: React.component({
                       .
@@ -333,7 +315,7 @@ module Make = (M: {type params;}) => {
     external makeProps:
       (
         ~initialRouteName: string=?,
-        ~screenOptions: optionsProps=?,
+        ~screenOptions: optionCallback=?,
         ~mode: [@bs.string] [ | `card | `modal]=?,
         ~headerMode: [@bs.string] [ | `float | `screen | `none]=?,
         ~keyboardHandlingEnabled: bool=?,
