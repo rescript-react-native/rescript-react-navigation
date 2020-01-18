@@ -1,7 +1,6 @@
 type contentComponentProps('screenProps) = {
-  .
-  "navigation": Navigation.t,
-  "screenProps": 'screenProps,
+  navigation: Navigation.t,
+  screenProps: 'screenProps,
 };
 
 type contentComponent('screenProps) =

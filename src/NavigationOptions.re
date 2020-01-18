@@ -14,10 +14,9 @@ module HeaderTitle = {
   type t;
 
   type props = {
-    .
-    "allowFontScaling": bool,
-    "style": Style.t,
-    "children": React.element,
+    allowFontScaling: bool,
+    style: Style.t,
+    children: React.element,
   };
 
   type renderFunction = props => React.element;
@@ -31,10 +30,9 @@ module TabBarIcon = {
   type t;
 
   type props = {
-    .
-    "focused": bool,
-    "horizontal": bool,
-    "tintColor": Color.t,
+    focused: bool,
+    horizontal: bool,
+    tintColor: Color.t,
   };
 
   type renderFunction = props => React.element;
@@ -47,9 +45,8 @@ module TabBarLabel = {
   type t;
 
   type props = {
-    .
-    "focused": bool,
-    "tintColor": Color.t,
+    focused: bool,
+    tintColor: Color.t,
   };
 
   type renderFunction = props => React.element;
@@ -63,9 +60,8 @@ module DrawerIcon = {
   type t;
 
   type props = {
-    .
-    "focused": bool,
-    "tintColor": Color.t,
+    focused: bool,
+    tintColor: Color.t,
   };
 
   type renderFunction = props => React.element;
@@ -78,9 +74,8 @@ module DrawerLabel = {
   type t;
 
   type props = {
-    .
-    "focused": bool,
-    "tintColor": Color.t,
+    focused: bool,
+    tintColor: Color.t,
   };
 
   type renderFunction = props => React.element;
@@ -91,10 +86,9 @@ module DrawerLabel = {
 };
 
 type tabBarOnPressParams = {
-  .
-  "previousScene": bool,
-  "scene": bool,
-  "jumpToIndex": int => unit,
+  previousScene: bool,
+  scene: bool,
+  jumpToIndex: int => unit,
 };
 
 type t;
@@ -157,10 +151,9 @@ external t:
   "";
 
 type navigationParams('screenProps) = {
-  .
-  "navigation": Navigation.t,
-  "navigationOptions": t,
-  "screenProps": 'screenProps,
+  navigation: Navigation.t,
+  navigationOptions: t,
+  screenProps: 'screenProps,
 };
 
 [@bs.set]

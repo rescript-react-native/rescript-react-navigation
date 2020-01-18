@@ -21,11 +21,10 @@ type persistNavigationState = NavigationState.t => Js.Promise.t(unit);
 type loadNavigationState = unit => Js.Promise.t(option(NavigationState.t));
 
 type appContainerProps('screenProps) = {
-  .
-  "persistNavigationState": option(persistNavigationState),
-  "loadNavigationState": option(loadNavigationState),
-  "screenProps": option('screenProps),
-  "ref": Js.Nullable.t(NavigationContainer.t) => unit,
+  persistNavigationState: option(persistNavigationState),
+  loadNavigationState: option(loadNavigationState),
+  screenProps: option('screenProps),
+  ref: Js.Nullable.t(NavigationContainer.t) => unit,
 };
 
 [@bs.obj]

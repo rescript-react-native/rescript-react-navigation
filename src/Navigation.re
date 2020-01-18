@@ -2,12 +2,12 @@ open ReactNative;
 type t;
 
 type navigationEventPayload = {
-  .
-  "action": NavigationActions.action,
-  "context": string,
-  "type": string,
-  "state": NavigationState.t,
-  "lastState": Js.Nullable.t(NavigationState.t),
+  action: NavigationActions.action,
+  context: string,
+  [@bs.as "type"]
+  _type: string,
+  state: NavigationState.t,
+  lastState: Js.Nullable.t(NavigationState.t),
 };
 
 [@bs.val] [@bs.module "react-navigation"]
