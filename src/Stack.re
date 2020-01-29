@@ -126,6 +126,7 @@ module StackNavigationScreenProp = (M: {
 };
 
 module Make = (M: {type params;}) => {
+  type nonrec route = route(M.params);
   module Navigation =
     StackNavigationScreenProp({
       include M;
@@ -179,8 +180,8 @@ module Make = (M: {type params;}) => {
       style: ReactNative.Style.t,
       /* extends NavigationSceneRendererProps */
       layout,
-      scene: scene(route('params)),
-      previous: option(scene(route('params))),
+      scene: scene(Core.route('params)),
+      previous: option(scene(Core.route('params))),
       navigation,
       styleInterpolator: stackHeaderStyleInterpolator,
     }
@@ -254,7 +255,7 @@ module Make = (M: {type params;}) => {
     "";
   type optionsProps = {
     navigation,
-    route: route(M.params),
+    route,
   };
   type optionCallback = optionsProps => options;
 
@@ -274,7 +275,7 @@ module Make = (M: {type params;}) => {
       React.component({
         .
         "navigation": navigation,
-        "route": route(M.params),
+        "route": route,
       }),
   };
 
@@ -301,7 +302,7 @@ module Make = (M: {type params;}) => {
         ~component: React.component({
                       .
                       "navigation": navigation,
-                      "route": route(M.params),
+                      "route": route,
                     }),
         unit
       ) =>
