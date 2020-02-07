@@ -3,12 +3,23 @@
 var Core$ReactNavigation = require("./Core.bs.js");
 var Drawer = require("@react-navigation/drawer");
 
-var DrawerNavigationProp = Core$ReactNavigation.NavigationScreenProp;
+function DrawerNavigationProp(M) {
+  var include = Core$ReactNavigation.NavigationScreenProp(M);
+  return {
+          navigateByKey: include.navigateByKey,
+          navigateByName: include.navigateByName
+        };
+}
 
 function Make(M) {
   var M$1 = { };
   var include = Core$ReactNavigation.NavigationScreenProp(M$1);
-  var Navigation = include;
+  var Navigation_navigateByKey = include.navigateByKey;
+  var Navigation_navigateByName = include.navigateByName;
+  var Navigation = {
+    navigateByKey: Navigation_navigateByKey,
+    navigateByName: Navigation_navigateByName
+  };
   var stack = Drawer.createDrawerNavigator();
   var make = stack.Screen;
   var $$Screen = {
@@ -21,8 +32,8 @@ function Make(M) {
   return {
           Navigation: Navigation,
           stack: stack,
-          $$Screen: $$Screen,
-          $$Navigator: $$Navigator
+          Screen: $$Screen,
+          Navigator: $$Navigator
         };
 }
 

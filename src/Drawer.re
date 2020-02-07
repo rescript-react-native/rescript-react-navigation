@@ -156,8 +156,8 @@ module Make = (M: {type params;}) => {
         //TODO: ~gestureHandlerProps: React.ComponentProps<typeof PanGestureHandler>;
         ~_lazy: bool=?,
         ~unmountInactiveRoutes: bool=?,
-        ~contentComponent: React.component(Js.t(contentComponentProps))=?,
-        ~contentOptions: Js.t(contentOptions)=?,
+        ~drawerContent: React.component(Js.t(contentComponentProps))=?,
+        ~drawerContentOptions: Js.t(contentOptions)=?,
         ~sceneContainerStyle: ReactNative.Style.t=?,
         ~style: ReactNative.Style.t=?,
         unit
