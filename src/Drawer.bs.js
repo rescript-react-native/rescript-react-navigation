@@ -1,5 +1,6 @@
 'use strict';
 
+var Interop = require("./Interop");
 var Core$ReactNavigation = require("./Core.bs.js");
 var Drawer = require("@react-navigation/drawer");
 
@@ -20,6 +21,32 @@ function Make(M) {
     navigateByKey: Navigation_navigateByKey,
     navigateByName: Navigation_navigateByName
   };
+  var t = function (prim) {
+    return Interop.identity(prim[1]);
+  };
+  var string = function (s) {
+    return Interop.identity(s);
+  };
+  var render = function (x) {
+    return Interop.identity(x);
+  };
+  var HeaderTitle = {
+    t: t,
+    string: string,
+    render: render
+  };
+  var t$1 = function (prim) {
+    return Interop.identity(prim[1]);
+  };
+  var render$1 = function (x) {
+    return Interop.identity(x);
+  };
+  var $$null = Interop.identity(null);
+  var Header = {
+    t: t$1,
+    render: render$1,
+    null: $$null
+  };
   var stack = Drawer.createDrawerNavigator();
   var make = stack.Screen;
   var $$Screen = {
@@ -31,6 +58,8 @@ function Make(M) {
   };
   return {
           Navigation: Navigation,
+          HeaderTitle: HeaderTitle,
+          Header: Header,
           stack: stack,
           Screen: $$Screen,
           Navigator: $$Navigator
@@ -39,4 +68,4 @@ function Make(M) {
 
 exports.DrawerNavigationProp = DrawerNavigationProp;
 exports.Make = Make;
-/* @react-navigation/drawer Not a pure module */
+/* ./Interop Not a pure module */

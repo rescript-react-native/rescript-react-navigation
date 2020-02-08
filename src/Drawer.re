@@ -62,10 +62,109 @@ module Make = (M: {type params;}) => {
     pub drawerOpenProgress: animatedNode;
   };
 
+  type any;
+  type layout = {
+    width: float,
+    height: float,
+  };
+  type layouts = {
+    screen: layout,
+    title: option(layout),
+    leftLabel: option(layout),
+  };
+  type stackHeaderInterpolation = {progress: animatedNode};
+  type stackHeaderInterpolationProps = {
+    current: stackHeaderInterpolation,
+    next: option(stackHeaderInterpolation),
+    layouts,
+  };
+  type stackHeaderInterpolatedStyle = {
+    leftLabelStyle: option(any),
+    leftButtonStyle: option(any),
+    rightButtonStyle: option(any),
+    titleStyle: option(any),
+    backgroundStyle: option(any),
+  };
+
+  type layoutChangeEvent;
+  type stackHeaderStyleInterpolator =
+    stackHeaderInterpolationProps => stackHeaderInterpolatedStyle;
+
+  module HeaderTitle = {
+    type t;
+
+    type headerTitleProps = {
+      onLayout: layoutChangeEvent => unit,
+      allowFontScaling: option(bool),
+      style: option(ReactNative.Style.t), //textStyle
+      children: option(string),
+    };
+
+    [@bs.val] [@bs.module "./Interop"]
+    external t:
+      (
+      [@bs.unwrap]
+      [ | `String(string) | `Render(headerTitleProps => React.element)]
+      ) =>
+      t =
+      "identity";
+
+    let string = s => t(`String(s));
+    let render = x => t(`Render(x));
+  };
+
+  type mode = string; //TODO: [ | `float | `screen | `none]
+
+  module Header = {
+    type descriptor = {
+      render: unit => React.element,
+      options,
+      navigation,
+    };
+    type progress = {
+      current: animatedNode,
+      next: option(animatedNode),
+      previous: option(animatedNode),
+    };
+    type headerProps('params) = {
+      mode,
+      style: ReactNative.Style.t,
+      /* extends NavigationSceneRendererProps */
+      layout,
+      scene: scene(Core.route('params)),
+      previous: option(scene(Core.route('params))),
+      navigation,
+      styleInterpolator: stackHeaderStyleInterpolator,
+    }
+    and scene('t) = {
+      route: 't,
+      descriptor,
+      progress,
+    };
+
+    type t;
+    [@bs.val] [@bs.module "./Interop"]
+    external t:
+      (
+      [@bs.unwrap]
+      [
+        | `Render(headerProps('params) => React.element)
+        | `Null(Js.null(unit))
+      ]
+      ) =>
+      t =
+      "identity";
+
+    let render = x => t(`Render(x));
+
+    let null = t(`Null(Js.Null.empty));
+  };
+
   [@bs.obj]
   external options:
     (
       ~title: string=?,
+      ~header: Header.t=?,
       ~drawerLabel: scene => React.element=?,
       ~drawerIcon: scene => React.element=?,
       ~drawerLockMode: [@bs.string] [
