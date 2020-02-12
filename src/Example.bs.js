@@ -90,7 +90,7 @@ var $$Screen$1 = include$1.Screen;
 var $$Navigator$1 = include$1.Navigator;
 
 function Example$RootStackScreen(Props) {
-  return React.createElement(Native.NavigationNativeContainer, {
+  return React.createElement(Native.NavigationContainer, {
               children: React.createElement($$Navigator$1.make, {
                     mode: "modal",
                     headerMode: "none",
