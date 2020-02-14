@@ -109,7 +109,11 @@ module Make = (M: {type params;}) => {
         ~name: string,
         ~options: optionsCallback=?,
         ~initialParams: M.params=?,
-        ~component: React.component({. "navigation": navigation}),
+        ~component: React.component({
+                      .
+                      "navigation": navigation,
+                      "route": route(M.params),
+                    }),
         unit
       ) =>
       screenProps =
