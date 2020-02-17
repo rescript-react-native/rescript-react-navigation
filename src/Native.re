@@ -92,7 +92,7 @@
  ```
  */
 
-module NavigationNativeContainer = {
+module NavigationContainer = {
   type state = Js.Json.t;
   type navigationState = state => unit;
 
@@ -104,7 +104,7 @@ module NavigationNativeContainer = {
       ~children: React.element
     ) =>
     React.element =
-    "NavigationNativeContainer";
+    "NavigationContainer";
 };
 
 [@bs.module "@react-navigation/native"]

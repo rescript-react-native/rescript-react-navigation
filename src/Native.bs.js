@@ -1,7 +1,7 @@
 'use strict';
 
 
-var NavigationNativeContainer = { };
+var NavigationContainer = { };
 
-exports.NavigationNativeContainer = NavigationNativeContainer;
+exports.NavigationContainer = NavigationContainer;
 /* No side effect */
