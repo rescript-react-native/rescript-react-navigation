@@ -33,9 +33,9 @@ var StakeParams = { };
 
 var include = Stack$ReactNavigation.Make(StakeParams);
 
-var $$Screen = include.Screen;
+var $$Screen = include.$$Screen;
 
-var $$Navigator = include.Navigator;
+var $$Navigator = include.$$Navigator;
 
 function Example$MainStackScreen(Props) {
   Props.navigation;
@@ -44,14 +44,14 @@ function Example$MainStackScreen(Props) {
               children: React.createElement($$Screen.make, {
                     name: "Home",
                     options: (function (props) {
-                        var match = props[/* route */1][/* params */2];
+                        var match = props.route.params;
                         return {
-                                title: match !== undefined ? match[/* name */0] : "Reason",
+                                title: match !== undefined ? match.name : "Reason",
                                 headerRight: (function (param) {
                                     return React.createElement(ReactNative.Button, {
                                                 color: "#f00",
                                                 onPress: (function (param) {
-                                                    props[/* navigation */0].navigate("MyModal");
+                                                    props.navigation.navigate("MyModal");
                                                     return /* () */0;
                                                   }),
                                                 title: "Info"
@@ -78,19 +78,19 @@ var MainStackScreen = {
   HeaderTitle: MainStackScreen_HeaderTitle,
   Header: MainStackScreen_Header,
   stack: MainStackScreen_stack,
-  Screen: $$Screen,
-  Navigator: $$Navigator,
+  $$Screen: $$Screen,
+  $$Navigator: $$Navigator,
   make: Example$MainStackScreen
 };
 
 var include$1 = Stack$ReactNavigation.Make({ });
 
-var $$Screen$1 = include$1.Screen;
+var $$Screen$1 = include$1.$$Screen;
 
-var $$Navigator$1 = include$1.Navigator;
+var $$Navigator$1 = include$1.$$Navigator;
 
 function Example$RootStackScreen(Props) {
-  return React.createElement(Native.NavigationNativeContainer, {
+  return React.createElement(Native.NavigationContainer, {
               children: React.createElement($$Navigator$1.make, {
                     mode: "modal",
                     headerMode: "none",
@@ -118,8 +118,8 @@ var RootStackScreen = {
   HeaderTitle: RootStackScreen_HeaderTitle,
   Header: RootStackScreen_Header,
   stack: RootStackScreen_stack,
-  Screen: $$Screen$1,
-  Navigator: $$Navigator$1,
+  $$Screen: $$Screen$1,
+  $$Navigator: $$Navigator$1,
   make: Example$RootStackScreen
 };
 

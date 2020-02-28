@@ -53,10 +53,10 @@ module RootStackScreen = {
   });
   [@react.component]
   let make = () =>
-    <Native.NavigationNativeContainer>
+    <Native.NavigationContainer>
       <Navigator mode=`modal headerMode=`none>
         <Screen name="Main" component=MainStackScreen.make />
         <Screen name="MyModal" component=ModalScreen.make />
       </Navigator>
-    </Native.NavigationNativeContainer>;
+    </Native.NavigationContainer>;
 };

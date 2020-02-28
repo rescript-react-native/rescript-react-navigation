@@ -71,7 +71,7 @@
    <>
        {initialStateContainer
         ->Option.map(initialState =>
-            <Native.NavigationNativeContainer
+            <Native.NavigationContainer
               ?initialState
               onStateChange={state => {
                 let maybeJsonState = Js.Json.stringifyAny(state);
@@ -83,7 +83,7 @@
                 };
               }}>
               <RootNavigator />
-            </Native.NavigationNativeContainer>
+            </Native.NavigationContainer>
           )
         ->Option.getWithDefault(React.null)}
        <Bootsplash isReady />
@@ -92,7 +92,7 @@
  ```
  */
 
-module NavigationNativeContainer = {
+module NavigationContainer = {
   type state = Js.Json.t;
   type navigationState = state => unit;
 
@@ -104,7 +104,7 @@ module NavigationNativeContainer = {
       ~children: React.element
     ) =>
     React.element =
-    "NavigationNativeContainer";
+    "NavigationContainer";
 };
 
 [@bs.module "@react-navigation/native"]
