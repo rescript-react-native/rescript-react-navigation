@@ -28,14 +28,12 @@ module NavigationHelpersCommon = (M: {type params;}) => {
 
   [@bs.obj]
   external navigateByKeyParams:
-    (~key: string, ~params: M.params=?, unit) => navigationParams =
-    "";
+    (~key: string, ~params: M.params=?, unit) => navigationParams;
 
   [@bs.obj]
   external navigateByNameParams:
     (~name: string, ~key: string=?, ~params: M.params=?, unit) =>
-    navigationParams =
-    "";
+    navigationParams;
 
   [@bs.send] external navigateBy: navigationParams => unit = "navigate";
 
@@ -73,7 +71,6 @@ module EventConsumer = (M: {type params;}) => {
     [@bs.as "type"]
     type_: string,
     defaultPrevented: bool,
-    [@bs.meth]
     preventDefault: unit => unit,
     data: option('data),
   };
