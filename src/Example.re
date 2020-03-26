@@ -1,3 +1,5 @@
+// In your code you should use open ReactNavigation; to expose Stack.Make
+
 module HomeScreen = {
   open ReactNative;
   [@react.component]
