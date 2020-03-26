@@ -1,3 +1,6 @@
+// Uncomment this to compile this example outside of this repo
+// in this example it's not necessary (since we are running it in the module repo itself)
+open ReactNavigation;
 module HomeScreen = {
   open ReactNative;
   [@react.component]
