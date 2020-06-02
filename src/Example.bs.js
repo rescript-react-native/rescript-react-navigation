@@ -1,5 +1,7 @@
 'use strict';
 
+var Block = require("bs-platform/lib/js/block.js");
+var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var ReactNative = require("react-native");
 var Stack$ReactNavigation = require("./Stack.bs.js");
@@ -41,26 +43,22 @@ function Example$MainStackScreen(Props) {
   Props.navigation;
   Props.route;
   return React.createElement($$Navigator.make, {
-              children: React.createElement($$Screen.make, {
-                    name: "Home",
-                    options: (function (props) {
-                        var match = props.route.params;
-                        return {
-                                title: match !== undefined ? match.name : "Reason",
-                                headerRight: (function (param) {
-                                    return React.createElement(ReactNative.Button, {
-                                                color: "#f00",
-                                                onPress: (function (param) {
-                                                    props.navigation.navigate("MyModal");
-                                                    return /* () */0;
-                                                  }),
-                                                title: "Info"
-                                              });
-                                  })
-                              };
-                      }),
-                    component: Example$HomeScreen
-                  })
+              children: React.createElement($$Screen.make, Curry._5($$Screen.makeProps, "Home", (function (props) {
+                          var match = props.route.params;
+                          return {
+                                  title: match !== undefined ? match.name : "Reason",
+                                  headerRight: (function (param) {
+                                      return React.createElement(ReactNative.Button, {
+                                                  color: "#f00",
+                                                  onPress: (function (param) {
+                                                      props.navigation.navigate("MyModal");
+                                                      return /* () */0;
+                                                    }),
+                                                  title: "Info"
+                                                });
+                                    })
+                                };
+                        }), undefined, /* Component */Block.__(0, [Example$HomeScreen]), /* () */0))
             });
 }
 
@@ -95,13 +93,7 @@ function Example$RootStackScreen(Props) {
                     mode: "modal",
                     headerMode: "none",
                     children: null
-                  }, React.createElement($$Screen$1.make, {
-                        name: "Main",
-                        component: Example$MainStackScreen
-                      }), React.createElement($$Screen$1.make, {
-                        name: "MyModal",
-                        component: Example$ModalScreen
-                      }))
+                  }, React.createElement($$Screen$1.make, Curry._5($$Screen$1.makeProps, "Main", undefined, undefined, /* Component */Block.__(0, [Example$MainStackScreen]), /* () */0)), React.createElement($$Screen$1.make, Curry._5($$Screen$1.makeProps, "MyModal", undefined, undefined, /* Component */Block.__(0, [Example$ModalScreen]), /* () */0)))
             });
 }
 

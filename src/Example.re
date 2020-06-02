@@ -26,7 +26,7 @@ module MainStackScreen = {
     <Navigator>
       <Screen
         name="Home"
-        component=HomeScreen.make
+        componentOrRenderCallback={Component(HomeScreen.make)}
         options={props =>
           options(
             ~headerRight=
@@ -58,8 +58,14 @@ module RootStackScreen = {
   let make = () =>
     <Native.NavigationContainer>
       <Navigator mode=`modal headerMode=`none>
-        <Screen name="Main" component=MainStackScreen.make />
-        <Screen name="MyModal" component=ModalScreen.make />
+        <Screen
+          name="Main"
+          componentOrRenderCallback={Component(MainStackScreen.make)}
+        />
+        <Screen
+          name="MyModal"
+          componentOrRenderCallback={Component(ModalScreen.make)}
+        />
       </Navigator>
     </Native.NavigationContainer>;
 };

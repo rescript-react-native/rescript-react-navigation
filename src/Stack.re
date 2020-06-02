@@ -89,8 +89,7 @@ module TransitionSpec = {
   };
   [@bs.obj]
   external spring:
-    (~animation: [@bs.string] [ | `spring], ~config: springConfig) => t =
-    "";
+    (~animation: [@bs.string] [ | `spring], ~config: springConfig) => t;
 
   type timingConfig = {
     duration: int,
@@ -99,8 +98,7 @@ module TransitionSpec = {
 
   [@bs.obj]
   external timing:
-    (~animation: [@bs.string] [ | `timing], ~config: timingConfig) => t =
-    "";
+    (~animation: [@bs.string] [ | `timing], ~config: timingConfig) => t;
 };
 
 type transitionSpec = {
@@ -136,8 +134,7 @@ module Make = (M: {type params;}) => {
   type gestureResponseDistance;
   [@bs.obj]
   external gestureResponseDistance:
-    (~vertical: float=?, ~horizontal: float=?, unit) => gestureResponseDistance =
-    "";
+    (~vertical: float=?, ~horizontal: float=?, unit) => gestureResponseDistance;
 
   module HeaderTitle = {
     type t;
@@ -251,8 +248,7 @@ module Make = (M: {type params;}) => {
       ~headerStyleInterpolator: stackHeaderStyleInterpolator=?,
       unit
     ) =>
-    options =
-    "";
+    options;
   type optionsProps = {
     navigation,
     route,
@@ -293,8 +289,21 @@ module Make = (M: {type params;}) => {
 
   module Screen = {
     type componentProps = {navigation};
+    type renderCallbackProp = {
+      navigation,
+      route,
+    };
+    type componentOrRenderCallback =
+      | Component(
+          React.component({
+            .
+            "navigation": navigation,
+            "route": route,
+          }),
+        )
+      | RenderCallback(renderCallbackProp => React.element);
     [@bs.obj]
-    external makeProps:
+    external makeProps':
       (
         ~name: string,
         ~options: optionCallback=?,
@@ -303,11 +312,41 @@ module Make = (M: {type params;}) => {
                       .
                       "navigation": navigation,
                       "route": route,
-                    }),
+                    })
+                      =?,
+        ~children: renderCallbackProp => React.element=?,
         unit
       ) =>
-      screenProps(M.params) =
-      "";
+      screenProps(M.params);
+    let makeProps =
+        (
+          ~name,
+          ~options=?,
+          ~initialParams=?,
+          ~componentOrRenderCallback: componentOrRenderCallback,
+          (),
+        ) => {
+      switch (componentOrRenderCallback) {
+      | Component(component) =>
+        let makeProps' = makeProps'(~name, ~component);
+        switch (options, initialParams) {
+        | (None, None) => makeProps'()
+        | (Some(options), None) => makeProps'(~options, ())
+        | (None, Some(initialParams)) => makeProps'(~initialParams, ())
+        | (Some(options), Some(initialParams)) =>
+          makeProps'(~options, ~initialParams, ())
+        };
+      | RenderCallback(children) =>
+        let makeProps' = makeProps'(~name, ~children);
+        switch (options, initialParams) {
+        | (None, None) => makeProps'()
+        | (Some(options), None) => makeProps'(~options, ())
+        | (None, Some(initialParams)) => makeProps'(~initialParams, ())
+        | (Some(options), Some(initialParams)) =>
+          makeProps'(~options, ~initialParams, ())
+        };
+      };
+    };
     let make = stack##"Screen";
   };
 
@@ -323,8 +362,7 @@ module Make = (M: {type params;}) => {
         ~children: React.element,
         unit
       ) =>
-      navigatorProps =
-      "";
+      navigatorProps;
 
     let make = stack##"Navigator";
   };
