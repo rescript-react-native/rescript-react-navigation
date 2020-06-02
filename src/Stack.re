@@ -292,20 +292,23 @@ module Make = (M: {type params;}) => {
     "createStackNavigator";
 
   let stack = make();
-
+  module ScreenWithCallback = {
+    [@bs.obj]
+    external makeProps:
+      (
+        ~name: string,
+        ~options: optionCallback=?,
+        ~initialParams: M.params=?,
+        ~children: renderCallbackProp => React.element,
+        unit
+      ) =>
+      screenProps(M.params);
+    let make = stack##"Screen";
+  };
   module Screen = {
     type componentProps = {navigation};
-    type componentOrRenderCallback =
-      | Component(
-          React.component({
-            .
-            "navigation": navigation,
-            "route": route,
-          }),
-        )
-      | RenderCallback(renderCallbackProp => React.element);
     [@bs.obj]
-    external makeProps':
+    external makeProps:
       (
         ~name: string,
         ~options: optionCallback=?,
@@ -314,41 +317,11 @@ module Make = (M: {type params;}) => {
                       .
                       "navigation": navigation,
                       "route": route,
-                    })
-                      =?,
-        ~children: renderCallbackProp => React.element=?,
+                    }),
         unit
       ) =>
       screenProps(M.params);
-    let makeProps =
-        (
-          ~name,
-          ~options=?,
-          ~initialParams=?,
-          ~componentOrRenderCallback: componentOrRenderCallback,
-          (),
-        ) => {
-      switch (componentOrRenderCallback) {
-      | Component(component) =>
-        let makeProps' = makeProps'(~name, ~component);
-        switch (options, initialParams) {
-        | (None, None) => makeProps'()
-        | (Some(options), None) => makeProps'(~options, ())
-        | (None, Some(initialParams)) => makeProps'(~initialParams, ())
-        | (Some(options), Some(initialParams)) =>
-          makeProps'(~options, ~initialParams, ())
-        };
-      | RenderCallback(children) =>
-        let makeProps' = makeProps'(~name, ~children);
-        switch (options, initialParams) {
-        | (None, None) => makeProps'()
-        | (Some(options), None) => makeProps'(~options, ())
-        | (None, Some(initialParams)) => makeProps'(~initialParams, ())
-        | (Some(options), Some(initialParams)) =>
-          makeProps'(~options, ~initialParams, ())
-        };
-      };
-    };
+
     let make = stack##"Screen";
   };
 
