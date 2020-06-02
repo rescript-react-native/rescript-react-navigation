@@ -262,17 +262,23 @@ module Make = (M: {type params;}) => {
     headerMode: option(string),
     keyboardHandlingEnabled: option(bool),
   };
-
+  type renderCallbackProp = {
+    navigation,
+    route,
+  };
   type screenProps('params) = {
     name: string,
     options: option(optionCallback),
     initialParams: option('params),
     component:
-      React.component({
-        .
-        "navigation": navigation,
-        "route": route,
-      }),
+      option(
+        React.component({
+          .
+          "navigation": navigation,
+          "route": route,
+        }),
+      ),
+    children: option(renderCallbackProp => React.element),
   };
 
   [@bs.module "@react-navigation/stack"]
@@ -289,10 +295,6 @@ module Make = (M: {type params;}) => {
 
   module Screen = {
     type componentProps = {navigation};
-    type renderCallbackProp = {
-      navigation,
-      route,
-    };
     type componentOrRenderCallback =
       | Component(
           React.component({
