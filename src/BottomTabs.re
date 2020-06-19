@@ -176,7 +176,7 @@ module Make = (M: {type params;}) => {
         ~screenOptions: optionsCallback=?,
         ~children: React.element,
         ~_lazy: bool=?,
-        ~tabBarComponent: React.component(Js.t(bottomTabBarProps))=?,
+        ~tabBar: React.component(Js.t(bottomTabBarProps))=?,
         ~tabBarOptions: bottomTabBarOptions=?,
         unit
       ) =>
