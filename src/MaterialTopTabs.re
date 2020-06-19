@@ -189,7 +189,7 @@ module Make = (M: {type params;}) => {
                                      "route": route(M.params),
                                    })
                                      =?,
-        ~tabBarComponent: React.component(Js.t(materialTopTabBarProps))=?,
+        ~tabBar: React.component(Js.t(materialTopTabBarProps))=?,
         ~tabBarOptions: materialTopTabBarOptions=?,
         ~tabBarPosition: [@bs.string] [ | `top | `bottom]=?,
         unit
