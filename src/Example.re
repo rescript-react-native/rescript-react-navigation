@@ -59,7 +59,9 @@ module RootStackScreen = {
     <Native.NavigationContainer>
       <Navigator mode=`modal headerMode=`none>
         <Screen name="Main" component=MainStackScreen.make />
-        <Screen name="MyModal" component=ModalScreen.make />
+        <ScreenWithCallback name="MyModal">
+          {({navigation, route}) => <ModalScreen navigation route />}
+        </ScreenWithCallback>
       </Navigator>
     </Native.NavigationContainer>;
 };

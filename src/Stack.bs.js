@@ -40,18 +40,23 @@ function Make(M) {
   };
   var stack = Stack.createStackNavigator();
   var make = stack.Screen;
-  var $$Screen = {
+  var ScreenWithCallback = {
     make: make
   };
-  var make$1 = stack.Navigator;
-  var $$Navigator = {
+  var make$1 = stack.Screen;
+  var $$Screen = {
     make: make$1
+  };
+  var make$2 = stack.Navigator;
+  var $$Navigator = {
+    make: make$2
   };
   return {
           Navigation: Navigation,
           HeaderTitle: HeaderTitle,
           Header: Header,
           stack: stack,
+          ScreenWithCallback: ScreenWithCallback,
           $$Screen: $$Screen,
           $$Navigator: $$Navigator
         };

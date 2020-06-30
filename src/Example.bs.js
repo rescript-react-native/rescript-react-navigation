@@ -72,18 +72,23 @@ var MainStackScreen_Header = include.Header;
 
 var MainStackScreen_stack = include.stack;
 
+var MainStackScreen_ScreenWithCallback = include.ScreenWithCallback;
+
 var MainStackScreen = {
   StakeParams: StakeParams,
   Navigation: MainStackScreen_Navigation,
   HeaderTitle: MainStackScreen_HeaderTitle,
   Header: MainStackScreen_Header,
   stack: MainStackScreen_stack,
+  ScreenWithCallback: MainStackScreen_ScreenWithCallback,
   $$Screen: $$Screen,
   $$Navigator: $$Navigator,
   make: Example$MainStackScreen
 };
 
 var include$1 = Stack$ReactNavigation.Make({ });
+
+var ScreenWithCallback = include$1.ScreenWithCallback;
 
 var $$Screen$1 = include$1.$$Screen;
 
@@ -98,9 +103,14 @@ function Example$RootStackScreen(Props) {
                   }, React.createElement($$Screen$1.make, {
                         name: "Main",
                         component: Example$MainStackScreen
-                      }), React.createElement($$Screen$1.make, {
+                      }), React.createElement(ScreenWithCallback.make, {
                         name: "MyModal",
-                        component: Example$ModalScreen
+                        children: (function (param) {
+                            return React.createElement(Example$ModalScreen, {
+                                        navigation: param.navigation,
+                                        route: param.route
+                                      });
+                          })
                       }))
             });
 }
@@ -118,6 +128,7 @@ var RootStackScreen = {
   HeaderTitle: RootStackScreen_HeaderTitle,
   Header: RootStackScreen_Header,
   stack: RootStackScreen_stack,
+  ScreenWithCallback: ScreenWithCallback,
   $$Screen: $$Screen$1,
   $$Navigator: $$Navigator$1,
   make: Example$RootStackScreen
