@@ -28,20 +28,25 @@ function Make(M) {
     number: number,
     string: string
   };
-  var stack = MaterialBottomTabs.createMaterialBottomTabNavigator();
-  var make = stack.Screen;
+  var materialBottomTabs = MaterialBottomTabs.createMaterialBottomTabNavigator();
+  var make = materialBottomTabs.Screen;
   var $$Screen = {
     make: make
   };
-  var make$1 = stack.Navigator;
-  var $$Navigator = {
+  var make$1 = materialBottomTabs.Screen;
+  var ScreenWithCallback = {
     make: make$1
+  };
+  var make$2 = materialBottomTabs.Navigator;
+  var $$Navigator = {
+    make: make$2
   };
   return {
           Navigation: Navigation,
           TabBarBadge: TabBarBadge,
-          stack: stack,
+          materialBottomTabs: materialBottomTabs,
           $$Screen: $$Screen,
+          ScreenWithCallback: ScreenWithCallback,
           $$Navigator: $$Navigator
         };
 }

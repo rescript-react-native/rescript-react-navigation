@@ -20,6 +20,7 @@ module MaterialTopTabNavigationProp = (M: {
 };
 
 module Make = (M: {type params;}) => {
+  type nonrec route = route(M.params);
   module Navigation =
     MaterialTopTabNavigationProp({
       include M;
@@ -30,7 +31,7 @@ module Make = (M: {type params;}) => {
 
   type scene = {
     .
-    "route": route(M.params),
+    "route": route,
     "focused": bool,
     "tintColor": string,
   };
@@ -73,7 +74,7 @@ module Make = (M: {type params;}) => {
   type accessibilityRole = string;
   type accessibilityStates = array(string);
 
-  type routeOptions = {route: route(M.params)};
+  type routeOptions = {route};
 
   class type virtual materialTopTabBarProps = {
     as 'self;
@@ -86,7 +87,7 @@ module Make = (M: {type params;}) => {
     pub onTabPress:
       {
         .
-        "route": route(M.params),
+        "route": route,
         [@bs.meth] "preventDefault": unit => unit,
       } =>
       unit;
@@ -120,8 +121,7 @@ module Make = (M: {type params;}) => {
       ~style: ReactNative.Style.t=?,
       unit
     ) =>
-    materialTopTabBarOptions =
-    "";
+    materialTopTabBarOptions;
 
   [@bs.obj]
   external options:
@@ -136,19 +136,49 @@ module Make = (M: {type params;}) => {
       ~tabBarVisible: bool=?,
       unit
     ) =>
-    options =
-    "";
+    options;
 
   type optionsProps = {
     navigation,
-    route: route(M.params),
+    route,
   };
 
   type optionsCallback = optionsProps => options;
 
-  type navigatorProps;
+  type navigatorProps = {
+    initialRouteName: option(string),
+    screenOptions: option(optionsCallback),
+    lazyPlaceholderComponent: option(React.component({. "route": route})),
+    tabBar: option(React.component(Js.t(materialTopTabBarProps))),
+    tabBarOptions: option(materialTopTabBarOptions),
+    tabBarPosition: option(string),
+    backBehavior: option(string),
+    shifting: option(bool),
+    labeled: option(bool),
+    activeColor: option(string),
+    inactiveColor: option(string),
+    barStyle: option(ReactNative.Style.t),
+  };
 
-  type screenProps;
+  type renderCallbackProp = {
+    navigation,
+    route,
+  };
+
+  type screenProps('params) = {
+    name: string,
+    options: option(optionsCallback),
+    initialParams: option('params),
+    component:
+      option(
+        React.component({
+          .
+          "navigation": navigation,
+          "route": route,
+        }),
+      ),
+    children: option(renderCallbackProp => React.element),
+  };
 
   [@bs.module "@react-navigation/material-top-tabs"]
   external make:
@@ -156,11 +186,11 @@ module Make = (M: {type params;}) => {
     {
       .
       "Navigator": navigatorProps => React.element,
-      "Screen": screenProps => React.element,
+      "Screen": screenProps(M.params) => React.element,
     } =
     "createMaterialTopTabNavigator";
 
-  let stack = make();
+  let materialTopTabs = make();
 
   module Screen = {
     [@bs.obj]
@@ -172,9 +202,22 @@ module Make = (M: {type params;}) => {
         ~component: React.component({. "navigation": navigation}),
         unit
       ) =>
-      screenProps =
-      "";
-    let make = stack##"Screen";
+      screenProps(M.params);
+    let make = materialTopTabs##"Screen";
+  };
+
+  module ScreenWithCallback = {
+    [@bs.obj]
+    external makeProps:
+      (
+        ~name: string,
+        ~options: optionsCallback=?,
+        ~initialParams: M.params=?,
+        ~children: renderCallbackProp => React.element,
+        unit
+      ) =>
+      screenProps(M.params);
+    let make = materialTopTabs##"Screen";
   };
 
   module Navigator = {
@@ -184,19 +227,14 @@ module Make = (M: {type params;}) => {
         ~initialRouteName: string=?,
         ~screenOptions: optionsCallback=?,
         ~children: React.element,
-        ~lazyPlaceholderComponent: React.component({
-                                     .
-                                     "route": route(M.params),
-                                   })
-                                     =?,
+        ~lazyPlaceholderComponent: React.component({. "route": route})=?,
         ~tabBar: React.component(Js.t(materialTopTabBarProps))=?,
         ~tabBarOptions: materialTopTabBarOptions=?,
         ~tabBarPosition: [@bs.string] [ | `top | `bottom]=?,
         unit
       ) =>
-      navigatorProps =
-      "";
+      navigatorProps;
 
-    let make = stack##"Navigator";
+    let make = materialTopTabs##"Navigator";
   };
 };

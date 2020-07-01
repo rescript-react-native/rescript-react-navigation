@@ -9,19 +9,24 @@ function Make(M) {
   var M$1 = { };
   var include = Core$ReactNavigation.NavigationScreenProp(M$1);
   var Navigation = include;
-  var stack = MaterialTopTabs.createMaterialTopTabNavigator();
-  var make = stack.Screen;
+  var materialTopTabs = MaterialTopTabs.createMaterialTopTabNavigator();
+  var make = materialTopTabs.Screen;
   var $$Screen = {
     make: make
   };
-  var make$1 = stack.Navigator;
-  var $$Navigator = {
+  var make$1 = materialTopTabs.Screen;
+  var ScreenWithCallback = {
     make: make$1
+  };
+  var make$2 = materialTopTabs.Navigator;
+  var $$Navigator = {
+    make: make$2
   };
   return {
           Navigation: Navigation,
-          stack: stack,
+          materialTopTabs: materialTopTabs,
           $$Screen: $$Screen,
+          ScreenWithCallback: ScreenWithCallback,
           $$Navigator: $$Navigator
         };
 }
