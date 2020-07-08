@@ -30,22 +30,18 @@ module Make = (M: {type params;}) => {
   type animatedNode = ReactNative.Animated.Value.t;
 
   type scene = {
-    .
-    "route": route,
-    "focused": bool,
-    "tintColor": string,
+    focused: bool,
+    color: string,
   };
 
   class type virtual tabBar = {
     pub scrollEnabled: option(bool);
-    pub bounces: option(bool);
     //pub navigationState: navigationState(M.params);
     //pub activeColor: option(string);
     //pub inactiveColor: option(string);
     pub pressColor: option(string);
     pub pressOpacity: option(float);
     //pub getLabelText: scene => Js.nullable(string);
-    pub getAccessible: scene => Js.nullable(bool);
     //pub getAccessibilityLabel: scene => Js.nullable(string);
     //pub getTestID: scene => Js.nullable(string);
     //TODO: render: https://github.com/react-native-community/react-native-tab-view/blob/64e03bf14b0fac9c3bccd684bf31a04ecf19c50d/src/TabBar.tsx#L38-L51
@@ -53,9 +49,7 @@ module Make = (M: {type params;}) => {
     //pub onTabLongPress: option(scene => unit);
     pub tabStyle: option(ReactNative.Style.t);
     pub indicatorStyle: option(ReactNative.Style.t);
-    pub indicatorContainerStyle: option(ReactNative.Style.t);
     pub labelStyle: option(ReactNative.Style.t);
-    pub contentContainerStyle: option(ReactNative.Style.t);
     pub style: option(ReactNative.Style.t);
   };
 
@@ -67,7 +61,6 @@ module Make = (M: {type params;}) => {
     pub iconStyle: option(ReactNative.Style.t);
     pub showLabel: option(bool);
     pub showIcon: option(bool);
-    pub upperCaseLabel: option(bool);
     pub allowFontScaling: option(bool);
   };
 
@@ -106,19 +99,15 @@ module Make = (M: {type params;}) => {
       ~iconStyle: ReactNative.Style.t=?,
       ~showLabel: bool=?,
       ~showIcon: bool=?,
-      ~upperCaseLabel: bool=?,
       ~allowFontScaling: bool=?,
       ~scrollEnabled: bool=?,
-      ~bounces: bool=?,
       ~pressColor: string=?,
       ~pressOpacity: float=?,
-      ~getAccessible: Js.nullable(bool)=?,
       ~tabStyle: ReactNative.Style.t=?,
       ~indicatorStyle: ReactNative.Style.t=?,
-      ~indicatorContainerStyle: ReactNative.Style.t=?,
       ~labelStyle: ReactNative.Style.t=?,
-      ~contentContainerStyle: ReactNative.Style.t=?,
       ~style: ReactNative.Style.t=?,
+      ~renderIndicator: React.component({. "route": route})=?,
       unit
     ) =>
     materialTopTabBarOptions;
@@ -133,7 +122,6 @@ module Make = (M: {type params;}) => {
       ~tabBarIcon: scene => React.element=?,
       ~tabBarAccessibilityLabel: string=?,
       ~tabBarTestID: string=?,
-      ~tabBarVisible: bool=?,
       unit
     ) =>
     options;
@@ -148,16 +136,19 @@ module Make = (M: {type params;}) => {
   type navigatorProps = {
     initialRouteName: option(string),
     screenOptions: option(optionsCallback),
-    lazyPlaceholderComponent: option(React.component({. "route": route})),
+    _lazy: option(bool),
+    lazyPreloadDistance: option(int),
+    lazyPlaceholder: option(React.component({. "route": route})),
     tabBar: option(React.component(Js.t(materialTopTabBarProps))),
     tabBarOptions: option(materialTopTabBarOptions),
     tabBarPosition: option(string),
     backBehavior: option(string),
-    shifting: option(bool),
-    labeled: option(bool),
-    activeColor: option(string),
-    inactiveColor: option(string),
-    barStyle: option(ReactNative.Style.t),
+    removeClippedSubviews: option(bool),
+    keyboardDismissMode: option(string),
+    swipeEnabled: option(bool),
+    swipeVelocityImpact: option(float),
+    sceneContainerStyle: option(ReactNative.Style.t),
+    style: option(ReactNative.Style.t),
   };
 
   type renderCallbackProp = {
@@ -227,10 +218,30 @@ module Make = (M: {type params;}) => {
         ~initialRouteName: string=?,
         ~screenOptions: optionsCallback=?,
         ~children: React.element,
-        ~lazyPlaceholderComponent: React.component({. "route": route})=?,
+        ~backBehavior: [@bs.string] [
+                         | `initialRoute
+                         | `order
+                         | `history
+                         | `none
+                       ]
+                         =?,
+        ~_lazy: bool=?,
+        ~lazyPreloadDistance: int=?,
+        ~lazyPlaceholder: React.component({. "route": route})=?,
         ~tabBar: React.component(Js.t(materialTopTabBarProps))=?,
         ~tabBarOptions: materialTopTabBarOptions=?,
         ~tabBarPosition: [@bs.string] [ | `top | `bottom]=?,
+        ~removeClippedSubviews: bool=?,
+        ~keyboardDismissMode: [@bs.string] [
+                                | `auto
+                                | [@bs.as "on-drag"] `onDrag
+                                | `none
+                              ]
+                                =?,
+        ~swipeEnabled: bool=?,
+        ~swipeVelocityImpact: float=?,
+        ~sceneContainerStyle: ReactNative.Style.t=?,
+        ~style: ReactNative.Style.t=?,
         unit
       ) =>
       navigatorProps;
