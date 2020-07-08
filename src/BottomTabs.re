@@ -39,7 +39,6 @@ module Make = (M: {type params;}) => {
     pub inactiveBackgroundColor: option(string);
     pub allowFontScaling: option(bool);
     pub showLabel: option(bool);
-    pub showIcon: option(bool);
     pub labelStyle: option(ReactNative.Style.t);
     pub tabStyle: option(ReactNative.Style.t);
     pub labelPosition: option(labelPositionArgs => string);
@@ -120,7 +119,8 @@ module Make = (M: {type params;}) => {
       ~tabBarAccessibilityLabel: string=?,
       ~tabBarTestID: string=?,
       ~tabBarVisible: bool=?,
-      ~tabBarButtonComponent: React.element=?,
+      ~tabBarButton: React.element=?,
+      ~unmountOnBlur: bool=?,
       unit
     ) =>
     options;
@@ -135,6 +135,7 @@ module Make = (M: {type params;}) => {
   type navigatorProps = {
     initialRouteName: option(string),
     screenOptions: option(optionsCallback),
+    backBehavior: option(string),
     _lazy: option(bool),
     tabBar: option(React.component(Js.t(bottomTabBarProps))),
     tabBarOptions: option(bottomTabBarOptions),
@@ -211,6 +212,13 @@ module Make = (M: {type params;}) => {
         ~initialRouteName: string=?,
         ~screenOptions: optionsCallback=?,
         ~children: React.element,
+        ~backBehavior: [@bs.string] [
+                         | `initialRoute
+                         | `order
+                         | `history
+                         | `none
+                       ]
+                         =?,
         ~_lazy: bool=?,
         ~tabBar: React.component(Js.t(bottomTabBarProps))=?,
         ~tabBarOptions: bottomTabBarOptions=?,
