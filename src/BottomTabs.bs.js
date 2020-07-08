@@ -14,14 +14,19 @@ function Make(M) {
   var $$Screen = {
     make: make
   };
-  var make$1 = bottomTabs.Navigator;
-  var $$Navigator = {
+  var make$1 = bottomTabs.Screen;
+  var ScreenWithCallback = {
     make: make$1
+  };
+  var make$2 = bottomTabs.Navigator;
+  var $$Navigator = {
+    make: make$2
   };
   return {
           Navigation: Navigation,
           bottomTabs: bottomTabs,
           $$Screen: $$Screen,
+          ScreenWithCallback: ScreenWithCallback,
           $$Navigator: $$Navigator
         };
 }

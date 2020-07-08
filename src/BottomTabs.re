@@ -16,6 +16,7 @@ module BottomTabNavigationProp = (M: {
 };
 
 module Make = (M: {type params;}) => {
+  type nonrec route = route(M.params);
   module Navigation =
     BottomTabNavigationProp({
       include M;
@@ -55,9 +56,9 @@ module Make = (M: {type params;}) => {
 
   type accessibilityRole = string;
   type accessibilityStates = array(string);
-  type routeArgs = {route: route(M.params)};
+  type routeArgs = {route};
   type renderIconArgs = {
-    route: route(M.params),
+    route,
     focused: bool,
     tintColor: string,
     horizontal: bool,
@@ -98,8 +99,7 @@ module Make = (M: {type params;}) => {
       ~style: ReactNative.Style.t=?,
       unit
     ) =>
-    bottomTabBarOptions =
-    "";
+    bottomTabBarOptions;
 
   type tabBarLabelArgs = {
     focused: bool,
@@ -123,19 +123,42 @@ module Make = (M: {type params;}) => {
       ~tabBarButtonComponent: React.element=?,
       unit
     ) =>
-    options =
-    "";
+    options;
 
   type optionsProps = {
     navigation,
-    route: route(M.params),
+    route,
   };
 
   type optionsCallback = optionsProps => options;
 
-  type navigatorProps;
+  type navigatorProps = {
+    initialRouteName: option(string),
+    screenOptions: option(optionsCallback),
+    _lazy: option(bool),
+    tabBar: option(React.component(Js.t(bottomTabBarProps))),
+    tabBarOptions: option(bottomTabBarOptions),
+  };
 
-  type screenProps;
+  type renderCallbackProp = {
+    navigation,
+    route,
+  };
+
+  type screenProps('params) = {
+    name: string,
+    options: option(optionsCallback),
+    initialParams: option('params),
+    component:
+      option(
+        React.component({
+          .
+          "navigation": navigation,
+          "route": route,
+        }),
+      ),
+    children: option(renderCallbackProp => React.element),
+  };
 
   [@bs.module "@react-navigation/bottom-tabs"]
   external make:
@@ -143,7 +166,7 @@ module Make = (M: {type params;}) => {
     {
       .
       "Navigator": navigatorProps => React.element,
-      "Screen": screenProps => React.element,
+      "Screen": screenProps(M.params) => React.element,
     } =
     "createBottomTabNavigator";
 
@@ -159,12 +182,25 @@ module Make = (M: {type params;}) => {
         ~component: React.component({
                       .
                       "navigation": navigation,
-                      "route": route(M.params),
+                      "route": route,
                     }),
         unit
       ) =>
-      screenProps =
-      "";
+      screenProps(M.params);
+    let make = bottomTabs##"Screen";
+  };
+
+  module ScreenWithCallback = {
+    [@bs.obj]
+    external makeProps:
+      (
+        ~name: string,
+        ~options: optionsCallback=?,
+        ~initialParams: M.params=?,
+        ~children: renderCallbackProp => React.element,
+        unit
+      ) =>
+      screenProps(M.params);
     let make = bottomTabs##"Screen";
   };
 
@@ -180,8 +216,7 @@ module Make = (M: {type params;}) => {
         ~tabBarOptions: bottomTabBarOptions=?,
         unit
       ) =>
-      navigatorProps =
-      "";
+      navigatorProps;
 
     let make = bottomTabs##"Navigator";
   };

@@ -253,11 +253,11 @@ module Make = (M: {type params;}) => {
     navigation,
     route,
   };
-  type optionCallback = optionsProps => options;
+  type optionsCallback = optionsProps => options;
 
   type navigatorProps = {
     initialRouteName: option(string),
-    screenOptions: option(optionCallback),
+    screenOptions: option(optionsCallback),
     mode: option(string),
     headerMode: option(string),
     keyboardHandlingEnabled: option(bool),
@@ -268,7 +268,7 @@ module Make = (M: {type params;}) => {
   };
   type screenProps('params) = {
     name: string,
-    options: option(optionCallback),
+    options: option(optionsCallback),
     initialParams: option('params),
     component:
       option(
@@ -297,7 +297,7 @@ module Make = (M: {type params;}) => {
     external makeProps:
       (
         ~name: string,
-        ~options: optionCallback=?,
+        ~options: optionsCallback=?,
         ~initialParams: M.params=?,
         ~children: renderCallbackProp => React.element,
         unit
@@ -311,7 +311,7 @@ module Make = (M: {type params;}) => {
     external makeProps:
       (
         ~name: string,
-        ~options: optionCallback=?,
+        ~options: optionsCallback=?,
         ~initialParams: M.params=?,
         ~component: React.component({
                       .
@@ -330,7 +330,7 @@ module Make = (M: {type params;}) => {
     external makeProps:
       (
         ~initialRouteName: string=?,
-        ~screenOptions: optionCallback=?,
+        ~screenOptions: optionsCallback=?,
         ~mode: [@bs.string] [ | `card | `modal]=?,
         ~headerMode: [@bs.string] [ | `float | `screen | `none]=?,
         ~keyboardHandlingEnabled: bool=?,
