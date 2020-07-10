@@ -137,8 +137,7 @@ module Make = (M: {type params;}) => {
     screenOptions: option(optionsCallback),
     backBehavior: option(string),
     _lazy: option(bool),
-    tabBar:
-      option(bottomTabBarProps => React.component(Js.t(bottomTabBarProps))),
+    tabBar: option(Js.t(bottomTabBarProps) => React.element),
     tabBarOptions: option(bottomTabBarOptions),
   };
 
@@ -221,9 +220,7 @@ module Make = (M: {type params;}) => {
                        ]
                          =?,
         ~_lazy: bool=?,
-        ~tabBar: bottomTabBarProps =>
-                 React.component(Js.t(bottomTabBarProps))
-                   =?,
+        ~tabBar: Js.t(bottomTabBarProps) => React.element=?,
         ~tabBarOptions: bottomTabBarOptions=?,
         unit
       ) =>
