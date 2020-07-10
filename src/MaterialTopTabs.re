@@ -93,6 +93,7 @@ module Make = (M: {type params;}) => {
     //SceneRendererProps
     pub layout: layout;
     pub position: animatedNode;
+    pub jumpTo: string => unit;
   };
 
   [@bs.obj]
@@ -260,6 +261,9 @@ module Make = (M: {type params;}) => {
         ~state: navigationState(M.params),
         ~navigation: navigation,
         ~descriptors: descriptors,
+        ~layout: layout,
+        ~position: animatedNode,
+        ~jumpTo: string => unit,
         ~activeTintColor: string=?,
         ~inactiveTintColor: string=?,
         ~iconStyle: ReactNative.Style.t=?,
