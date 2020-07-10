@@ -207,6 +207,7 @@ module Make = (M: {type params;}) => {
   };
 
   type headerRightOptions = {tintColor: option(ReactNative.Color.t)};
+  type headerBackgroundOptions = {style: option(ReactNative.Style.t)};
 
   [@bs.obj]
   external options:
@@ -241,7 +242,7 @@ module Make = (M: {type params;}) => {
       ~headerRightContainerStyle: ReactNative.Style.t=?,
       ~headerBackImage: backImage=?,
       ~headerPressColorAndroid: ReactNative.Color.t=?,
-      ~headerBackground: unit => React.element=?,
+      ~headerBackground: headerBackgroundOptions => React.element=?,
       ~headerStatusBarHeight: ReactNative.Style.size=?,
       ~headerStyle: ReactNative.Style.t=?,
       ~headerTransparent: bool=?,
