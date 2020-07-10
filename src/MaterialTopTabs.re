@@ -43,12 +43,7 @@ module Make = (M: {type params;}) => {
     //pub inactiveColor: option(string);
     pub pressColor: option(string);
     pub pressOpacity: option(float);
-    //pub getLabelText: scene => Js.nullable(string);
-    //pub getAccessibilityLabel: scene => Js.nullable(string);
-    //pub getTestID: scene => Js.nullable(string);
     //TODO: render: https://github.com/react-native-community/react-native-tab-view/blob/64e03bf14b0fac9c3bccd684bf31a04ecf19c50d/src/TabBar.tsx#L38-L51
-    //pub onTabPress: option(scene => unit);
-    //pub onTabLongPress: option(scene => unit);
     pub tabStyle: option(ReactNative.Style.t);
     pub indicatorStyle: option(ReactNative.Style.t);
     pub labelStyle: option(ReactNative.Style.t);
@@ -78,19 +73,7 @@ module Make = (M: {type params;}) => {
     pub state: navigationState(M.params);
     pub navigation: navigation;
     pub descriptors: descriptors;
-    //pub getLabelText: routeOptions => ...;
-    pub getAccessibilityLabel: routeOptions => Js.nullable(string);
-    pub getTestID: routeOptions => Js.nullable(string);
-    pub onTabPress:
-      {
-        .
-        "route": route,
-        [@bs.meth] "preventDefault": unit => unit,
-      } =>
-      unit;
-    pub onTabLongPress: routeOptions => unit;
-    pub tabBarPosition: string; //`top | `bottom
-    //SceneRendererProps
+    // SceneRendererProps from react-native-tab-view
     pub layout: layout;
     pub position: animatedNode;
     pub jumpTo: string => unit;
@@ -261,9 +244,11 @@ module Make = (M: {type params;}) => {
         ~state: navigationState(M.params),
         ~navigation: navigation,
         ~descriptors: descriptors,
+        // SceneRendererProps from react-native-tab-view
         ~layout: layout,
         ~position: animatedNode,
         ~jumpTo: string => unit,
+        // materialTopTabBarOptions
         ~activeTintColor: string=?,
         ~inactiveTintColor: string=?,
         ~iconStyle: ReactNative.Style.t=?,
