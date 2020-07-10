@@ -129,7 +129,7 @@ module Make = (M: {type params;}) => {
     lazyPlaceholder: option(React.component({. "route": route})),
     tabBar:
       option(
-        materialTopTabBarProps =>
+        Js.t(materialTopTabBarProps) =>
         React.component(Js.t(materialTopTabBarProps)),
       ),
     tabBarOptions: option(materialTopTabBarOptions),
@@ -220,7 +220,7 @@ module Make = (M: {type params;}) => {
         ~_lazy: bool=?,
         ~lazyPreloadDistance: int=?,
         ~lazyPlaceholder: React.component({. "route": route})=?,
-        ~tabBar: materialTopTabBarProps =>
+        ~tabBar: Js.t(materialTopTabBarProps) =>
                  React.component(Js.t(materialTopTabBarProps))
                    =?,
         ~tabBarOptions: materialTopTabBarOptions=?,
