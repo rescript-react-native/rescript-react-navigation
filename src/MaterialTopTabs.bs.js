@@ -22,12 +22,14 @@ function Make(M) {
   var $$Navigator = {
     make: make$2
   };
+  var MaterialTopTabBar = { };
   return {
           Navigation: Navigation,
           materialTopTabs: materialTopTabs,
           $$Screen: $$Screen,
           ScreenWithCallback: ScreenWithCallback,
-          $$Navigator: $$Navigator
+          $$Navigator: $$Navigator,
+          MaterialTopTabBar: MaterialTopTabBar
         };
 }
 

@@ -51,6 +51,7 @@ module Make = (M: {type params;}) => {
     pub indicatorStyle: option(ReactNative.Style.t);
     pub labelStyle: option(ReactNative.Style.t);
     pub style: option(ReactNative.Style.t);
+    pub renderIndicator: option(React.component({. "route": route}));
   };
 
   class type virtual materialTopTabBarOptions = {
@@ -247,5 +248,31 @@ module Make = (M: {type params;}) => {
       navigatorProps;
 
     let make = materialTopTabs##"Navigator";
+  };
+
+  module MaterialTopTabBar = {
+    [@bs.module "@react-navigation/material-top-tabs"] [@react.component]
+    external make:
+      (
+        ~state: navigationState(M.params),
+        ~navigation: navigation,
+        ~activeTintColor: string=?,
+        ~inactiveTintColor: string=?,
+        ~iconStyle: ReactNative.Style.t=?,
+        ~showLabel: bool=?,
+        ~showIcon: bool=?,
+        ~allowFontScaling: bool=?,
+        ~scrollEnabled: bool=?,
+        ~pressColor: string=?,
+        ~pressOpacity: float=?,
+        ~tabStyle: ReactNative.Style.t=?,
+        ~indicatorStyle: ReactNative.Style.t=?,
+        ~labelStyle: ReactNative.Style.t=?,
+        ~style: ReactNative.Style.t=?,
+        ~renderIndicator: React.component({. "route": route})=?,
+        unit
+      ) =>
+      React.element =
+      "MaterialTopTabBar";
   };
 };
