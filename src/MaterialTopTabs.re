@@ -127,7 +127,11 @@ module Make = (M: {type params;}) => {
     _lazy: option(bool),
     lazyPreloadDistance: option(int),
     lazyPlaceholder: option(React.component({. "route": route})),
-    tabBar: option(React.component(Js.t(materialTopTabBarProps))),
+    tabBar:
+      option(
+        materialTopTabBarProps =>
+        React.component(Js.t(materialTopTabBarProps)),
+      ),
     tabBarOptions: option(materialTopTabBarOptions),
     tabBarPosition: option(string),
     backBehavior: option(string),
@@ -216,7 +220,9 @@ module Make = (M: {type params;}) => {
         ~_lazy: bool=?,
         ~lazyPreloadDistance: int=?,
         ~lazyPlaceholder: React.component({. "route": route})=?,
-        ~tabBar: React.component(Js.t(materialTopTabBarProps))=?,
+        ~tabBar: materialTopTabBarProps =>
+                 React.component(Js.t(materialTopTabBarProps))
+                   =?,
         ~tabBarOptions: materialTopTabBarOptions=?,
         ~tabBarPosition: [@bs.string] [ | `top | `bottom]=?,
         ~removeClippedSubviews: bool=?,
