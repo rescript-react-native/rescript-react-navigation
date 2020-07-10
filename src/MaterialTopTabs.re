@@ -34,6 +34,8 @@ module Make = (M: {type params;}) => {
     color: string,
   };
 
+  type descriptors;
+
   class type virtual tabBar = {
     pub scrollEnabled: option(bool);
     //pub navigationState: navigationState(M.params);
@@ -75,6 +77,7 @@ module Make = (M: {type params;}) => {
     constraint 'self = #materialTopTabBarOptions;
     pub state: navigationState(M.params);
     pub navigation: navigation;
+    pub descriptors: descriptors;
     //pub getLabelText: routeOptions => ...;
     pub getAccessibilityLabel: routeOptions => Js.nullable(string);
     pub getTestID: routeOptions => Js.nullable(string);
@@ -256,6 +259,7 @@ module Make = (M: {type params;}) => {
       (
         ~state: navigationState(M.params),
         ~navigation: navigation,
+        ~descriptors: descriptors,
         ~activeTintColor: string=?,
         ~inactiveTintColor: string=?,
         ~iconStyle: ReactNative.Style.t=?,
