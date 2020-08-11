@@ -207,6 +207,7 @@ module Make = (M: {type params;}) => {
   };
 
   type headerRightOptions = {tintColor: option(ReactNative.Color.t)};
+  type headerBackgroundOptions = {style: option(ReactNative.Style.t)};
 
   [@bs.obj]
   external options:
@@ -215,14 +216,17 @@ module Make = (M: {type params;}) => {
       ~header: Header.t=?,
       ~cardShadowEnabled: bool=?,
       ~cardOverlayEnabled: bool=?,
-      ~cardTransparent: bool=?,
+      ~cardOverlay: unit => React.element=?,
       ~cardStyle: ReactNative.Style.t=?,
       ~animationEnabled: bool=?,
+      ~animationTypeForReplace: [@bs.string] [ | `push | `pop]=?,
       ~gestureEnabled: bool=?,
       ~gestureResponseDistance: gestureResponseDistance=?,
+      ~gestureVelocityImpact: float=?,
       // StackHeaderOptions
       ~headerShown: bool=?,
       ~headerTitle: HeaderTitle.t=?,
+      ~headerTitleAlign: [@bs.string] [ | `left | `center]=?,
       ~headerTitleStyle: ReactNative.Style.t=?,
       ~headerTitleContainerStyle: ReactNative.Style.t=?,
       ~headerTintColor: ReactNative.Color.t=?,
@@ -238,7 +242,8 @@ module Make = (M: {type params;}) => {
       ~headerRightContainerStyle: ReactNative.Style.t=?,
       ~headerBackImage: backImage=?,
       ~headerPressColorAndroid: ReactNative.Color.t=?,
-      ~headerBackground: unit => React.element=?,
+      ~headerBackground: headerBackgroundOptions => React.element=?,
+      ~headerStatusBarHeight: ReactNative.Style.size=?,
       ~headerStyle: ReactNative.Style.t=?,
       ~headerTransparent: bool=?,
       // TransitionPreset
