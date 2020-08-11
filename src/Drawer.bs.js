@@ -6,7 +6,7 @@ var Drawer = require("@react-navigation/drawer");
 var DrawerNavigationProp = Core$ReactNavigation.NavigationScreenProp;
 
 function Make(M) {
-  var M$1 = { };
+  var M$1 = {};
   var include = Core$ReactNavigation.NavigationScreenProp(M$1);
   var Navigation = include;
   var stack = Drawer.createDrawerNavigator();

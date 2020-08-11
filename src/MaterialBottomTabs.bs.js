@@ -7,11 +7,11 @@ var MaterialBottomTabs = require("@react-navigation/material-bottom-tabs");
 var MaterialBottomTabNavigationProp = Core$ReactNavigation.NavigationScreenProp;
 
 function Make(M) {
-  var M$1 = { };
+  var M$1 = {};
   var include = Core$ReactNavigation.NavigationScreenProp(M$1);
   var Navigation = include;
   var t = function (prim) {
-    return Interop.identity(prim[1]);
+    return Interop.identity(prim.VAL);
   };
   var $$boolean = function (x) {
     return Interop.identity(x);

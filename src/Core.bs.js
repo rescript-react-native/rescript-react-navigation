@@ -11,7 +11,7 @@ function NavigationHelpersCommon(M) {
       tmp.params = Caml_option.valFromOption(params);
     }
     tmp.navigate();
-    return /* () */0;
+    
   };
   var navigateByName = function (name, key, params, param) {
     var tmp = {
@@ -24,7 +24,7 @@ function NavigationHelpersCommon(M) {
       tmp.params = Caml_option.valFromOption(params);
     }
     tmp.navigate();
-    return /* () */0;
+    
   };
   return {
           navigateByKey: navigateByKey,
@@ -33,7 +33,7 @@ function NavigationHelpersCommon(M) {
 }
 
 function EventConsumer(M) {
-  return { };
+  return {};
 }
 
 function NavigationScreenProp(M) {
@@ -45,7 +45,7 @@ function NavigationScreenProp(M) {
       tmp.params = Caml_option.valFromOption(params);
     }
     tmp.navigate();
-    return /* () */0;
+    
   };
   var navigateByName = function (name, key, params, param) {
     var tmp = {
@@ -58,7 +58,7 @@ function NavigationScreenProp(M) {
       tmp.params = Caml_option.valFromOption(params);
     }
     tmp.navigate();
-    return /* () */0;
+    
   };
   return {
           navigateByKey: navigateByKey,

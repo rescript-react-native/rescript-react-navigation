@@ -29,7 +29,7 @@ var ModalScreen = {
   make: Example$ModalScreen
 };
 
-var StakeParams = { };
+var StakeParams = {};
 
 var include = Stack$ReactNavigation.Make(StakeParams);
 
@@ -44,15 +44,15 @@ function Example$MainStackScreen(Props) {
               children: React.createElement($$Screen.make, {
                     name: "Home",
                     options: (function (props) {
-                        var match = props.route.params;
+                        var params = props.route.params;
                         return {
-                                title: match !== undefined ? match.name : "Reason",
+                                title: params !== undefined ? params.name : "Reason",
                                 headerRight: (function (param) {
                                     return React.createElement(ReactNative.Button, {
                                                 color: "#f00",
                                                 onPress: (function (param) {
                                                     props.navigation.navigate("MyModal");
-                                                    return /* () */0;
+                                                    
                                                   }),
                                                 title: "Info"
                                               });
@@ -86,7 +86,7 @@ var MainStackScreen = {
   make: Example$MainStackScreen
 };
 
-var include$1 = Stack$ReactNavigation.Make({ });
+var include$1 = Stack$ReactNavigation.Make({});
 
 var ScreenWithCallback = include$1.ScreenWithCallback;
 

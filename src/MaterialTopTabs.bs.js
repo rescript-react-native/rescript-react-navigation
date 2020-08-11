@@ -6,7 +6,7 @@ var MaterialTopTabs = require("@react-navigation/material-top-tabs");
 var MaterialTopTabNavigationProp = Core$ReactNavigation.NavigationScreenProp;
 
 function Make(M) {
-  var M$1 = { };
+  var M$1 = {};
   var include = Core$ReactNavigation.NavigationScreenProp(M$1);
   var Navigation = include;
   var materialTopTabs = MaterialTopTabs.createMaterialTopTabNavigator();
@@ -22,7 +22,7 @@ function Make(M) {
   var $$Navigator = {
     make: make$2
   };
-  var MaterialTopTabBar = { };
+  var MaterialTopTabBar = {};
   return {
           Navigation: Navigation,
           materialTopTabs: materialTopTabs,

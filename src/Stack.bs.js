@@ -4,16 +4,16 @@ var Interop = require("./Interop");
 var Core$ReactNavigation = require("./Core.bs.js");
 var Stack = require("@react-navigation/stack");
 
-var TransitionSpec = { };
+var TransitionSpec = {};
 
 var StackNavigationScreenProp = Core$ReactNavigation.NavigationScreenProp;
 
 function Make(M) {
-  var M$1 = { };
+  var M$1 = {};
   var include = Core$ReactNavigation.NavigationScreenProp(M$1);
   var Navigation = include;
   var t = function (prim) {
-    return Interop.identity(prim[1]);
+    return Interop.identity(prim.VAL);
   };
   var string = function (s) {
     return Interop.identity(s);
@@ -27,7 +27,7 @@ function Make(M) {
     render: render
   };
   var t$1 = function (prim) {
-    return Interop.identity(prim[1]);
+    return Interop.identity(prim.VAL);
   };
   var render$1 = function (x) {
     return Interop.identity(x);
@@ -62,13 +62,13 @@ function Make(M) {
         };
 }
 
-var TransitionSpecs = { };
+var TransitionSpecs = {};
 
-var CardStyleInterpolators = { };
+var CardStyleInterpolators = {};
 
-var HeaderStyleInterpolators = { };
+var HeaderStyleInterpolators = {};
 
-var TransitionPresets = { };
+var TransitionPresets = {};
 
 exports.TransitionSpec = TransitionSpec;
 exports.StackNavigationScreenProp = StackNavigationScreenProp;

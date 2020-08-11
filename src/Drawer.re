@@ -76,8 +76,7 @@ module Make = (M: {type params;}) => {
                          =?,
       unit
     ) =>
-    options =
-    "";
+    options;
 
   type optionsProps = {
     navigation,
@@ -116,8 +115,7 @@ module Make = (M: {type params;}) => {
                     }),
         unit
       ) =>
-      screenProps =
-      "";
+      screenProps;
     let make = stack##"Screen";
   };
 
@@ -166,8 +164,7 @@ module Make = (M: {type params;}) => {
         ~style: ReactNative.Style.t=?,
         unit
       ) =>
-      navigatorProps =
-      "";
+      navigatorProps;
 
     let make = stack##"Navigator";
   };

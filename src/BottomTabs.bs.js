@@ -6,7 +6,7 @@ var BottomTabs = require("@react-navigation/bottom-tabs");
 var BottomTabNavigationProp = Core$ReactNavigation.NavigationScreenProp;
 
 function Make(M) {
-  var M$1 = { };
+  var M$1 = {};
   var include = Core$ReactNavigation.NavigationScreenProp(M$1);
   var Navigation = include;
   var bottomTabs = BottomTabs.createBottomTabNavigator();
