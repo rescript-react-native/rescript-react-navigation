@@ -305,6 +305,7 @@ module Make = (M: {type params;}) => {
         ~options: optionsCallback=?,
         ~initialParams: M.params=?,
         ~children: renderCallbackProp => React.element,
+        ~key: string=?,
         unit
       ) =>
       screenProps(M.params);
@@ -323,6 +324,7 @@ module Make = (M: {type params;}) => {
                       "navigation": navigation,
                       "route": route,
                     }),
+        ~key: string=?,
         unit
       ) =>
       screenProps(M.params);
@@ -340,6 +342,7 @@ module Make = (M: {type params;}) => {
         ~headerMode: [@bs.string] [ | `float | `screen | `none]=?,
         ~keyboardHandlingEnabled: bool=?,
         ~children: React.element,
+        ~key: string=?,
         unit
       ) =>
       navigatorProps;
