@@ -124,6 +124,7 @@ module Make = (M: {type params;}) => {
         ~options: optionsCallback=?,
         ~initialParams: M.params=?,
         ~component: React.component({. "navigation": navigation}),
+        ~key: string=?,
         unit
       ) =>
       screenProps(M.params);
@@ -138,6 +139,7 @@ module Make = (M: {type params;}) => {
         ~options: optionsCallback=?,
         ~initialParams: M.params=?,
         ~children: renderCallbackProp => React.element,
+        ~key: string=?,
         unit
       ) =>
       screenProps(M.params);
@@ -164,6 +166,7 @@ module Make = (M: {type params;}) => {
         ~inactiveColor: string=?,
         ~barStyle: ReactNative.Style.t=?,
         //TODO: More? https://github.com/callstack/react-native-paper/blob/bd4296116d841ed355f3dbebb40cfbc3b87a79ff/src/components/BottomNavigation.tsx#L132-L196
+        ~key: string=?,
         unit
       ) =>
       navigatorProps;

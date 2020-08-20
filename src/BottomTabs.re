@@ -185,6 +185,7 @@ module Make = (M: {type params;}) => {
                       "navigation": navigation,
                       "route": route,
                     }),
+        ~key: string=?,
         unit
       ) =>
       screenProps(M.params);
@@ -199,6 +200,7 @@ module Make = (M: {type params;}) => {
         ~options: optionsCallback=?,
         ~initialParams: M.params=?,
         ~children: renderCallbackProp => React.element,
+        ~key: string=?,
         unit
       ) =>
       screenProps(M.params);
@@ -222,6 +224,7 @@ module Make = (M: {type params;}) => {
         ~_lazy: bool=?,
         ~tabBar: Js.t(bottomTabBarProps) => React.element=?,
         ~tabBarOptions: bottomTabBarOptions=?,
+        ~key: string=?,
         unit
       ) =>
       navigatorProps;

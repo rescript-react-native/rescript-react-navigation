@@ -179,6 +179,7 @@ module Make = (M: {type params;}) => {
         ~options: optionsCallback=?,
         ~initialParams: M.params=?,
         ~component: React.component({. "navigation": navigation}),
+        ~key: string=?,
         unit
       ) =>
       screenProps(M.params);
@@ -193,6 +194,7 @@ module Make = (M: {type params;}) => {
         ~options: optionsCallback=?,
         ~initialParams: M.params=?,
         ~children: renderCallbackProp => React.element,
+        ~key: string=?,
         unit
       ) =>
       screenProps(M.params);
@@ -230,6 +232,7 @@ module Make = (M: {type params;}) => {
         ~swipeVelocityImpact: float=?,
         ~sceneContainerStyle: ReactNative.Style.t=?,
         ~style: ReactNative.Style.t=?,
+        ~key: string=?,
         unit
       ) =>
       navigatorProps;

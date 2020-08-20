@@ -113,6 +113,7 @@ module Make = (M: {type params;}) => {
                       "navigation": navigation,
                       "route": route(M.params),
                     }),
+        ~key: string=?,
         unit
       ) =>
       screenProps;
@@ -162,6 +163,7 @@ module Make = (M: {type params;}) => {
         ~drawerContentOptions: Js.t(contentOptions)=?,
         ~sceneContainerStyle: ReactNative.Style.t=?,
         ~style: ReactNative.Style.t=?,
+        ~key: string=?,
         unit
       ) =>
       navigatorProps;

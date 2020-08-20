@@ -99,6 +99,7 @@ module NavigationContainer = {
   [@bs.module "@react-navigation/native"] [@react.component]
   external make:
     (
+      ~ref: ReactNative.NativeElement.ref=?,
       ~initialState: state=?,
       ~onStateChange: navigationState=?,
       ~children: React.element
