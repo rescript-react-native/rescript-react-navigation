@@ -27,7 +27,8 @@
     "*.md",
     "bsconfig.json",
     "src/*.re",
-    "src/Interop.js"
+    "src/*.js",
+    "!src/*.bs.js"
   ],
   "scripts": {
     "format:most": "prettier --write \"**/*.{md,json,js,css}\"",
