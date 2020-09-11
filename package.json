@@ -1,6 +1,6 @@
 {
   "name": "reason-react-navigation",
-  "version": "5.0.1",
+  "version": "5.0.2",
   "peerDependencies": {
     "@react-navigation/native": "^5.0.0",
     "@react-navigation/bottom-tabs": "^5.0.0",

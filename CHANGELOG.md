@@ -1,5 +1,9 @@
 # Changelog of `reason-react-navigation`
 
+## 5.0.2 - 2020-09-11
+
+- Fixed missing `src/Interop.js` in npm package [#38](https://github.com/reason-react-native/reason-react-navigation/pull/38) by [@baransu](https://github.com/baransu)
+
 ## 5.0.1 - 2020-08-20
 
 - Added react ref and key props to components [#37](https://github.com/reason-react-native/reason-react-navigation/pull/37) by [@Freddy03h](https://github.com/Freddy03h)
