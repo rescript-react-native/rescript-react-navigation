@@ -17,6 +17,7 @@
   "repository": "https://github.com/reason-react-native/react-navigation.git",
   "license": "MIT",
   "keywords": [
+    "rescript",
     "reason",
     "reasonml",
     "bucklescript",
