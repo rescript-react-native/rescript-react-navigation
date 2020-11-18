@@ -1,5 +1,6 @@
 {
   "name": "reason-react-navigation",
+  "description": "ReScript bindings for react-navigation.",
   "version": "5.0.2",
   "peerDependencies": {
     "@react-navigation/native": "^5.0.0",
