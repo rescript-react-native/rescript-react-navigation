@@ -153,13 +153,7 @@ module Make = (M: {type params;}) => {
         ~initialRouteName: string=?,
         ~screenOptions: optionsCallback=?,
         ~children: React.element,
-        ~backBehavior: [@bs.string] [
-                         | `initialRoute
-                         | `order
-                         | `history
-                         | `none
-                       ]
-                         =?,
+        ~backBehavior: [ | `initialRoute | `order | `history | `none]=?,
         ~shifting: bool=?,
         ~labeled: bool=?,
         ~activeColor: string=?,

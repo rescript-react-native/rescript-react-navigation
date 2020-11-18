@@ -127,17 +127,11 @@ module Make = (M: {type params;}) => {
         ~initialRouteName: string=?,
         ~screenOptions: optionsCallback=?,
         ~children: React.element,
-        ~backBehavior: [@bs.string] [
-                         | `initialRoute
-                         | `order
-                         | `history
-                         | `none
-                       ]
-                         =?,
+        ~backBehavior: [ | `initialRoute | `order | `history | `none]=?,
         //DrawerNavigationConfig
         ~drawerBackgroundColor: string=?,
-        ~drawerPosition: [@bs.string] [ | `left | `right]=?,
-        ~drawerType: [@bs.string] [ | `front | `back | `slide]=?,
+        ~drawerPosition: [ | `left | `right]=?,
+        ~drawerType: [ | `front | `back | `slide]=?,
         /*
          ~drawerWidth: [@bs.unwrap] [
                          | `Static(float)
@@ -155,7 +149,7 @@ module Make = (M: {type params;}) => {
                                 =?,
         ~minSwipeDistance: float=?,
         ~overlayColor: string=?,
-        ~statusBarAnimation: [@bs.string] [ | `slide | `none | `fade]=?,
+        ~statusBarAnimation: [ | `slide | `none | `fade]=?,
         //TODO: ~gestureHandlerProps: React.ComponentProps<typeof PanGestureHandler>;
         ~_lazy: bool=?,
         ~unmountInactiveRoutes: bool=?,

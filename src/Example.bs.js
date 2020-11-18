@@ -6,8 +6,6 @@ var Stack$ReactNavigation = require("./Stack.bs.js");
 var Native = require("@react-navigation/native");
 
 function Example$HomeScreen(Props) {
-  Props.navigation;
-  Props.route;
   return React.createElement(ReactNative.Text, {
               children: "Hello Reasonable Person!"
             });
@@ -18,8 +16,6 @@ var HomeScreen = {
 };
 
 function Example$ModalScreen(Props) {
-  Props.navigation;
-  Props.route;
   return React.createElement(ReactNative.Text, {
               children: "Hello From Modal"
             });
@@ -38,8 +34,6 @@ var $$Screen = include.$$Screen;
 var $$Navigator = include.$$Navigator;
 
 function Example$MainStackScreen(Props) {
-  Props.navigation;
-  Props.route;
   return React.createElement($$Navigator.make, {
               children: React.createElement($$Screen.make, {
                     name: "Home",

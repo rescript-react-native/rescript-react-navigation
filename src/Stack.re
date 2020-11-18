@@ -88,8 +88,7 @@ module TransitionSpec = {
     overshootClamping: bool,
   };
   [@bs.obj]
-  external spring:
-    (~animation: [@bs.string] [ | `spring], ~config: springConfig) => t;
+  external spring: (~animation: [ | `spring], ~config: springConfig) => t;
 
   type timingConfig = {
     duration: int,
@@ -97,8 +96,7 @@ module TransitionSpec = {
   };
 
   [@bs.obj]
-  external timing:
-    (~animation: [@bs.string] [ | `timing], ~config: timingConfig) => t;
+  external timing: (~animation: [ | `timing], ~config: timingConfig) => t;
 };
 
 type transitionSpec = {
@@ -219,14 +217,14 @@ module Make = (M: {type params;}) => {
       ~cardOverlay: unit => React.element=?,
       ~cardStyle: ReactNative.Style.t=?,
       ~animationEnabled: bool=?,
-      ~animationTypeForReplace: [@bs.string] [ | `push | `pop]=?,
+      ~animationTypeForReplace: [ | `push | `pop]=?,
       ~gestureEnabled: bool=?,
       ~gestureResponseDistance: gestureResponseDistance=?,
       ~gestureVelocityImpact: float=?,
       // StackHeaderOptions
       ~headerShown: bool=?,
       ~headerTitle: HeaderTitle.t=?,
-      ~headerTitleAlign: [@bs.string] [ | `left | `center]=?,
+      ~headerTitleAlign: [ | `left | `center]=?,
       ~headerTitleStyle: ReactNative.Style.t=?,
       ~headerTitleContainerStyle: ReactNative.Style.t=?,
       ~headerTintColor: ReactNative.Color.t=?,
@@ -247,7 +245,7 @@ module Make = (M: {type params;}) => {
       ~headerStyle: ReactNative.Style.t=?,
       ~headerTransparent: bool=?,
       // TransitionPreset
-      ~gestureDirection: [@bs.string] [ | `horizontal | `vertical]=?,
+      ~gestureDirection: [ | `horizontal | `vertical]=?,
       ~transitionSpec: transitionSpec=?,
       ~cardStyleInterpolator: stackCardStyleInterpolator=?,
       ~headerStyleInterpolator: stackHeaderStyleInterpolator=?,
@@ -338,8 +336,8 @@ module Make = (M: {type params;}) => {
       (
         ~initialRouteName: string=?,
         ~screenOptions: optionsCallback=?,
-        ~mode: [@bs.string] [ | `card | `modal]=?,
-        ~headerMode: [@bs.string] [ | `float | `screen | `none]=?,
+        ~mode: [ | `card | `modal]=?,
+        ~headerMode: [ | `float | `screen | `none]=?,
         ~keyboardHandlingEnabled: bool=?,
         ~children: React.element,
         ~key: string=?,

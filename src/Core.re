@@ -82,7 +82,7 @@ module EventConsumer = (M: {type params;}) => {
   external addListener:
     (
       navigation,
-      [@bs.string] [ | `focus | `blur | `tabPress],
+      [ | `focus | `blur | `tabPress],
       eventListenerCallback('data)
     ) =>
     unsubscribe =
@@ -91,7 +91,7 @@ module EventConsumer = (M: {type params;}) => {
   external removeListener:
     (
       navigation,
-      [@bs.string] [ | `focus | `blur | `tabPress],
+      [ | `focus | `blur | `tabPress],
       eventListenerCallback('data)
     ) =>
     unsubscribe =

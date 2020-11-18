@@ -208,19 +208,13 @@ module Make = (M: {type params;}) => {
         ~initialRouteName: string=?,
         ~screenOptions: optionsCallback=?,
         ~children: React.element,
-        ~backBehavior: [@bs.string] [
-                         | `initialRoute
-                         | `order
-                         | `history
-                         | `none
-                       ]
-                         =?,
+        ~backBehavior: [ | `initialRoute | `order | `history | `none]=?,
         ~_lazy: bool=?,
         ~lazyPreloadDistance: int=?,
         ~lazyPlaceholder: React.component({. "route": route})=?,
         ~tabBar: Js.t(materialTopTabBarProps) => React.element=?,
         ~tabBarOptions: materialTopTabBarOptions=?,
-        ~tabBarPosition: [@bs.string] [ | `top | `bottom]=?,
+        ~tabBarPosition: [ | `top | `bottom]=?,
         ~removeClippedSubviews: bool=?,
         ~keyboardDismissMode: [@bs.string] [
                                 | `auto
