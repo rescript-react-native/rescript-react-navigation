@@ -20,7 +20,7 @@ are not complete yet and still subject to change.
 ## Installation
 
 When
-[`react-navigation`](`https://github.com/react-navigation/react-navigation`) is
+[`react-navigation`](https://github.com/react-navigation/react-navigation) is
 properly installed & configured by following their installation instructions,
 you can install the bindings:
 
