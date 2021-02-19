@@ -1,5 +1,10 @@
 # Changelog of `reason-react-navigation`
 
+## 5.1.0 - 2021-02-19
+
+- Breaking changes: rescript 8.2 & rrn 0.63 [757e6b5](https://github.com/reason-react-native/reason-react-navigation/commit/757e6b5) by [@MoOx](https://github.com/MoOx)
+- Fix NavigationContainer ref [#41](https://github.com/reason-react-native/reason-react-navigation/pull/41) by [@dimapaloskin](https://github.com/dimapaloskin)
+
 ## 5.0.3 - 2020-11-18
 
 Fix npm description
