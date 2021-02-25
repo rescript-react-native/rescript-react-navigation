@@ -131,7 +131,7 @@ module Make = (M: {type params;}) => {
         //DrawerNavigationConfig
         ~drawerBackgroundColor: string=?,
         ~drawerPosition: [ | `left | `right]=?,
-        ~drawerType: [ | `front | `back | `slide]=?,
+        ~drawerType: [ | `front | `back | `slide | `permanent]=?,
         /*
          ~drawerWidth: [@bs.unwrap] [
                          | `Static(float)

@@ -116,4 +116,9 @@ module NavigationScreenProp = (M: {
   [@bs.send]
   external dangerouslyGetParent: navigation => Js.nullable(navigation) =
     "dangerouslyGetParent";
+
+  [@bs.send]
+  external dangerouslyGetState:
+    navigation => Js.nullable(navigationState('params)) =
+    "dangerouslyGetState";
 };

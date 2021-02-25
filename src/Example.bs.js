@@ -40,7 +40,6 @@ function Example$MainStackScreen(Props) {
                     options: (function (props) {
                         var params = props.route.params;
                         return {
-                                title: params !== undefined ? params.name : "Reason",
                                 headerRight: (function (param) {
                                     return React.createElement(ReactNative.Button, {
                                                 color: "#f00",
@@ -50,7 +49,8 @@ function Example$MainStackScreen(Props) {
                                                   }),
                                                 title: "Info"
                                               });
-                                  })
+                                  }),
+                                title: params !== undefined ? params.name : "Reason"
                               };
                       }),
                     component: Example$HomeScreen

@@ -2,6 +2,13 @@ open Core;
 
 type options;
 
+type safeAreaInsets = {
+  top: float,
+  bottom: float,
+  left: float,
+  right: float,
+};
+
 type layout = {
   width: float,
   height: float,
@@ -210,45 +217,46 @@ module Make = (M: {type params;}) => {
   [@bs.obj]
   external options:
     (
-      ~title: string=?,
-      ~header: Header.t=?,
-      ~cardShadowEnabled: bool=?,
-      ~cardOverlayEnabled: bool=?,
-      ~cardOverlay: unit => React.element=?,
-      ~cardStyle: ReactNative.Style.t=?,
       ~animationEnabled: bool=?,
       ~animationTypeForReplace: [ | `push | `pop]=?,
+      ~cardOverlay: unit => React.element=?,
+      ~cardOverlayEnabled: bool=?,
+      ~cardShadowEnabled: bool=?,
+      ~cardStyle: ReactNative.Style.t=?,
+      ~cardStyleInterpolator: stackCardStyleInterpolator=?,
+      ~detachPreviousScreen: bool=?,
+      ~gestureDirection: [ | `horizontal | `vertical]=?,
       ~gestureEnabled: bool=?,
       ~gestureResponseDistance: gestureResponseDistance=?,
       ~gestureVelocityImpact: float=?,
-      // StackHeaderOptions
-      ~headerShown: bool=?,
-      ~headerTitle: HeaderTitle.t=?,
-      ~headerTitleAlign: [ | `left | `center]=?,
-      ~headerTitleStyle: ReactNative.Style.t=?,
-      ~headerTitleContainerStyle: ReactNative.Style.t=?,
-      ~headerTintColor: ReactNative.Color.t=?,
-      ~headerTitleAllowFontScaling: bool=?,
+      ~header: Header.t=?,
+      ~headerBackAccessibilityLabel: string=?,
       ~headerBackAllowFontScaling: bool=?,
+      ~headerBackground: headerBackgroundOptions => React.element=?,
+      ~headerBackImage: backImage=?,
       ~headerBackTitle: string=?,
       ~headerBackTitleStyle: ReactNative.Style.t=?,
       ~headerBackTitleVisible: bool=?,
-      ~headerTruncatedBackTitle: string=?,
       ~headerLeft: stackHeaderLeftButtonProps => React.element=?,
       ~headerLeftContainerStyle: ReactNative.Style.t=?,
+      ~headerPressColorAndroid: ReactNative.Color.t=?,
       ~headerRight: headerRightOptions => React.element=?,
       ~headerRightContainerStyle: ReactNative.Style.t=?,
-      ~headerBackImage: backImage=?,
-      ~headerPressColorAndroid: ReactNative.Color.t=?,
-      ~headerBackground: headerBackgroundOptions => React.element=?,
+      ~headerShown: bool=?,
       ~headerStatusBarHeight: ReactNative.Style.size=?,
       ~headerStyle: ReactNative.Style.t=?,
-      ~headerTransparent: bool=?,
-      // TransitionPreset
-      ~gestureDirection: [ | `horizontal | `vertical]=?,
-      ~transitionSpec: transitionSpec=?,
-      ~cardStyleInterpolator: stackCardStyleInterpolator=?,
       ~headerStyleInterpolator: stackHeaderStyleInterpolator=?,
+      ~headerTintColor: ReactNative.Color.t=?,
+      ~headerTitle: HeaderTitle.t=?,
+      ~headerTitleAlign: [ | `left | `center]=?,
+      ~headerTitleAllowFontScaling: bool=?,
+      ~headerTitleContainerStyle: ReactNative.Style.t=?,
+      ~headerTitleStyle: ReactNative.Style.t=?,
+      ~headerTransparent: bool=?,
+      ~headerTruncatedBackTitle: string=?,
+      ~safeAreaInsets: safeAreaInsets=?,
+      ~title: string=?,
+      ~transitionSpec: transitionSpec=?,
       unit
     ) =>
     options;
@@ -420,6 +428,10 @@ module TransitionPresets = {
   /* Standard Android navigation transition when opening or closing an Activity on Android >= 9 (Pie). */
   [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionPresets"]
   external revealFromBottomAndroid: options = "RevealFromBottomAndroid";
+
+  /* Standard Android navigation transition when opening or closing an Activity on Android >= 10 */
+  [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionPresets"]
+  external scaleFromCenterAndroid: options = "ScaleFromCenterAndroid";
 
   /* Default navigation transition for the current platform. */
   [@bs.module "@react-navigation/stack"] [@bs.scope "TransitionPresets"]
