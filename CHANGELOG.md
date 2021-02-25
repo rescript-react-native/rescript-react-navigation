@@ -1,5 +1,9 @@
 # Changelog of `reason-react-navigation`
 
+## 5.1.2 - 2021-02-25
+
+Add missing .res files
+
 ## 5.1.1 - 2021-02-25
 
 - Add plenty of missing bindings, (notably ssr, linking, native stack & missing props in stack) [34ff8a8](https://github.com/reason-react-native/reason-react-navigation/commit/34ff8a8) by [@MoOx](https://github.com/MoOx)
