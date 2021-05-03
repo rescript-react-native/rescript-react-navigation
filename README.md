@@ -1,15 +1,15 @@
-# `reason-react-navigation`
+# `rescript-react-navigation`
 
-[![Build Status](https://github.com/reason-react-native/reason-react-navigation/workflows/Build/badge.svg)](https://github.com/reason-react-native/reason-react-navigation/actions)
-[![Version](https://img.shields.io/npm/v/reason-react-navigation.svg)](https://www.npmjs.com/reason-react-navigation)
-[![Chat](https://img.shields.io/discord/235176658175262720.svg?logo=discord&colorb=blue)](https://reasonml-community.github.io/reason-react-native/discord/)
+[![Build Status](https://github.com/rescript-react-native/rescript-react-navigation/workflows/Build/badge.svg)](https://github.com/rescript-react-native/rescript-react-navigation/actions)
+[![Version](https://img.shields.io/npm/v/rescript-react-navigation.svg)](https://www.npmjs.com/rescript-react-navigation)
+[![ReScript Forum](https://img.shields.io/discourse/posts?color=e6484f&label=ReScript%20Forum&server=https%3A%2F%2Fforum.rescript-lang.org)](https://forum.rescript-lang.org/)
 
-[ReScript](https://rescript-lang.org) / [Reason](https://reasonml.github.io) bindings for
+[ReScript](https://rescript-lang.org) bindings for
 [`react-navigation`](https://github.com/react-navigation/react-navigation).
 
 Exposed as `ReactNavigation` module.
 
-`reason-react-navigation` X.y.\* means it's compatible with `react-navigation`
+`rescript-react-navigation` X.y.\* means it's compatible with `react-navigation`
 X.y.\*
 
 ## Status
@@ -25,22 +25,22 @@ properly installed & configured by following their installation instructions,
 you can install the bindings:
 
 ```console
-npm install reason-react-navigation
+npm install rescript-react-navigation
 # or
-yarn add reason-react-navigation
+yarn add rescript-react-navigation
 ```
 
-`reason-react-navigation` should be added to `bs-dependencies` in your
+`rescript-react-navigation` should be added to `bs-dependencies` in your
 `bsconfig.json`:
 
 ```diff
 {
   //...
   "bs-dependencies": [
-    "reason-react",
-    "reason-react-native",
+    "@rescript/react",
+    "rescript-react-native",
     // ...
-+    "reason-react-navigation"
++    "rescript-react-navigation"
   ],
   //...
 }
@@ -59,10 +59,10 @@ releases.
 
 ## Contribute
 
-Read the [contribution guidelines](https://github.com/reason-react-native/.github/blob/master/CONTRIBUTING.md) before contributing.
+Read the [contribution guidelines](https://github.com/rescript-react-native/.github/blob/master/CONTRIBUTING.md) before contributing.
 
 ## Code of Conduct
 
 We want this community to be friendly and respectful to each other. Please read
-[our full code of conduct](https://github.com/reason-react-native/.github/blob/master/CODE_OF_CONDUCT.md) so that you can understand what
+[our full code of conduct](https://github.com/rescript-react-native/.github/blob/master/CODE_OF_CONDUCT.md) so that you can understand what
 actions will and will not be tolerated.
