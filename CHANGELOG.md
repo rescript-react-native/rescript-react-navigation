@@ -1,5 +1,9 @@
 # Changelog of `rescript-react-navigation`
 
+## 5.1.3 - 2021-05-03
+
+ReScript
+
 ## 5.1.2 - 2021-02-25
 
 Add missing .res files
