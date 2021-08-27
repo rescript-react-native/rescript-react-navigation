@@ -66,6 +66,25 @@ module Make = (
     "allowFontScaling": option<bool>,
   }
 
+  @obj
+  external materialTopTabBarOptions: (
+    ~activeTintColor: string=?,
+    ~inactiveTintColor: string=?,
+    ~iconStyle: ReactNative.Style.t=?,
+    ~showLabel: bool=?,
+    ~showIcon: bool=?,
+    ~allowFontScaling: bool=?,
+    ~scrollEnabled: bool=?,
+    ~pressColor: string=?,
+    ~pressOpacity: float=?,
+    ~tabStyle: ReactNative.Style.t=?,
+    ~indicatorStyle: ReactNative.Style.t=?,
+    ~labelStyle: ReactNative.Style.t=?,
+    ~style: ReactNative.Style.t=?,
+    ~renderIndicator: React.component<{"route": route}>=?,
+    unit,
+  ) => materialTopTabBarOptions = ""
+
   type accessibilityRole = string
   type accessibilityStates = array<string>
 

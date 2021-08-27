@@ -57,6 +57,23 @@ module Make = (
     "inactiveTintColor": option<string>,
   }
 
+  @obj
+  external bottomTabBarOptions: (
+    ~keyboardHidesTabBar: bool=?,
+    ~activeTintColor: string=?,
+    ~inactiveTintColor: string=?,
+    ~activeBackgroundColor: string=?,
+    ~inactiveBackgroundColor: string=?,
+    ~allowFontScaling: bool=?,
+    ~showLabel: bool=?,
+    ~labelStyle: ReactNative.Style.t=?,
+    ~tabStyle: ReactNative.Style.t=?,
+    ~labelPosition: labelPositionArgs => string=?,
+    ~adaptive: bool=?,
+    ~style: ReactNative.Style.t=?,
+    unit,
+  ) => bottomTabBarOptions = ""
+
   type accessibilityRole = string
   type accessibilityStates = array<string>
   type routeArgs = {route: route}
