@@ -119,7 +119,7 @@ module Make = (
     screenOptions: option<optionsCallback>,
     backBehavior: option<string>,
     _lazy: option<bool>,
-    tabBar: option<bottomTabBarOptions => React.element>,
+    tabBar: option<bottomTabBarProps => React.element>,
     tabBarOptions: option<bottomTabBarOptions>,
   }
 
@@ -178,7 +178,7 @@ module Make = (
       ~children: React.element,
       ~backBehavior: [#initialRoute | #order | #history | #none]=?,
       ~_lazy: bool=?,
-      ~tabBar: bottomTabBarOptions => React.element=?,
+      ~tabBar: bottomTabBarProps => React.element=?,
       ~tabBarOptions: bottomTabBarOptions=?,
       ~key: string=?,
       unit,
