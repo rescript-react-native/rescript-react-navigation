@@ -1,5 +1,11 @@
 # Changelog of `rescript-react-navigation`
 
+## 5.2.0 - 2021-09-18
+
+- ReScript migration [3a76951](https://github.com/rescript-react-native/rescript-react-navigation/commit/3a76951) by [@cem2ran](https://github.com/cem2ran) & [@Freddy03h](https://github.com/Freddy03h)
+- Fix `bottomTabBarProps` instead of `bottomTabBarOptions` [3a76951](https://github.com/rescript-react-native/rescript-react-navigation/commit/3a76951) by [@Freddy03h](https://github.com/Freddy03h)
+- Add `materialTopTabBarOptions` and `bottomTabBarOptions` creation functions [3a76951](https://github.com/rescript-react-native/rescript-react-navigation/commit/3a76951) by [@Freddy03h](https://github.com/Freddy03h)
+
 ## 5.1.3 - 2021-05-03
 
 ReScript
