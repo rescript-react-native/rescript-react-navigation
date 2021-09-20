@@ -39,13 +39,17 @@ module NavigationHelpersCommon = (
     unit,
   ) => navigationParams = ""
 
-  @send external navigateBy: navigationParams => unit = "navigate"
+  @send external navigateBy: (navigation, navigationParams) => unit = "navigate"
 
-  let navigateByKey = (~key: string, ~params: option<M.params>=?, _) =>
-    navigateBy(navigateByKeyParams(~key, ~params?, ()))
+  let navigateByKey = (~key: string, ~params: option<M.params>=?, navigation) =>
+    navigateBy(navigation, navigateByKeyParams(~key, ~params?, ()))
 
-  let navigateByName = (~name: string, ~key: option<string>=?, ~params: option<M.params>=?, _) =>
-    navigateBy(navigateByNameParams(~name, ~key?, ~params?, ()))
+  let navigateByName = (
+    ~name: string,
+    ~key: option<string>=?,
+    ~params: option<M.params>=?,
+    navigation,
+  ) => navigateBy(navigation, navigateByNameParams(~name, ~key?, ~params?, ()))
 
   @send external replace: (navigation, string) => unit = "replace"
   @send
