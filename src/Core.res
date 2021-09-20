@@ -2,7 +2,7 @@ type rec route<'params> = {
   key: string,
   name: string,
   params: option<'params>,
-  state: option<navigationState<'params>>,
+  path: option<string>,
 }
 and navigationState<'params> = {
   key: string,
@@ -29,27 +29,38 @@ module NavigationHelpersCommon = (
   type navigationParams
 
   @obj
-  external navigateByKeyParams: (~key: string, ~params: M.params=?, unit) => navigationParams = ""
+  external navigateByKeyParams: (
+    ~key: string,
+    ~params: M.params=?,
+    ~merge: bool=?,
+    unit,
+  ) => navigationParams = ""
 
   @obj
   external navigateByNameParams: (
     ~name: string,
     ~key: string=?,
     ~params: M.params=?,
+    ~merge: bool=?,
     unit,
   ) => navigationParams = ""
 
   @send external navigateBy: (navigation, navigationParams) => unit = "navigate"
 
-  let navigateByKey = (~key: string, ~params: option<M.params>=?, navigation) =>
-    navigateBy(navigation, navigateByKeyParams(~key, ~params?, ()))
+  let navigateByKey = (
+    ~key: string,
+    ~params: option<M.params>=?,
+    ~merge: option<bool>=?,
+    navigation,
+  ) => navigateBy(navigation, navigateByKeyParams(~key, ~params?, ~merge?, ()))
 
   let navigateByName = (
     ~name: string,
     ~key: option<string>=?,
     ~params: option<M.params>=?,
+    ~merge: option<bool>=?,
     navigation,
-  ) => navigateBy(navigation, navigateByNameParams(~name, ~key?, ~params?, ()))
+  ) => navigateBy(navigation, navigateByNameParams(~name, ~key?, ~params?, ~merge?, ()))
 
   @send external replace: (navigation, string) => unit = "replace"
   @send
@@ -113,9 +124,8 @@ module NavigationScreenProp = (
   external isFirstRouteInParent: (navigation, unit) => bool = "isFirstRouteInParent"
 
   @send
-  external dangerouslyGetParent: navigation => Js.nullable<navigation> = "dangerouslyGetParent"
+  external getParent: navigation => Js.nullable<navigation> = "getParent"
 
   @send
-  external dangerouslyGetState: navigation => Js.nullable<navigationState<'params>> =
-    "dangerouslyGetState"
+  external getState: navigation => Js.nullable<navigationState<'params>> = "getState"
 }

@@ -15,8 +15,8 @@ module DrawerNavigationProp = (
   @send external openDrawer: t => unit = "openDrawer"
   @send external closeDrawer: t => unit = "closeDrawer"
   @send external toggleDrawer: t => unit = "toggleDrawer"
+  @send external jumpTo: (t, ~name: string, ~params: 'params=?, unit) => unit = "jumpTo"
 }
-
 module Make = (
   M: {
     type params
@@ -34,6 +34,16 @@ module Make = (
     index: int,
     focused: bool,
     tintColor: option<string>,
+  }
+
+  type drawerLabelProps = {
+    focused: bool,
+    color: string,
+  }
+  type drawerIconProps = {
+    focused: bool,
+    color: string,
+    size: float,
   }
 
   type contentOptions = {
@@ -68,16 +78,45 @@ module Make = (
   @obj
   external options: (
     ~title: string=?,
-    ~drawerLabel: scene => React.element=?,
-    ~drawerIcon: scene => React.element=?,
-    ~drawerLockMode: @string
+    ~_lazy: bool=?,
+    ~drawerLabel: drawerLabelProps => React.element=?,
+    ~drawerIcon: drawerIconProps => React.element=?,
+    ~drawerActiveTintColor: string=?,
+    ~drawerActiveBackgroundColor: string=?,
+    ~drawerInactiveTintColor: string=?,
+    ~drawerInactiveBackgroundColor: string=?,
+    ~drawerItemStyle: ReactNative.Style.t=?,
+    ~drawerLabelStyle: ReactNative.Style.t=?,
+    ~drawerContentContainerStyle: ReactNative.Style.t=?,
+    ~drawerContentStyle: ReactNative.Style.t=?,
+    ~drawerStyle: ReactNative.Style.t=?,
+    ~drawerPosition: [#left | #right]=?,
+    ~drawerType: [#front | #back | #slide | #permanent]=?,
+    ~drawerHideStatusBarOnOpen: bool=?,
+    ~drawerStatusBarAnimation: [#slide | #fade | #none]=?,
+    ~overlayColor: string=?,
+    ~sceneContainerStyle: ReactNative.Style.t=?,
+    ~gestureEnabled: bool=?,
+    ~gestureHandlerProps: 'gestureHandlerProps=?,
+    ~swipeEnabled: bool=?,
+    ~swipeEdgeWidth: float=?,
+    ~swipeMinDistance: float=?,
+    ~keyboardDismissMode: @string
     [
-      | #unlocked
-      | @as("locked-closed") #lockedClosed
-      | @as("locked-open") #lockedOpen
+      | @as("on-drag") #onDrag
+      | #none
     ]=?,
+    ~unmountOnBlur: bool=?,
+    ~headerShown: bool=?,
     unit,
   ) => options = ""
+  // TODO Header options: https://reactnavigation.org/docs/drawer-navigator/#header-related-options
+  // ~drawerLockMode: [@bs.string] [
+  //                    | `unlocked
+  //                    | [@bs.as "locked-closed"] `lockedClosed
+  //                    | [@bs.as "locked-open"] `lockedOpen
+  //                  ]
+  //                    =?,
 
   type optionsProps = {
     navigation: navigation,
@@ -90,10 +129,13 @@ module Make = (
 
   type screenProps
 
+  type groupProps
+
   @module("@react-navigation/drawer")
   external make: unit => {
     "Navigator": navigatorProps => React.element,
     "Screen": screenProps => React.element,
+    "Group": groupProps => React.element,
   } = "createDrawerNavigator"
 
   let stack = make()
@@ -117,40 +159,38 @@ module Make = (
       ~initialRouteName: string=?,
       ~screenOptions: optionsCallback=?,
       ~children: React.element,
-      ~backBehavior: [#initialRoute | #order | #history | #none]=?,
-      ~drawerBackgroundColor: //DrawerNavigationConfig
-      string=?,
-      ~drawerPosition: [#left | #right]=?,
-      ~drawerType: [#front | #back | #slide | #permanent]=?,
-      ~drawerWidth: /*
-         ~drawerWidth: [@bs.unwrap] [
-                         | `Static(float)
-                         | `Dynamic(unit => float)
-                       ]
+      ~backBehavior: [#firstRoute | #initialRoute | #order | #history | #none]=?,
+      ~defaultStatus: @string [@as("open") #open_ | #closed]=?,
+      ~detachInactiveScreens: bool=?,
+      ~useLegacyImplementation: bool=?,
+      /*
+      The content component receives following props by default:
 
+      state - The navigation state of the navigator.
+      navigation - The navigation object for the navigator.
+      descriptors - An descriptor object containing options for the drawer screens. The options can be accessed at descriptors[route.key].options.
+      progress - Reanimated Node that represents the animated position of the drawer (0 is closed; 1 is open).
  */
-      unit => float,
-      ~edgeWidth: float=?,
-      ~hideStatusBar: bool=?,
-      ~keyboardDismissMode: @string
-      [
-        | @as("on-drag") #onDrag
-        | #none
-      ]=?,
-      ~minSwipeDistance: float=?,
-      ~overlayColor: string=?,
-      ~statusBarAnimation: [#slide | #none | #fade]=?,
-      ~_lazy: //TODO: ~gestureHandlerProps: React.ComponentProps<typeof PanGestureHandler>;
-      bool=?,
-      ~unmountInactiveRoutes: bool=?,
       ~drawerContent: React.component<contentComponentProps>=?,
-      ~drawerContentOptions: contentOptions=?,
-      ~sceneContainerStyle: ReactNative.Style.t=?,
-      ~style: ReactNative.Style.t=?,
+      //TODO: ~gestureHandlerProps: React.ComponentProps<typeof PanGestureHandler>;
+      // ~unmountInactiveRoutes: bool=?,
+      // ~drawerContentOptions: Js.t<contentOptions>=?,
+
       ~key: string=?,
       unit,
     ) => navigatorProps = ""
 
     let make = stack["Navigator"]
+  }
+
+  module Group = {
+    @obj
+    external makeProps: (
+      ~screenOptions: optionsCallback=?,
+      ~children: React.element,
+      ~key: string=?,
+      unit,
+    ) => screenProps = ""
+    let make = stack["Group"]
   }
 }

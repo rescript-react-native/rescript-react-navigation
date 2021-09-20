@@ -139,13 +139,7 @@ module Make = (
     type options = options
   })
 
-  type gestureResponseDistance
-  @obj
-  external gestureResponseDistance: (
-    ~vertical: float=?,
-    ~horizontal: float=?,
-    unit,
-  ) => gestureResponseDistance = ""
+  type gestureResponseDistance = float
 
   module HeaderTitle = {
     type t
@@ -237,6 +231,7 @@ module Make = (
     ~headerBackTitleVisible: bool=?,
     ~headerLeft: stackHeaderLeftButtonProps => React.element=?,
     ~headerLeftContainerStyle: ReactNative.Style.t=?,
+    ~headerMode: [#float | #screen]=?,
     ~headerPressColorAndroid: ReactNative.Color.t=?,
     ~headerRight: headerRightOptions => React.element=?,
     ~headerRightContainerStyle: ReactNative.Style.t=?,
@@ -252,6 +247,8 @@ module Make = (
     ~headerTitleStyle: ReactNative.Style.t=?,
     ~headerTransparent: bool=?,
     ~headerTruncatedBackTitle: string=?,
+    ~keyboardHandlingEnabled: bool=?,
+    ~presentation: [#card | #modal]=?,
     ~safeAreaInsets: safeAreaInsets=?,
     ~title: string=?,
     ~transitionSpec: transitionSpec=?,
@@ -263,12 +260,11 @@ module Make = (
   }
   type optionsCallback = optionsProps => options
 
+  type groupProps = {screenOptions: option<optionsCallback>}
+
   type navigatorProps = {
     initialRouteName: option<string>,
     screenOptions: option<optionsCallback>,
-    mode: option<string>,
-    headerMode: option<string>,
-    keyboardHandlingEnabled: option<bool>,
   }
   type renderCallbackProp = {
     navigation: navigation,
@@ -286,6 +282,7 @@ module Make = (
   external make: unit => {
     "Navigator": navigatorProps => React.element,
     "Screen": screenProps<M.params> => React.element,
+    "Group": groupProps => React.element,
   } = "createStackNavigator"
 
   let stack = make()
@@ -321,15 +318,24 @@ module Make = (
     external makeProps: (
       ~initialRouteName: string=?,
       ~screenOptions: optionsCallback=?,
-      ~mode: [#card | #modal]=?,
-      ~headerMode: [#float | #screen | #none]=?,
-      ~keyboardHandlingEnabled: bool=?,
       ~children: React.element,
       ~key: string=?,
       unit,
     ) => navigatorProps = ""
 
     let make = stack["Navigator"]
+  }
+
+  module Group = {
+    @obj
+    external makeProps: (
+      ~screenOptions: optionsCallback=?,
+      ~children: React.element,
+      ~key: string=?,
+      unit,
+    ) => groupProps = ""
+
+    let make = stack["Group"]
   }
 }
 

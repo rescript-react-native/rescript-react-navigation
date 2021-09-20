@@ -65,6 +65,8 @@ module Make = (
 
   type optionsCallback = optionsProps => options
 
+  type groupProps = {screenOptions: option<optionsCallback>}
+
   type navigatorProps = {
     initialRouteName: option<string>,
     screenOptions: option<optionsCallback>,
@@ -93,6 +95,7 @@ module Make = (
   external make: unit => {
     "Navigator": navigatorProps => React.element,
     "Screen": screenProps<M.params> => React.element,
+    "Group": groupProps => React.element,
   } = "createMaterialBottomTabNavigator"
 
   let materialBottomTabs = make()
@@ -129,7 +132,7 @@ module Make = (
       ~initialRouteName: string=?,
       ~screenOptions: optionsCallback=?,
       ~children: React.element,
-      ~backBehavior: [#initialRoute | #order | #history | #none]=?,
+      ~backBehavior: [#firstRoute | #initialRoute | #order | #history | #none]=?,
       ~shifting: bool=?,
       ~labeled: bool=?,
       ~activeColor: string=?,
@@ -141,5 +144,16 @@ module Make = (
     ) => navigatorProps = ""
 
     let make = materialBottomTabs["Navigator"]
+  }
+
+  module Group = {
+    @obj
+    external makeProps: (
+      ~screenOptions: optionsCallback=?,
+      ~children: React.element,
+      ~key: string=?,
+      unit,
+    ) => groupProps = ""
+    let make = materialBottomTabs["Group"]
   }
 }

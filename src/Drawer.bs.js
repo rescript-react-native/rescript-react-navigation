@@ -18,11 +18,16 @@ function Make(M) {
   var $$Navigator = {
     make: make$1
   };
+  var make$2 = stack.Group;
+  var Group = {
+    make: make$2
+  };
   return {
           Navigation: Navigation,
           stack: stack,
           $$Screen: $$Screen,
-          $$Navigator: $$Navigator
+          $$Navigator: $$Navigator,
+          Group: Group
         };
 }
 

@@ -22,6 +22,10 @@ function Make(M) {
   var $$Navigator = {
     make: make$2
   };
+  var make$3 = materialTopTabs.Group;
+  var Group = {
+    make: make$3
+  };
   var MaterialTopTabBar = {};
   return {
           Navigation: Navigation,
@@ -29,6 +33,7 @@ function Make(M) {
           $$Screen: $$Screen,
           ScreenWithCallback: ScreenWithCallback,
           $$Navigator: $$Navigator,
+          Group: Group,
           MaterialTopTabBar: MaterialTopTabBar
         };
 }

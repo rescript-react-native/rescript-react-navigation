@@ -51,6 +51,10 @@ function Make(M) {
   var $$Navigator = {
     make: make$2
   };
+  var make$3 = stack.Group;
+  var Group = {
+    make: make$3
+  };
   return {
           Navigation: Navigation,
           HeaderTitle: HeaderTitle,
@@ -58,7 +62,8 @@ function Make(M) {
           stack: stack,
           ScreenWithCallback: ScreenWithCallback,
           $$Screen: $$Screen,
-          $$Navigator: $$Navigator
+          $$Navigator: $$Navigator,
+          Group: Group
         };
 }
 

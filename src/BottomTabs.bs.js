@@ -22,12 +22,17 @@ function Make(M) {
   var $$Navigator = {
     make: make$2
   };
+  var make$3 = bottomTabs.Group;
+  var Group = {
+    make: make$3
+  };
   return {
           Navigation: Navigation,
           bottomTabs: bottomTabs,
           $$Screen: $$Screen,
           ScreenWithCallback: ScreenWithCallback,
-          $$Navigator: $$Navigator
+          $$Navigator: $$Navigator,
+          Group: Group
         };
 }
 

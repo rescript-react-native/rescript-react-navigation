@@ -63,10 +63,7 @@ module Make = (
     | #systemThickMaterialDark
     | #systemChromeMaterialDark
   ]
-  type headerStyle = {
-    backgroundColor: option<ReactNative.Color.t>,
-    blurEffect: option<blurEffect>,
-  }
+  type headerStyle = {backgroundColor: option<ReactNative.Color.t>}
   type headerTitleStyle = {
     fontFamily: option<string>,
     fontSize: option<float>,
@@ -77,18 +74,19 @@ module Make = (
   @obj
   external options: (
     ~backButtonInCustomView: bool=?,
+    ~animation: [#default | #fade | #flip | #slide_from_right | #slide_from_left | #none]=?,
+    ~animationTypeForReplace: [#push | #pop]=?,
     ~contentStyle: ReactNative.Style.t=?,
-    ~direction: [#rtl | #ltr]=?,
     ~gestureEnabled: bool=?,
     ~headerBackTitle: string=?,
     ~headerBackTitleStyle: headerBackTitleStyle=?,
     ~headerBackTitleVisible: bool=?,
-    ~headerCenter: unit => React.element=?,
-    ~headerHideBackButton: bool=?,
-    ~headerHideShadow: bool=?,
+    ~headerBackVisible: bool=?,
+    ~headerBlurEffect: blurEffect=?,
+    ~headerShadowVisible: bool=?,
     ~headerLargeStyle: headerLargeStyle=?,
     ~headerLargeTitle: bool=?,
-    ~headerLargeTitleHideShadow: bool=?,
+    ~headerLargeTitleShadowVisible: bool=?,
     ~headerLargeTitleStyle: headerLargeTitleStyle=?,
     ~headerLeft: unit => React.element=?,
     ~headerRight: unit => React.element=?,
@@ -97,11 +95,8 @@ module Make = (
     ~headerTintColor: ReactNative.Color.t=?,
     ~headerTitle: string=?,
     ~headerTitleStyle: headerTitleStyle=?,
-    ~headerTopInsetEnabled: bool=?,
-    ~headerTranslucent: bool=?,
-    ~replaceAnimation: [#push | #pop]=?,
-    ~stackAnimation: [#default | #fade | #flip | #slide_from_right | #slide_from_left | #none]=?,
-    ~stackPresentation: [
+    ~headerTransparent: bool=?,
+    ~presentation: [
       | #push
       | #modal
       | #transparentModal
@@ -133,6 +128,8 @@ module Make = (
   }
   type optionsCallback = optionsProps => options
 
+  type groupProps = {screenOptions: option<optionsCallback>}
+
   type navigatorProps = {
     initialRouteName: option<string>,
     screenOptions: option<optionsCallback>,
@@ -149,10 +146,11 @@ module Make = (
     children: option<renderCallbackProp => React.element>,
   }
 
-  @module("react-native-screens/native-stack")
+  @module("@react-navigation/native-stack")
   external make: unit => {
     "Navigator": navigatorProps => React.element,
     "Screen": screenProps<M.params> => React.element,
+    "Group": groupProps => React.element,
   } = "createNativeStackNavigator"
 
   let stack = make()
@@ -194,6 +192,18 @@ module Make = (
     ) => navigatorProps = ""
 
     let make = stack["Navigator"]
+  }
+
+  module Group = {
+    @obj
+    external makeProps: (
+      ~screenOptions: optionsCallback=?,
+      ~children: React.element,
+      ~key: string=?,
+      unit,
+    ) => groupProps = ""
+
+    let make = stack["Group"]
   }
 }
 

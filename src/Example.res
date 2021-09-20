@@ -51,7 +51,7 @@ module RootStackScreen = {
   @react.component
   let make = () =>
     <Native.NavigationContainer>
-      <Navigator mode=#modal headerMode=#none>
+      <Navigator screenOptions={_optionsProps => options(~presentation=#modal, ())}>
         <Screen name="Main" component=MainStackScreen.make />
         <ScreenWithCallback name="MyModal">
           {({navigation, route}) => <ModalScreen navigation route />}

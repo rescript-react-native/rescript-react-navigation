@@ -41,13 +41,18 @@ function Make(M) {
   var $$Navigator = {
     make: make$2
   };
+  var make$3 = materialBottomTabs.Group;
+  var Group = {
+    make: make$3
+  };
   return {
           Navigation: Navigation,
           TabBarBadge: TabBarBadge,
           materialBottomTabs: materialBottomTabs,
           $$Screen: $$Screen,
           ScreenWithCallback: ScreenWithCallback,
-          $$Navigator: $$Navigator
+          $$Navigator: $$Navigator,
+          Group: Group
         };
 }
 
