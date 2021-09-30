@@ -99,6 +99,11 @@ module Make = (
     ~unmountOnBlur: bool=?,
     ~_lazy: bool=?,
     ~showIcon: bool=?,
+    // TODO: Use @react-navigation/elements and add header-related options
+    // https://reactnavigation.org/docs/bottom-tab-navigator/#header-related-options
+    // https://github.com/rescript-react-native/rescript-react-navigation/pull/47
+    // ~header: 'header=?,
+    ~headerShown: bool=?,
     ~tabBarLabel: tabBarLabelArgs => React.element=?, //TODO: dynamic, missing static option: React.ReactNode
     ~tabBarIcon: tabBarIconArgs => React.element=?,
     ~tabBarAccessibilityLabel: string=?,
