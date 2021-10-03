@@ -1,5 +1,10 @@
 # Changelog of `rescript-react-navigation`
 
+## 6.0.0 - 2021-10-03
+
+- Upgrade to React Navigation 6.0 [9fda4ed](https://github.com/rescript-react-native/rescript-react-navigation/commit/9fda4ed) by [@vknez](https://github.com/vknez)
+- Fix `navigateBy*` functions [b89bf1e](https://github.com/rescript-react-native/rescript-react-navigation/commit/b89bf1e) by [@vknez](https://github.com/vknez)
+
 ## 5.2.0 - 2021-09-18
 
 - ReScript migration [3a76951](https://github.com/rescript-react-native/rescript-react-navigation/commit/3a76951) by [@cem2ran](https://github.com/cem2ran) & [@Freddy03h](https://github.com/Freddy03h)
