@@ -110,6 +110,26 @@ module Make = (
     scene => React.element=?,
     ~tabBarAccessibilityLabel: string=?,
     ~tabBarTestID: string=?,
+    ~_lazy: bool=?,
+    ~lazyPlaceholder: React.component<{"route": route}>=?,
+    ~tabBarActiveTintColor: string=?,
+    ~tabBarInactiveTintColor: string=?,
+    ~tabBarPressColor: string=?,
+    ~tabBarPressOpacity: float=?,
+    ~tabBarShowLabel: bool=?,
+    ~tabBarShowIcon: bool=?,
+    ~tabBarAllowFontScaling: bool=?,
+    ~tabBarBounces: bool=?,
+    ~tabBarScrollEnabled: bool=?,
+    ~tabBarIconStyle: ReactNative.Style.t=?,
+    ~tabBarLabelStyle: ReactNative.Style.t=?,
+    ~tabBarItemStyle: ReactNative.Style.t=?,
+    ~tabBarIndicatorStyle: ReactNative.Style.t=?,
+    ~tabBarIndicatorContainerStyle: ReactNative.Style.t=?,
+    ~tabBarContentContainerStyle: ReactNative.Style.t=?,
+    ~tabBarStyle: ReactNative.Style.t=?,
+    // ~renderIndicator: React.component({. "route": route})=?,
+
     unit,
   ) => options = ""
 
@@ -123,11 +143,8 @@ module Make = (
   type navigatorProps = {
     initialRouteName: option<string>,
     screenOptions: option<optionsCallback>,
-    _lazy: option<bool>,
     lazyPreloadDistance: option<int>,
-    lazyPlaceholder: option<React.component<{"route": route}>>,
     tabBar: option<materialTopTabBarProps => React.element>,
-    tabBarOptions: option<materialTopTabBarOptions>,
     tabBarPosition: option<string>,
     backBehavior: option<string>,
     removeClippedSubviews: option<bool>,
@@ -143,6 +160,8 @@ module Make = (
     route: route,
   }
 
+  type groupProps = {screenOptions: option<optionsCallback>}
+
   type screenProps<'params> = {
     name: string,
     options: option<optionsCallback>,
@@ -155,6 +174,7 @@ module Make = (
   external make: unit => {
     "Navigator": navigatorProps => React.element,
     "Screen": screenProps<M.params> => React.element,
+    "Group": groupProps => React.element,
   } = "createMaterialTopTabNavigator"
 
   let materialTopTabs = make()
@@ -191,12 +211,11 @@ module Make = (
       ~initialRouteName: string=?,
       ~screenOptions: optionsCallback=?,
       ~children: React.element,
-      ~backBehavior: [#initialRoute | #order | #history | #none]=?,
+      ~backBehavior: [#firstRoute | #initialRoute | #order | #history | #none]=?,
       ~_lazy: bool=?,
       ~lazyPreloadDistance: int=?,
       ~lazyPlaceholder: React.component<{"route": route}>=?,
       ~tabBar: materialTopTabBarProps => React.element=?,
-      ~tabBarOptions: materialTopTabBarOptions=?,
       ~tabBarPosition: [#top | #bottom]=?,
       ~removeClippedSubviews: bool=?,
       ~keyboardDismissMode: @string
@@ -214,6 +233,17 @@ module Make = (
     ) => navigatorProps = ""
 
     let make = materialTopTabs["Navigator"]
+  }
+
+  module Group = {
+    @obj
+    external makeProps: (
+      ~screenOptions: optionsCallback=?,
+      ~children: React.element,
+      ~key: string=?,
+      unit,
+    ) => groupProps = ""
+    let make = materialTopTabs["Group"]
   }
 
   module MaterialTopTabBar = {

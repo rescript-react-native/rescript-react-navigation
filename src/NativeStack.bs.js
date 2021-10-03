@@ -1,7 +1,7 @@
 'use strict';
 
 var Core$ReactNavigation = require("./Core.bs.js");
-var NativeStack = require("react-native-screens/native-stack");
+var NativeStack = require("@react-navigation/native-stack");
 
 var NativeStackNavigationScreenProp = Core$ReactNavigation.NavigationScreenProp;
 
@@ -22,15 +22,20 @@ function Make(M) {
   var $$Navigator = {
     make: make$2
   };
+  var make$3 = stack.Group;
+  var Group = {
+    make: make$3
+  };
   return {
           Navigation: Navigation,
           stack: stack,
           ScreenWithCallback: ScreenWithCallback,
           $$Screen: $$Screen,
-          $$Navigator: $$Navigator
+          $$Navigator: $$Navigator,
+          Group: Group
         };
 }
 
 exports.NativeStackNavigationScreenProp = NativeStackNavigationScreenProp;
 exports.Make = Make;
-/* react-native-screens/native-stack Not a pure module */
+/* @react-navigation/native-stack Not a pure module */

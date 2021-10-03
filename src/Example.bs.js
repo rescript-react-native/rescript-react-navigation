@@ -68,6 +68,8 @@ var MainStackScreen_stack = include.stack;
 
 var MainStackScreen_ScreenWithCallback = include.ScreenWithCallback;
 
+var MainStackScreen_Group = include.Group;
+
 var MainStackScreen = {
   StakeParams: StakeParams,
   Navigation: MainStackScreen_Navigation,
@@ -77,6 +79,7 @@ var MainStackScreen = {
   ScreenWithCallback: MainStackScreen_ScreenWithCallback,
   $$Screen: $$Screen,
   $$Navigator: $$Navigator,
+  Group: MainStackScreen_Group,
   make: Example$MainStackScreen
 };
 
@@ -91,8 +94,11 @@ var $$Navigator$1 = include$1.$$Navigator;
 function Example$RootStackScreen(Props) {
   return React.createElement(Native.NavigationContainer, {
               children: React.createElement($$Navigator$1.make, {
-                    mode: "modal",
-                    headerMode: "none",
+                    screenOptions: (function (_optionsProps) {
+                        return {
+                                presentation: "modal"
+                              };
+                      }),
                     children: null
                   }, React.createElement($$Screen$1.make, {
                         name: "Main",
@@ -117,6 +123,8 @@ var RootStackScreen_Header = include$1.Header;
 
 var RootStackScreen_stack = include$1.stack;
 
+var RootStackScreen_Group = include$1.Group;
+
 var RootStackScreen = {
   Navigation: RootStackScreen_Navigation,
   HeaderTitle: RootStackScreen_HeaderTitle,
@@ -125,6 +133,7 @@ var RootStackScreen = {
   ScreenWithCallback: ScreenWithCallback,
   $$Screen: $$Screen$1,
   $$Navigator: $$Navigator$1,
+  Group: RootStackScreen_Group,
   make: Example$RootStackScreen
 };
 

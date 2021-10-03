@@ -3,17 +3,20 @@
 var Caml_option = require("rescript/lib/js/caml_option.js");
 
 function NavigationHelpersCommon(M) {
-  var navigateByKey = function (key, params, navigation) {
+  var navigateByKey = function (key, params, merge, navigation) {
     var tmp = {
       key: key
     };
     if (params !== undefined) {
       tmp.params = Caml_option.valFromOption(params);
     }
+    if (merge !== undefined) {
+      tmp.merge = merge;
+    }
     navigation.navigate(tmp);
     
   };
-  var navigateByName = function (name, key, params, navigation) {
+  var navigateByName = function (name, key, params, merge, navigation) {
     var tmp = {
       name: name
     };
@@ -22,6 +25,9 @@ function NavigationHelpersCommon(M) {
     }
     if (params !== undefined) {
       tmp.params = Caml_option.valFromOption(params);
+    }
+    if (merge !== undefined) {
+      tmp.merge = merge;
     }
     navigation.navigate(tmp);
     
@@ -37,17 +43,20 @@ function EventConsumer(M) {
 }
 
 function NavigationScreenProp(M) {
-  var navigateByKey = function (key, params, navigation) {
+  var navigateByKey = function (key, params, merge, navigation) {
     var tmp = {
       key: key
     };
     if (params !== undefined) {
       tmp.params = Caml_option.valFromOption(params);
     }
+    if (merge !== undefined) {
+      tmp.merge = merge;
+    }
     navigation.navigate(tmp);
     
   };
-  var navigateByName = function (name, key, params, navigation) {
+  var navigateByName = function (name, key, params, merge, navigation) {
     var tmp = {
       name: name
     };
@@ -56,6 +65,9 @@ function NavigationScreenProp(M) {
     }
     if (params !== undefined) {
       tmp.params = Caml_option.valFromOption(params);
+    }
+    if (merge !== undefined) {
+      tmp.merge = merge;
     }
     navigation.navigate(tmp);
     

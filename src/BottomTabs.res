@@ -57,23 +57,6 @@ module Make = (
     "inactiveTintColor": option<string>,
   }
 
-  @obj
-  external bottomTabBarOptions: (
-    ~keyboardHidesTabBar: bool=?,
-    ~activeTintColor: string=?,
-    ~inactiveTintColor: string=?,
-    ~activeBackgroundColor: string=?,
-    ~inactiveBackgroundColor: string=?,
-    ~allowFontScaling: bool=?,
-    ~showLabel: bool=?,
-    ~labelStyle: ReactNative.Style.t=?,
-    ~tabStyle: ReactNative.Style.t=?,
-    ~labelPosition: labelPositionArgs => string=?,
-    ~adaptive: bool=?,
-    ~style: ReactNative.Style.t=?,
-    unit,
-  ) => bottomTabBarOptions = ""
-
   type accessibilityRole = string
   type accessibilityStates = array<string>
   type routeArgs = {route: route}
@@ -113,14 +96,31 @@ module Make = (
   @obj
   external options: (
     ~title: string=?,
-    ~tabBarLabel: //TODO: dynamic, missing static option: React.ReactNode
-    tabBarLabelArgs => React.element=?,
+    ~unmountOnBlur: bool=?,
+    ~_lazy: bool=?,
+    ~showIcon: bool=?,
+    // TODO: Use @react-navigation/elements and add header-related options
+    // https://reactnavigation.org/docs/bottom-tab-navigator/#header-related-options
+    // https://github.com/rescript-react-native/rescript-react-navigation/pull/47
+    // ~header: 'header=?,
+    ~headerShown: bool=?,
+    ~tabBarLabel: tabBarLabelArgs => React.element=?, //TODO: dynamic, missing static option: React.ReactNode
     ~tabBarIcon: tabBarIconArgs => React.element=?,
     ~tabBarAccessibilityLabel: string=?,
     ~tabBarTestID: string=?,
-    ~tabBarVisible: bool=?,
     ~tabBarButton: React.element=?,
-    ~unmountOnBlur: bool=?,
+    ~tabBarHideOnKeyboard: bool=?,
+    ~tabBarActiveTintColor: string=?,
+    ~tabBarInactiveTintColor: string=?,
+    ~tabBarActiveBackgroundColor: string=?,
+    ~tabBarInactiveBackgroundColor: string=?,
+    ~tabBarAllowFontScaling: bool=?,
+    ~tabBarShowLabel: bool=?,
+    ~tabBarLabelPosition: labelPositionArgs => string=?,
+    ~tabBarLabelStyle: ReactNative.Style.t=?,
+    ~tabBarItemStyle: ReactNative.Style.t=?,
+    ~tabBarStyle: ReactNative.Style.t=?,
+    ~tabBarBackground: unit => React.element=?,
     unit,
   ) => options = ""
 
@@ -131,13 +131,13 @@ module Make = (
 
   type optionsCallback = optionsProps => options
 
+  type groupProps = {screenOptions: option<optionsCallback>}
+
   type navigatorProps = {
     initialRouteName: option<string>,
     screenOptions: option<optionsCallback>,
     backBehavior: option<string>,
-    _lazy: option<bool>,
     tabBar: option<bottomTabBarProps => React.element>,
-    tabBarOptions: option<bottomTabBarOptions>,
   }
 
   type renderCallbackProp = {
@@ -157,6 +157,7 @@ module Make = (
   external make: unit => {
     "Navigator": navigatorProps => React.element,
     "Screen": screenProps<M.params> => React.element,
+    "Group": groupProps => React.element,
   } = "createBottomTabNavigator"
 
   let bottomTabs = make()
@@ -193,14 +194,24 @@ module Make = (
       ~initialRouteName: string=?,
       ~screenOptions: optionsCallback=?,
       ~children: React.element,
-      ~backBehavior: [#initialRoute | #order | #history | #none]=?,
+      ~backBehavior: [#firstRoute | #initialRoute | #order | #history | #none]=?,
       ~_lazy: bool=?,
       ~tabBar: bottomTabBarProps => React.element=?,
-      ~tabBarOptions: bottomTabBarOptions=?,
       ~key: string=?,
       unit,
     ) => navigatorProps = ""
 
     let make = bottomTabs["Navigator"]
+  }
+
+  module Group = {
+    @obj
+    external makeProps: (
+      ~screenOptions: optionsCallback=?,
+      ~children: React.element,
+      ~key: string=?,
+      unit,
+    ) => groupProps = ""
+    let make = bottomTabs["Group"]
   }
 }
