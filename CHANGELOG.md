@@ -1,5 +1,12 @@
 # Changelog of `rescript-react-navigation`
 
+## 6.0.1 - 2021-12-06
+
+- Improve `Drawer` bindings [b539ea4](https://github.com/rescript-react-native/rescript-react-navigation/commit/b539ea4) by [@reck753](https://github.com/reck753)
+  - add missing options
+  - enable creating screen with children (`ScreenWithCallback`)
+  - small improvements in existing options
+
 ## 6.0.0 - 2021-10-03
 
 - Upgrade to React Navigation 6.0 [9fda4ed](https://github.com/rescript-react-native/rescript-react-navigation/commit/9fda4ed) by [@vknez](https://github.com/vknez)
