@@ -1109,15 +1109,15 @@ regenerator-runtime@^0.13.4:
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.5.tgz#d878a1d094b4306d10b9096484b33ebd55e26697"
   integrity sha512-ZS5w8CpKFinUzOwW3c83oPeVXoNsrLsaCoLtJvAClH135j/R77RuymhiSErhm2lKcwSCIpmvIWSbDkIfAqKQlA==
 
-rescript-react-native@^0.64.3:
-  version "0.64.3"
-  resolved "https://registry.yarnpkg.com/rescript-react-native/-/rescript-react-native-0.64.3.tgz#8fd11a2681cfdd65c02f0ff620186e5adf0c6854"
-  integrity sha512-PjGDkV3RYiCTk4hCZyaKtZJV69By0AmJuzWyuHZONdeCB0q3DwjVJtA73gu6+jBrdl0OWon6UdXaVRXhhR47cQ==
+"rescript-react-native@^0.64.3 || ^0.65.0 || ^0.66.0":
+  version "0.66.1"
+  resolved "https://registry.yarnpkg.com/rescript-react-native/-/rescript-react-native-0.66.1.tgz#50a477dae1413c74dead9e32b87e81e98a419418"
+  integrity sha512-i404Nv9jsNrBpQOcNmP09VZRRyE4JPcxLywTFuNzmnF0gCX94ZvrMvVI2zhrNQ83V8E32ctrPnusE+mCxe+1eg==
 
-rescript@^9.1.2:
-  version "9.1.2"
-  resolved "https://registry.yarnpkg.com/rescript/-/rescript-9.1.2.tgz#a81f8a735f1a7006233bfc72eb081ca7182a0d79"
-  integrity sha512-4wHvTDv3nyYnAPJHcg1RGG8z7u3HDiBf6RN3P/dITDv859Qo35aKOzJWQtfBzbAs0EKNafLqei3TnUqiAv6BwQ==
+rescript@^9.1.4:
+  version "9.1.4"
+  resolved "https://registry.yarnpkg.com/rescript/-/rescript-9.1.4.tgz#1eb126f98d6c16942c0bf0df67c050198e580515"
+  integrity sha512-aXANK4IqecJzdnDpJUsU6pxMViCR5ogAxzuqS0mOr8TloMnzAjJFu63fjD6LCkWrKAhlMkFFzQvVQYaAaVkFXw==
 
 resolve-from@^4.0.0:
   version "4.0.0"

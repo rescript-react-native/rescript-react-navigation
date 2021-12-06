@@ -10,7 +10,7 @@
     "@react-navigation/native": "^6.0.0",
     "@react-navigation/stack": "^6.0.0",
     "@rescript/react": "^0.10.0",
-    "rescript-react-native": "^0.64.3"
+    "rescript-react-native": "^0.64.3 || ^0.65.0 || ^0.66.0"
   },
   "publishConfig": {
     "access": "public"
@@ -34,7 +34,7 @@
     "format:most": "prettier --write \"**/*.{md,json,js,css}\"",
     "format:res": "rescript format -all",
     "format": "yarn format:most && yarn format:res",
-    "re:start": "rescript -w",
+    "re:start": "rescript build -w",
     "re:build": "rescript",
     "re:clean-build": "rescript clean && rescript",
     "start": "yarn re:start",
@@ -48,8 +48,8 @@
     "lint-staged": "^10.0.0",
     "npmpub": "^5.0.0",
     "prettier": "^2.0.0",
-    "rescript": "^9.1.2",
-    "rescript-react-native": "^0.64.3"
+    "rescript": "^9.1.4",
+    "rescript-react-native": "^0.64.3 || ^0.65.0 || ^0.66.0"
   },
   "prettier": {
     "trailingComma": "all"
