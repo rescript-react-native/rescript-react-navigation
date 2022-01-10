@@ -112,6 +112,7 @@ module Make = (
     ~tabBarTestID: string=?,
     ~_lazy: bool=?,
     ~lazyPlaceholder: React.component<{"route": route}>=?,
+    ~swipeEnabled: bool=?,
     ~tabBarActiveTintColor: string=?,
     ~tabBarInactiveTintColor: string=?,
     ~tabBarPressColor: string=?,
@@ -224,6 +225,8 @@ module Make = (
         | @as("on-drag") #onDrag
         | #none
       ]=?,
+      // Setting `swipeEnabled` through props is deprecated.
+      // Set it through screen options instead!
       ~swipeEnabled: bool=?,
       ~swipeVelocityImpact: float=?,
       ~sceneContainerStyle: ReactNative.Style.t=?,
