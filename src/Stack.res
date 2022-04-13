@@ -226,6 +226,7 @@ module Make = (
     ~headerBackAllowFontScaling: bool=?,
     ~headerBackground: headerBackgroundOptions => React.element=?,
     ~headerBackImage: backImage=?,
+    ~headerBackTestID: string=?,
     ~headerBackTitle: string=?,
     ~headerBackTitleStyle: ReactNative.Style.t=?,
     ~headerBackTitleVisible: bool=?,
@@ -260,6 +261,9 @@ module Make = (
   }
   type optionsCallback = optionsProps => options
 
+  type getIdProps = {params: M.params}
+  type getIdCallback = getIdProps => option<string>
+
   type groupProps = {screenOptions: option<optionsCallback>}
 
   type navigatorProps = {
@@ -273,6 +277,7 @@ module Make = (
   type screenProps<'params> = {
     name: string,
     options: option<optionsCallback>,
+    getId: option<getIdCallback>,
     initialParams: option<'params>,
     component: option<React.component<{"navigation": navigation, "route": route}>>,
     children: option<renderCallbackProp => React.element>,
@@ -291,6 +296,7 @@ module Make = (
     external makeProps: (
       ~name: string,
       ~options: optionsCallback=?,
+      ~getId: getIdCallback=?,
       ~initialParams: M.params=?,
       ~children: renderCallbackProp => React.element,
       ~key: string=?,
@@ -304,6 +310,7 @@ module Make = (
     external makeProps: (
       ~name: string,
       ~options: optionsCallback=?,
+      ~getId: getIdCallback=?,
       ~initialParams: M.params=?,
       ~component: React.component<{"navigation": navigation, "route": route}>,
       ~key: string=?,
