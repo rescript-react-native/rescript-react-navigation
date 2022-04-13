@@ -1,5 +1,14 @@
 # Changelog of `rescript-react-navigation`
 
+## 6.0.2 - 2022-04-13
+
+- Improve stack and material top tabs [b77432d](https://github.com/rescript-react-native/rescript-react-navigation/commit/b77432d) by [@reck753](https://github.com/reck753)
+
+  - Improve `Stack` by adding:
+    - `headerBackTestID` screen option
+    - `getId` screen prop
+  - Add `swipeEnabled` option to `MaterialTopTabs`
+
 ## 6.0.1 - 2021-12-06
 
 - Improve `Drawer` bindings [b539ea4](https://github.com/rescript-react-native/rescript-react-navigation/commit/b539ea4) by [@reck753](https://github.com/reck753)
