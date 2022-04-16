@@ -1,7 +1,7 @@
 {
   "name": "rescript-react-navigation",
   "description": "ReScript bindings for react-navigation.",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "publishConfig": {
     "access": "public"
   },

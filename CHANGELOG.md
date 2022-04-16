@@ -1,5 +1,9 @@
 # Changelog of `rescript-react-navigation`
 
+## 6.0.3 - 2022-04-16
+
+- Simplify peerDependencies [df75bda](https://github.com/rescript-react-native/rescript-react-navigation/commit/df75bda) by [@MoOx](https://github.com/MoOx)
+
 ## 6.0.2 - 2022-04-13
 
 - Improve stack and material top tabs [b77432d](https://github.com/rescript-react-native/rescript-react-navigation/commit/b77432d) by [@reck753](https://github.com/reck753)
