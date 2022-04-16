@@ -2,18 +2,21 @@
   "name": "rescript-react-navigation",
   "description": "ReScript bindings for react-navigation.",
   "version": "6.0.2",
-  "peerDependencies": {
-    "@react-navigation/bottom-tabs": "^6.0.0",
-    "@react-navigation/drawer": "^6.0.0",
-    "@react-navigation/material-bottom-tabs": "^6.0.0",
-    "@react-navigation/material-top-tabs": "^6.0.0",
-    "@react-navigation/native": "^6.0.0",
-    "@react-navigation/stack": "^6.0.0",
-    "@rescript/react": "^0.10.0",
-    "rescript-react-native": "^0.64.3 || ^0.65.0 || ^0.66.0 || ^0.67.0"
-  },
   "publishConfig": {
     "access": "public"
+  },
+  "peerDependencies": {
+    "@react-navigation/bottom-tabs": ">=6.0.0",
+    "@react-navigation/drawer": ">=6.0.0",
+    "@react-navigation/material-bottom-tabs": ">=6.0.0",
+    "@react-navigation/material-top-tabs": ">=6.0.0",
+    "@react-navigation/native": ">=6.0.0",
+    "@react-navigation/stack": ">=6.0.0",
+    "@rescript/react": ">=0.10.0",
+    "rescript-react-native": ">=0.64.3"
+  },
+  "overrides": {
+    "react": "17.0.2"
   },
   "repository": "https://github.com/rescript-react-native/react-navigation.git",
   "license": "MIT",
@@ -49,7 +52,7 @@
     "npmpub": "^5.0.0",
     "prettier": "^2.0.0",
     "rescript": "^9.1.4",
-    "rescript-react-native": "^0.64.3 || ^0.65.0 || ^0.66.0 || ^0.67.0"
+    "rescript-react-native": ">=0.64.3"
   },
   "prettier": {
     "trailingComma": "all"
