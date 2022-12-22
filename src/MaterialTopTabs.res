@@ -154,6 +154,7 @@ module Make = (
     swipeVelocityImpact: option<float>,
     sceneContainerStyle: option<ReactNative.Style.t>,
     style: option<ReactNative.Style.t>,
+    initialLayout: option<layout>,
   }
 
   type renderCallbackProp = {
@@ -231,6 +232,7 @@ module Make = (
       ~swipeVelocityImpact: float=?,
       ~sceneContainerStyle: ReactNative.Style.t=?,
       ~style: ReactNative.Style.t=?,
+      ~initialLayout: layout=?,
       ~key: string=?,
       unit,
     ) => navigatorProps = ""
