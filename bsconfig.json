@@ -1,7 +1,10 @@
 {
   "name": "rescript-react-navigation",
   "namespace": "react-navigation",
-  "reason": { "react-jsx": 3 },
+  "jsx": {
+    "version": 4,
+    "mode": "classic"
+  },
   "package-specs": {
     "module": "commonjs",
     "in-source": true

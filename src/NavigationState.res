@@ -5,5 +5,5 @@ type rec t = {
   isDrawerOpen: bool,
 }
 
-type persistNavigationState = t => Js.Promise.t<unit>
-type loadNavigationState = unit => Js.Promise.t<option<t>>
+type persistNavigationState = t => promise<unit>
+type loadNavigationState = unit => promise<option<t>>

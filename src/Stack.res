@@ -1,89 +1,18 @@
+// https://reactnavigation.org/docs/stack-navigator
+
 open Core
+open Elements
+open ReactNative
 
-type options
+type presentation = [#card | #modal | #transparentModal]
 
-type safeAreaInsets = {
-  top: float,
-  bottom: float,
-  left: float,
-  right: float,
-}
+type animationTypeForReplace = [#push | #pop]
 
-type layout = {
-  width: float,
-  height: float,
-}
-
-type layouts = {
-  screen: layout,
-  title: option<layout>,
-  leftLabel: option<layout>,
-}
-
-//TODO
-type any
-type animatedNode = ReactNative.Animated.Value.t
-type stackHeaderInterpolation = {progress: animatedNode}
-type stackHeaderInterpolationProps = {
-  current: stackHeaderInterpolation,
-  next: option<stackHeaderInterpolation>,
-  layouts: layouts,
-}
-type stackHeaderInterpolatedStyle = {
-  leftLabelStyle: option<any>,
-  leftButtonStyle: option<any>,
-  rightButtonStyle: option<any>,
-  titleStyle: option<any>,
-  backgroundStyle: option<any>,
-}
-type stackHeaderStyleInterpolator = stackHeaderInterpolationProps => stackHeaderInterpolatedStyle
-
-type insets = {
-  top: float,
-  right: float,
-  bottom: float,
-  left: float,
-}
-
-type stackCardInterpolationProps = {
-  current: stackHeaderInterpolation,
-  next: option<stackHeaderInterpolation>,
-  index: int,
-  closing: animatedNode,
-  layouts: layouts,
-  insets: insets,
-}
-type stackCardInterpolatedStyle = {
-  containerStyle: option<any>,
-  cardStyle: option<any>,
-  overlayStyle: option<any>,
-  shadowStyle: option<any>,
-}
-type stackCardStyleInterpolator = stackCardInterpolationProps => stackCardInterpolatedStyle
-
-type layoutChangeEvent
-
-type backImageProps = {tintColor: ReactNative.Color.t}
-type backImage = backImageProps => React.element
-type stackHeaderLeftButtonProps = {
-  disabled: option<bool>,
-  onPress: option<unit => unit>,
-  pressColorAndroid: option<ReactNative.Color.t>,
-  backImage: option<backImage>,
-  tintColor: option<ReactNative.Color.t>,
-  label: option<string>,
-  truncatedLabel: option<string>,
-  labelVisible: option<bool>,
-  labelStyle: option<ReactNative.Style.t>,
-  allowFontScaling: option<bool>,
-  onLabelLayout: option<layoutChangeEvent => unit>,
-  screenLayout: option<layout>,
-  titleLayout: option<layout>,
-  canGoBack: option<bool>,
-}
+type gestureDirection = [#horizontal | #"horizontal-inverted" | #"vertical-inverted"]
 
 module TransitionSpec = {
   type t
+
   type springConfig = {
     damping: int,
     mass: int,
@@ -92,12 +21,13 @@ module TransitionSpec = {
     restDisplacementThreshold: int,
     overshootClamping: bool,
   }
+
   @obj
   external spring: (~animation: [#spring], ~config: springConfig) => t = ""
 
   type timingConfig = {
     duration: int,
-    easing: ReactNative.Easing.t,
+    easing: Easing.t,
   }
 
   @obj
@@ -105,325 +35,283 @@ module TransitionSpec = {
 }
 
 type transitionSpec = {
-  @as("open")
-  open_: TransitionSpec.t,
+  \"open": TransitionSpec.t,
   close: TransitionSpec.t,
 }
 
-module StackNavigationScreenProp = (
-  M: {
-    type params
-    type options
-  },
-) => {
-  include NavigationScreenProp(M)
+type animatedValue = Animated.Value.t
 
-  type t = navigation
-
-  @send external push: (t, string) => unit = "push"
-  @send external pushWithParams: (t, string, M.params) => unit = "push"
-
-  @send external pop: (t, ~count: int=?, unit) => unit = "pop"
-
-  @send external popToTop: (t, unit) => unit = "popToTop"
+type layouts = {
+  screen: layout,
+  title: option<layout>,
+  leftLabel: option<layout>,
 }
 
-module Make = (
-  M: {
-    type params
-  },
-) => {
-  type route = route<M.params>
-  module Navigation = StackNavigationScreenProp({
-    include M
-    type options = options
-  })
+type interpolation = {progress: animatedValue}
 
-  type gestureResponseDistance = float
+type insets = {
+  top: float,
+  right: float,
+  bottom: float,
+  left: float,
+}
 
-  module HeaderTitle = {
-    type t
+type headerInterpolationProps = {
+  current: interpolation,
+  next: option<interpolation>,
+  layouts: layouts,
+}
 
-    type headerTitleProps = {
-      onLayout: layoutChangeEvent => unit,
-      allowFontScaling: option<bool>,
-      style: option<ReactNative.Style.t>, //textStyle
-      children: option<string>,
-    }
+type headerInterpolatedStyle = {
+  leftLabelStyle?: Style.t,
+  leftButtonStyle?: Style.t,
+  rightButtonStyle?: Style.t,
+  titleStyle?: Style.t,
+  backgroundStyle?: Style.t,
+}
 
-    @val @module("./Interop")
-    external t: @unwrap
-    [
-      | #String(string)
-      | #Render(headerTitleProps => React.element)
-    ] => t = "identity"
+type headerStyleInterpolator = headerInterpolationProps => headerInterpolatedStyle
 
-    let string = s => t(#String(s))
-    let render = x => t(#Render(x))
-  }
+type cardInterpolationProps = {
+  current: interpolation,
+  next: option<interpolation>,
+  index: int,
+  closing: animatedValue,
+  layouts: layouts,
+  insets: insets,
+}
 
-  type mode = string //TODO: [ | `float | `screen | `none]
+type cardInterpolatedStyle = {
+  containerStyle?: Style.t,
+  cardStyle?: Style.t,
+  overlayStyle?: Style.t,
+  shadowStyle?: Style.t,
+}
 
-  module Header = {
-    type descriptor = {
-      render: unit => React.element,
-      options: options,
-      navigation: navigation,
-    }
-    type progress = {
-      current: animatedNode,
-      next: option<animatedNode>,
-      previous: option<animatedNode>,
-    }
-    type rec headerProps<'params> = {
-      mode: mode,
-      style: ReactNative.Style.t,
-      /* extends NavigationSceneRendererProps */
-      layout: layout,
-      scene: scene<Core.route<'params>>,
-      previous: option<scene<Core.route<'params>>>,
-      navigation: navigation,
-      styleInterpolator: stackHeaderStyleInterpolator,
-    }
-    and scene<'t> = {
-      route: 't,
-      descriptor: descriptor,
-      progress: progress,
-    }
+type stackCardStyleInterpolator = cardInterpolationProps => cardInterpolatedStyle
 
-    type t
-    @val @module("./Interop")
-    external t: @unwrap
-    [
-      | #Render(headerProps<'params> => React.element)
-      | #Null(Js.null<unit>)
-    ] => t = "identity"
+type headerMode = [#float | #screen]
 
-    let render = x => t(#Render(x))
+type headerBackImageProps = {tintColor: Color.t}
 
-    let null = t(#Null(Js.Null.empty))
-  }
+type progress = {
+  current: animatedValue,
+  next: option<animatedValue>,
+  previous: option<animatedValue>,
+}
 
-  type headerRightOptions = {tintColor: option<ReactNative.Color.t>}
-  type headerBackgroundOptions = {style: option<ReactNative.Style.t>}
+type rec options = {
+  title?: string,
+  cardShadowEnabled?: bool,
+  cardOverlayEnabled?: bool,
+  cardOverlay?: unit => React.element,
+  cardStyle?: Style.t,
+  presentation?: presentation,
+  animationEnabled?: bool,
+  animationTypeForReplace?: animationTypeForReplace,
+  gestureEnabled?: bool,
+  gestureResponseDistance?: float,
+  gestureVelocityImpact?: float,
+  gestureDirection?: gestureDirection,
+  transitionSpec?: transitionSpec,
+  cardStyleInterpolator?: stackCardStyleInterpolator,
+  headerStyleInterpolator?: headerStyleInterpolator,
+  detachPreviousScreen?: bool,
+  freezeOnBlur?: bool,
+  header?: headerParams => React.element,
+  headerMode?: headerMode,
+  headerShown?: bool,
+  headerBackAllowFontScaling?: bool,
+  headerBackAccessibilityLabel?: string,
+  headerBackImage?: headerBackImageProps,
+  headerBackTitle?: string,
+  headerBackTitleVisible?: bool,
+  headerTruncatedBackTitle?: string,
+  headerBackTitleStyle?: Style.t,
+  // Header props from https://reactnavigation.org/docs/elements#header
+  headerTitle?: Header.headerTitleProps => React.element,
+  headerTitleAlign?: Header.headerTitleAlign,
+  headerTitleAllowFontScaling?: bool,
+  headerTitleStyle?: Style.t,
+  headerTitleContainerStyle?: Style.t,
+  headerLeft?: Header.headerLeftProps => React.element,
+  headerLeftLabelVisible?: bool,
+  headerLeftContainerStyle?: Style.t,
+  headerRight?: Header.headerRightProps => React.element,
+  headerRightContainerStyle?: Style.t,
+  headerPressColor?: Color.t,
+  headerPressOpacity?: float,
+  headerTintColor?: Color.t,
+  headerBackground?: Header.headerBackgroundOptions => React.element,
+  headerBackgroundContainerStyle?: Style.t,
+  headerTransparent?: bool,
+  headerStyle?: Style.t,
+  headerShadowVisible?: bool,
+  headerStatusBarHeight?: Style.size,
+}
+and headerParams = {
+  navigation: navigation,
+  route: route,
+  options: options,
+  layout: layout,
+  back: headerBackImageProps => React.element,
+  styleInterpolator: headerStyleInterpolator,
+}
 
-  @obj
-  external options: (
-    ~animationEnabled: bool=?,
-    ~animationTypeForReplace: [#push | #pop]=?,
-    ~cardOverlay: unit => React.element=?,
-    ~cardOverlayEnabled: bool=?,
-    ~cardShadowEnabled: bool=?,
-    ~cardStyle: ReactNative.Style.t=?,
-    ~cardStyleInterpolator: stackCardStyleInterpolator=?,
-    ~detachPreviousScreen: bool=?,
-    ~gestureDirection: [#horizontal | #vertical]=?,
-    ~gestureEnabled: bool=?,
-    ~gestureResponseDistance: gestureResponseDistance=?,
-    ~gestureVelocityImpact: float=?,
-    ~header: Header.t=?,
-    ~headerBackAccessibilityLabel: string=?,
-    ~headerBackAllowFontScaling: bool=?,
-    ~headerBackground: headerBackgroundOptions => React.element=?,
-    ~headerBackImage: backImage=?,
-    ~headerBackTestID: string=?,
-    ~headerBackTitle: string=?,
-    ~headerBackTitleStyle: ReactNative.Style.t=?,
-    ~headerBackTitleVisible: bool=?,
-    ~headerLeft: stackHeaderLeftButtonProps => React.element=?,
-    ~headerLeftContainerStyle: ReactNative.Style.t=?,
-    ~headerMode: [#float | #screen]=?,
-    ~headerPressColorAndroid: ReactNative.Color.t=?,
-    ~headerRight: headerRightOptions => React.element=?,
-    ~headerRightContainerStyle: ReactNative.Style.t=?,
-    ~headerShown: bool=?,
-    ~headerStatusBarHeight: ReactNative.Style.size=?,
-    ~headerStyle: ReactNative.Style.t=?,
-    ~headerStyleInterpolator: stackHeaderStyleInterpolator=?,
-    ~headerTintColor: ReactNative.Color.t=?,
-    ~headerTitle: HeaderTitle.t=?,
-    ~headerTitleAlign: [#left | #center]=?,
-    ~headerTitleAllowFontScaling: bool=?,
-    ~headerTitleContainerStyle: ReactNative.Style.t=?,
-    ~headerTitleStyle: ReactNative.Style.t=?,
-    ~headerTransparent: bool=?,
-    ~headerTruncatedBackTitle: string=?,
-    ~keyboardHandlingEnabled: bool=?,
-    ~presentation: [#card | #modal]=?,
-    ~safeAreaInsets: safeAreaInsets=?,
-    ~title: string=?,
-    ~transitionSpec: transitionSpec=?,
-    unit,
-  ) => options = ""
-  type optionsProps = {
-    navigation: navigation,
-    route: route,
-  }
-  type optionsCallback = optionsProps => options
-
-  type getIdProps = {params: M.params}
-  type getIdCallback = getIdProps => option<string>
-
-  type groupProps = {screenOptions: option<optionsCallback>}
-
-  type navigatorProps = {
-    initialRouteName: option<string>,
-    screenOptions: option<optionsCallback>,
-  }
-  type renderCallbackProp = {
-    navigation: navigation,
-    route: route,
-  }
-  type screenProps<'params> = {
-    name: string,
-    options: option<optionsCallback>,
-    getId: option<getIdCallback>,
-    initialParams: option<'params>,
-    component: option<React.component<{"navigation": navigation, "route": route}>>,
-    children: option<renderCallbackProp => React.element>,
-  }
-
-  @module("@react-navigation/stack")
-  external make: unit => {
-    "Navigator": navigatorProps => React.element,
-    "Screen": screenProps<M.params> => React.element,
-    "Group": groupProps => React.element,
-  } = "createStackNavigator"
-
-  let stack = make()
-  module ScreenWithCallback = {
-    @obj
-    external makeProps: (
-      ~name: string,
-      ~options: optionsCallback=?,
-      ~getId: getIdCallback=?,
-      ~initialParams: M.params=?,
-      ~children: renderCallbackProp => React.element,
-      ~key: string=?,
-      unit,
-    ) => screenProps<M.params> = ""
-    let make = stack["Screen"]
-  }
-  module Screen = {
-    type componentProps = {navigation: navigation}
-    @obj
-    external makeProps: (
-      ~name: string,
-      ~options: optionsCallback=?,
-      ~getId: getIdCallback=?,
-      ~initialParams: M.params=?,
-      ~component: React.component<{"navigation": navigation, "route": route}>,
-      ~key: string=?,
-      unit,
-    ) => screenProps<M.params> = ""
-
-    let make = stack["Screen"]
-  }
-
-  module Navigator = {
-    @obj
-    external makeProps: (
+module type NavigatorModule = {
+  module Navigator: {
+    @react.component
+    let make: (
+      ~id: string=?,
       ~initialRouteName: string=?,
-      ~screenOptions: optionsCallback=?,
-      ~children: React.element,
-      ~key: string=?,
-      unit,
-    ) => navigatorProps = ""
-
-    let make = stack["Navigator"]
+      ~screenOptions: screenOptionsParams => options=?,
+      ~detachInactiveScreens: bool=?,
+      ~keyboardHandlingEnabled: bool=?,
+      ~children: React.element=?,
+    ) => React.element
   }
 
-  module Group = {
-    @obj
-    external makeProps: (
-      ~screenOptions: optionsCallback=?,
-      ~children: React.element,
-      ~key: string=?,
-      unit,
-    ) => groupProps = ""
-
-    let make = stack["Group"]
+  module Screen: {
+    @react.component
+    let make: (
+      ~name: string,
+      ~navigationKey: string=?,
+      ~options: screenOptionsParams => options=?,
+      ~initialParams: 'params=?,
+      ~getId: getIdOptions=?,
+      ~component: React.component<screenProps>=?,
+      ~getComponent: unit => React.component<screenProps>=?,
+      ~children: screenProps => React.element=?,
+    ) => React.element
   }
+
+  module Group: {
+    @react.component
+    let make: (
+      ~navigationKey: string=?,
+      ~screenOptions: screenOptionsParams => options=?,
+    ) => React.element
+  }
+}
+
+type navigatorModule
+
+%%private(
+  @module("@react-navigation/stack")
+  external createStackNavigator: unit => navigatorModule = "createStackNavigator"
+
+  @module("./Interop")
+  external adaptNavigatorModule: navigatorModule => module(NavigatorModule) = "adaptNavigatorModule"
+)
+
+module Make = () => unpack(createStackNavigator()->adaptNavigatorModule)
+
+type screenEventData = {closing: int}
+
+module Navigation = {
+  @send
+  external setOptions: (navigation, options) => unit = "setOptions"
+
+  @send external replace: (navigation, string) => unit = "replace"
+  @send
+  external replaceWithParams: (navigation, string, 'params) => unit = "replace"
+
+  @send external push: (navigation, string) => unit = "push"
+  @send external pushWithParams: (navigation, string, 'params) => unit = "push"
+
+  @send external pop: (navigation, ~count: int=?, unit) => unit = "pop"
+
+  @send external popToTop: (navigation, unit) => unit = "popToTop"
+
+  @send
+  external addEventListener: (
+    navigation,
+    @string
+    [
+      | #transitionStart(navigationEvent<screenEventData> => unit)
+      | #transitionEnd(navigationEvent<screenEventData> => unit)
+      | #gestureStart(navigationEvent<unit> => unit)
+      | #gestureEnd(navigationEvent<unit> => unit)
+      | #gestureCancel(navigationEvent<unit> => unit)
+    ],
+  ) => unsubscribe = "addListener"
 }
 
 module TransitionSpecs = {
-  /* Exact values from UINavigationController's animation configuration */
+  // Exact values from UINavigationController's animation configuration
   @module("@react-navigation/stack") @scope("TransitionSpecs")
   external transitionIOSSpec: transitionSpec = "TransitionIOSSpec"
-  /* Configuration for activity open animation from Android Nougat */
+  // Configuration for activity open animation from Android Nougat
   @module("@react-navigation/stack") @scope("TransitionSpecs")
   external fadeInFromBottomAndroidSpec: transitionSpec = "FadeInFromBottomAndroidSpec"
-  /* Configuration for activity close animation from Android Nougat */
+  // Configuration for activity close animation from Android Nougat
   @module("@react-navigation/stack") @scope("TransitionSpecs")
   external fadeOutToBottomAndroidSpec: transitionSpec = "FadeOutToBottomAndroidSpec"
-  /* Approximate configuration for activity open animation from Android Pie */
+  // Approximate configuration for activity open animation from Android Pie
   @module("@react-navigation/stack") @scope("TransitionSpecs")
   external revealFromBottomAndroidSpec: transitionSpec = "RevealFromBottomAndroidSpec"
 }
 
 module CardStyleInterpolators = {
-  /* Standard iOS-style slide in from the right */
+  // Standard iOS-style slide in from the right
   @module("@react-navigation/stack") @scope("CardStyleInterpolators")
   external forHorizontalIOS: stackCardStyleInterpolator = "forHorizontalIOS"
-  /* Standard iOS-style slide in from the bottom (used for modals) */
+  // Standard iOS-style slide in from the bottom (used for modals)
   @module("@react-navigation/stack") @scope("CardStyleInterpolators")
   external forVerticalIOS: stackCardStyleInterpolator = "forVerticalIOS"
-  /* Standard iOS-style modal animation in iOS 13 */
+  // Standard iOS-style modal animation in iOS 13
   @module("@react-navigation/stack") @scope("CardStyleInterpolators")
   external forModalPresentationIOS: stackCardStyleInterpolator = "forModalPresentationIOS"
-  /* Standard Android-style fade in from the bottom for Android Oreo */
+  // Standard Android-style fade in from the bottom for Android Oreo
   @module("@react-navigation/stack") @scope("CardStyleInterpolators")
   external forFadeFromBottomAndroid: stackCardStyleInterpolator = "forFadeFromBottomAndroid"
-  /* Standard Android-style reveal from the bottom for Android Pie */
+  // Standard Android-style reveal from the bottom for Android Pie
   @module("@react-navigation/stack") @scope("CardStyleInterpolators")
   external forRevealFromBottomAndroid: stackCardStyleInterpolator = "forRevealFromBottomAndroid"
 }
 
 module HeaderStyleInterpolators = {
-  /* Standard UIKit style animation for the header where the title fades into the back button label */
+  // Standard UIKit style animation for the header where the title fades into the back button label
   @module("@react-navigation/stack") @scope("HeaderStyleInterpolators")
-  external forUIKit: stackHeaderStyleInterpolator = "forUIKit"
-  /* Simple fade animation for the header elements */
+  external forUIKit: headerStyleInterpolator = "forUIKit"
+  // Simple fade animation for the header elements
   @module("@react-navigation/stack") @scope("HeaderStyleInterpolators")
-  external forFade: stackHeaderStyleInterpolator = "forFade"
-  /* Simple translate animation to translate the header along with the sliding screen */
+  external forFade: headerStyleInterpolator = "forFade"
+  // Simple translate animation to translate the header along with the sliding screen
   @module("@react-navigation/stack") @scope("HeaderStyleInterpolators")
-  external forStatic: stackHeaderStyleInterpolator = "forStatic"
+  external forStatic: headerStyleInterpolator = "forStatic"
 }
 
 module TransitionPresets = {
-  /* Standard iOS navigation transition. */
+  // Standard iOS navigation transition.
   @module("@react-navigation/stack") @scope("TransitionPresets")
   external slideFromRightIOS: options = "SlideFromRightIOS"
 
-  /* Standard iOS navigation transition for modals. */
+  // Standard iOS navigation transition for modals.
   @module("@react-navigation/stack") @scope("TransitionPresets")
   external modalSlideFromBottomIOS: options = "ModalSlideFromBottomIOS"
 
-  /* Standard iOS modal presentation style (introduced in iOS 13). */
+  // Standard iOS modal presentation style (introduced in iOS 13).
   @module("@react-navigation/stack") @scope("TransitionPresets")
   external modalPresentationIOS: options = "ModalPresentationIOS"
 
-  /* Standard Android navigation transition when opening or closing an Activity on Android < 9 (Oreo). */
+  // Standard Android navigation transition when opening or closing an Activity on Android < 9 (Oreo).
   @module("@react-navigation/stack") @scope("TransitionPresets")
   external fadeFromBottomAndroid: options = "FadeFromBottomAndroid"
 
-  /* Standard Android navigation transition when opening or closing an Activity on Android >= 9 (Pie). */
+  // Standard Android navigation transition when opening or closing an Activity on Android >= 9 (Pie).
   @module("@react-navigation/stack") @scope("TransitionPresets")
   external revealFromBottomAndroid: options = "RevealFromBottomAndroid"
 
-  /* Standard Android navigation transition when opening or closing an Activity on Android >= 10 */
+  // Standard Android navigation transition when opening or closing an Activity on Android >= 10
   @module("@react-navigation/stack") @scope("TransitionPresets")
   external scaleFromCenterAndroid: options = "ScaleFromCenterAndroid"
 
-  /* Default navigation transition for the current platform. */
+  // Default navigation transition for the current platform.
   @module("@react-navigation/stack") @scope("TransitionPresets")
   external defaultTransition: options = "DefaultTransition"
 
-  /* Default modal transition for the current platform. */
+  // Default modal transition for the current platform.
   @module("@react-navigation/stack") @scope("TransitionPresets")
   external modalTransition: options = "ModalTransition"
 }
-
-@val
-external mergeOptions: (options, options) => options = "Object.assign"

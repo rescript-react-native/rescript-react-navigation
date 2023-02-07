@@ -1,131 +1,94 @@
-type rec route<'params> = {
+module Params = {
+  type t
+
+  external toJson: t => Js.Json.t = "%identity"
+  external unsafeGetValue: t => 'a = "%identity"
+}
+
+type params = Params.t
+
+type rec route = {
   key: string,
   name: string,
-  params: option<'params>,
+  params: option<params>,
   path: option<string>,
 }
-and navigationState<'params> = {
+and navigationState = {
   key: string,
   index: int,
   routeNames: array<string>,
-  routes: array<route<'params>>,
+  routes: array<route>,
 }
 
 type navigation
 
-module NavigationHelpersCommon = (
-  M: {
-    type params
-  },
-) => {
-  type route = route<M.params>
+type screenOptionsParams = {navigation: navigation, route: route}
+
+type screenProps = {navigation: navigation, route: route}
+
+type getIdOptions = {params: params}
+
+type layout = {width: float, height: float}
+
+type backBehavior = [#firstRoute | #initialRoute | #order | #history | #none]
+
+type unsubscribe = unit => unit
+
+// TODO
+type descriptor
+
+type descriptors = Js.Dict.t<descriptor>
+
+module NavigationEvent = {
+  type t<'data> = {
+    data: 'data,
+    target: option<string>,
+  }
+
+  @send external preventDefault: t<'data> => unit = "preventDefault"
+}
+
+type navigationEvent<'data> = NavigationEvent.t<'data>
+
+type stateEventData = {state: navigationState}
+
+type action
+
+module Navigation = {
+  type t = navigation
+
+  @send external navigate: (t, string) => unit = "navigate"
   @send
-  external dispatch: (navigation, NavigationActions.action) => unit = "dispatch"
-
-  @send external navigate: (navigation, string) => unit = "navigate"
-  @send
-  external navigateWithParams: (navigation, string, M.params) => unit = "navigate"
-
-  type navigationParams
-
-  @obj
-  external navigateByKeyParams: (
-    ~key: string,
-    ~params: M.params=?,
-    ~merge: bool=?,
-    unit,
-  ) => navigationParams = ""
-
-  @obj
-  external navigateByNameParams: (
-    ~name: string,
-    ~key: string=?,
-    ~params: M.params=?,
-    ~merge: bool=?,
-    unit,
-  ) => navigationParams = ""
-
-  @send external navigateBy: (navigation, navigationParams) => unit = "navigate"
-
-  let navigateByKey = (
-    ~key: string,
-    ~params: option<M.params>=?,
-    ~merge: option<bool>=?,
-    navigation,
-  ) => navigateBy(navigation, navigateByKeyParams(~key, ~params?, ~merge?, ()))
-
-  let navigateByName = (
-    ~name: string,
-    ~key: option<string>=?,
-    ~params: option<M.params>=?,
-    ~merge: option<bool>=?,
-    navigation,
-  ) => navigateBy(navigation, navigateByNameParams(~name, ~key?, ~params?, ~merge?, ()))
-
-  @send external replace: (navigation, string) => unit = "replace"
-  @send
-  external replaceWithParams: (navigation, string, M.params) => unit = "replace"
-
-  @send
-  external reset: (navigation, navigationState<M.params>) => unit = "reset"
-
-  @send
-  external resetRoot: (navigation, navigationState<M.params>) => unit = "resetRoot"
+  external navigateWithParams: (t, string, 'params) => unit = "navigate"
 
   @send external goBack: (navigation, unit) => unit = "goBack"
+
+  @send
+  external reset: (navigation, navigationState) => unit = "reset"
+
   @send external isFocused: (navigation, unit) => bool = "isFocused"
+
+  @send
+  external dispatch: (t, action) => unit = "dispatch"
+
   @send external canGoBack: (navigation, unit) => bool = "canGoBack"
-}
 
-module EventConsumer = (
-  M: {
-    type params
-  },
-) => {
-  type eventListenerOptions<'data> = {
-    @as("type")
-    type_: string,
-    defaultPrevented: bool,
-    preventDefault: unit => unit,
-    data: option<'data>,
-  }
-  type eventListenerCallback<'data> = eventListenerOptions<'data> => unit
-
-  type unsubscribe = unit => unit
-
-  @send
-  external addListener: (
-    navigation,
-    [#focus | #blur | #tabPress],
-    eventListenerCallback<'data>,
-  ) => unsubscribe = "addListener"
-  @send
-  external removeListener: (
-    navigation,
-    [#focus | #blur | #tabPress],
-    eventListenerCallback<'data>,
-  ) => unsubscribe = "removeListener"
-}
-
-module NavigationScreenProp = (
-  M: {
-    type params
-    type options
-  },
-) => {
-  include NavigationHelpersCommon(M)
-  include EventConsumer(M)
-
-  @send external setParams: (navigation, M.params) => unit = "setParams"
-  @send
-  external setOptions: (navigation, M.options) => unit = "setOptions"
-
-  @send
-  external isFirstRouteInParent: (navigation, unit) => bool = "isFirstRouteInParent"
+  @send external setParams: (navigation, 'params) => unit = "setParams"
 
   @send
   external getParent: navigation => Js.nullable<navigation> = "getParent"
 
   @send
-  external getState: navigation => Js.nullable<navigationState<'params>> = "getState"
+  external getState: navigation => Js.nullable<navigationState> = "getState"
+
+  @send
+  external addEventListener: (
+    navigation,
+    @string
+    [
+      | #focus(navigationEvent<unit> => unit)
+      | #blur(navigationEvent<unit> => unit)
+      | #state(navigationEvent<stateEventData> => unit)
+    ],
+  ) => unsubscribe = "addListener"
 }

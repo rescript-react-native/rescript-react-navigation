@@ -1,282 +1,144 @@
+// https://reactnavigation.org/docs/material-top-tab-navigator
+
 open Core
+open ReactNative
 
-type layout = {
-  width: float,
-  height: float,
-}
-type options
-
-module MaterialTopTabNavigationProp = (
-  M: {
-    type params
-    type options
-  },
-) => {
-  include NavigationScreenProp(M)
-
-  type t = navigation
-
-  @send external jumpTo: (t, string) => unit = "jumpTo"
-  @send
-  external jumpToWithParams: (t, string, M.params) => unit = "jumpTo"
+type tabBarLabelOptions = {
+  focused: bool,
+  color: string,
 }
 
-module Make = (
-  M: {
-    type params
-  },
-) => {
-  type route = route<M.params>
-  module Navigation = MaterialTopTabNavigationProp({
-    include M
-    type options = options
-  })
+type tabBarIconOptions = {
+  focused: bool,
+  color: string,
+}
 
-  type animatedNode = ReactNative.Animated.Value.t
+type options = {
+  title?: string,
+  tabBarLabel?: tabBarLabelOptions => React.element,
+  tabBarAccessibilityLabel?: string,
+  tabBarAllowFontScaling?: bool,
+  tabBarShowLabel?: bool,
+  tabBarIcon?: tabBarIconOptions => React.element,
+  tabBarShowIcon?: bool,
+  tabBarBadge?: unit => React.element,
+  tabBarIndicator?: unit => React.element,
+  tabBarIndicatorStyle?: Style.t,
+  tabBarIndicatorContainerStyle?: Style.t,
+  tabBarTestID?: string,
+  tabBarActiveTintColor?: string,
+  tabBarInactiveTintColor?: string,
+  tabBarPressColor?: string,
+  tabBarPressOpacity?: float,
+  tabBarBounces?: bool,
+  tabBarScrollEnabled?: bool,
+  tabBarIconStyle?: Style.t,
+  tabBarLabelStyle?: Style.t,
+  tabBarItemStyle?: Style.t,
+  tabBarContentContainerStyle?: Style.t,
+  tabBarStyle?: Style.t,
+  animationEnabled?: bool,
+  swipeEnabled?: bool,
+  \"lazy"?: bool,
+  lazyPreloadDistance?: float,
+  lazyPlaceholder?: unit => React.element,
+}
 
-  type scene = {
-    focused: bool,
-    color: string,
-  }
+type tabBarPosition = [#top | #bottom]
 
-  type descriptors
+type keyboardDismissMode = [#auto | #"on-drag" | #none]
 
-  type tabBar = {
-    "scrollEnabled": option<bool>,
-    //pub navigationState: navigationState(M.params);
-    //pub activeColor: option(string);
-    //pub inactiveColor: option(string);
-    "pressColor": option<string>,
-    "pressOpacity": option<float>,
-    //TODO: render: https://github.com/react-native-community/react-native-tab-view/blob/64e03bf14b0fac9c3bccd684bf31a04ecf19c50d/src/TabBar.tsx#L38-L51
-    "tabStyle": option<ReactNative.Style.t>,
-    "indicatorStyle": option<ReactNative.Style.t>,
-    "labelStyle": option<ReactNative.Style.t>,
-    "style": option<ReactNative.Style.t>,
-    "renderIndicator": option<React.component<{"route": route}>>,
-  }
+// TODO: outdated
+type tabBarProps = {
+  scrollEnabled?: bool,
+  pressColor?: string,
+  pressOpacity?: float,
+  //TODO: render: https://github.com/react-native-community/react-native-tab-view/blob/64e03bf14b0fac9c3bccd684bf31a04ecf19c50d/src/TabBar.tsx#L38-L51
+  tabStyle?: Style.t,
+  indicatorStyle?: Style.t,
+  labelStyle?: Style.t,
+  style?: Style.t,
+  renderIndicator?: React.component<{"route": route}>,
+  activeTintColor?: string,
+  inactiveTintColor?: string,
+  iconStyle?: Style.t,
+  showLabel?: bool,
+  showIcon?: bool,
+  allowFontScaling?: bool,
+  // ----
+  state: navigationState,
+  navigation: navigation,
+  descriptors: descriptors,
+  // SceneRendererProps from react-native-tab-view
+  layout: layout,
+  position: Animated.Value.t,
+  jumpTo: string => unit,
+}
 
-  type materialTopTabBarOptions = {
-    ...tabBar,
-    "activeTintColor": option<string>,
-    "inactiveTintColor": option<string>,
-    "iconStyle": option<ReactNative.Style.t>,
-    "showLabel": option<bool>,
-    "showIcon": option<bool>,
-    "allowFontScaling": option<bool>,
-  }
-
-  @obj
-  external materialTopTabBarOptions: (
-    ~activeTintColor: string=?,
-    ~inactiveTintColor: string=?,
-    ~iconStyle: ReactNative.Style.t=?,
-    ~showLabel: bool=?,
-    ~showIcon: bool=?,
-    ~allowFontScaling: bool=?,
-    ~scrollEnabled: bool=?,
-    ~pressColor: string=?,
-    ~pressOpacity: float=?,
-    ~tabStyle: ReactNative.Style.t=?,
-    ~indicatorStyle: ReactNative.Style.t=?,
-    ~labelStyle: ReactNative.Style.t=?,
-    ~style: ReactNative.Style.t=?,
-    ~renderIndicator: React.component<{"route": route}>=?,
-    unit,
-  ) => materialTopTabBarOptions = ""
-
-  type accessibilityRole = string
-  type accessibilityStates = array<string>
-
-  type routeOptions = {route: route}
-
-  type materialTopTabBarProps = {
-    ...materialTopTabBarOptions,
-    "state": navigationState<M.params>,
-    "navigation": navigation,
-    "descriptors": descriptors,
-    // SceneRendererProps from react-native-tab-view
-    "layout": layout,
-    "position": animatedNode,
-    "jumpTo": string => unit,
-  }
-
-  @obj
-  external options: (
-    ~title: string=?,
-    ~tabBarLabel: //TODO: dynamic, missing static option: React.ReactNode
-    scene => React.element=?,
-    ~tabBarIcon: //TODO: dynamic, missing static option: React.ReactNode
-    scene => React.element=?,
-    ~tabBarAccessibilityLabel: string=?,
-    ~tabBarTestID: string=?,
-    ~_lazy: bool=?,
-    ~lazyPlaceholder: React.component<{"route": route}>=?,
-    ~swipeEnabled: bool=?,
-    ~tabBarActiveTintColor: string=?,
-    ~tabBarInactiveTintColor: string=?,
-    ~tabBarPressColor: string=?,
-    ~tabBarPressOpacity: float=?,
-    ~tabBarShowLabel: bool=?,
-    ~tabBarShowIcon: bool=?,
-    ~tabBarAllowFontScaling: bool=?,
-    ~tabBarBounces: bool=?,
-    ~tabBarScrollEnabled: bool=?,
-    ~tabBarIconStyle: ReactNative.Style.t=?,
-    ~tabBarLabelStyle: ReactNative.Style.t=?,
-    ~tabBarItemStyle: ReactNative.Style.t=?,
-    ~tabBarIndicatorStyle: ReactNative.Style.t=?,
-    ~tabBarIndicatorContainerStyle: ReactNative.Style.t=?,
-    ~tabBarContentContainerStyle: ReactNative.Style.t=?,
-    ~tabBarStyle: ReactNative.Style.t=?,
-    // ~renderIndicator: React.component({. "route": route})=?,
-
-    unit,
-  ) => options = ""
-
-  type optionsProps = {
-    navigation: navigation,
-    route: route,
-  }
-
-  type optionsCallback = optionsProps => options
-
-  type navigatorProps = {
-    initialRouteName: option<string>,
-    screenOptions: option<optionsCallback>,
-    lazyPreloadDistance: option<int>,
-    tabBar: option<materialTopTabBarProps => React.element>,
-    tabBarPosition: option<string>,
-    backBehavior: option<string>,
-    removeClippedSubviews: option<bool>,
-    keyboardDismissMode: option<string>,
-    swipeEnabled: option<bool>,
-    swipeVelocityImpact: option<float>,
-    sceneContainerStyle: option<ReactNative.Style.t>,
-    style: option<ReactNative.Style.t>,
-    initialLayout: option<layout>,
-  }
-
-  type renderCallbackProp = {
-    navigation: navigation,
-    route: route,
-  }
-
-  type groupProps = {screenOptions: option<optionsCallback>}
-
-  type screenProps<'params> = {
-    name: string,
-    options: option<optionsCallback>,
-    initialParams: option<'params>,
-    component: option<React.component<{"navigation": navigation, "route": route}>>,
-    children: option<renderCallbackProp => React.element>,
-  }
-
-  @module("@react-navigation/material-top-tabs")
-  external make: unit => {
-    "Navigator": navigatorProps => React.element,
-    "Screen": screenProps<M.params> => React.element,
-    "Group": groupProps => React.element,
-  } = "createMaterialTopTabNavigator"
-
-  let materialTopTabs = make()
-
-  module Screen = {
-    @obj
-    external makeProps: (
-      ~name: string,
-      ~options: optionsCallback=?,
-      ~initialParams: M.params=?,
-      ~component: React.component<{"navigation": navigation}>,
-      ~key: string=?,
-      unit,
-    ) => screenProps<M.params> = ""
-    let make = materialTopTabs["Screen"]
-  }
-
-  module ScreenWithCallback = {
-    @obj
-    external makeProps: (
-      ~name: string,
-      ~options: optionsCallback=?,
-      ~initialParams: M.params=?,
-      ~children: renderCallbackProp => React.element,
-      ~key: string=?,
-      unit,
-    ) => screenProps<M.params> = ""
-    let make = materialTopTabs["Screen"]
-  }
-
-  module Navigator = {
-    @obj
-    external makeProps: (
+module type NavigatorModule = {
+  module Navigator: {
+    @react.component
+    let make: (
+      ~id: string=?,
       ~initialRouteName: string=?,
-      ~screenOptions: optionsCallback=?,
-      ~children: React.element,
-      ~backBehavior: [#firstRoute | #initialRoute | #order | #history | #none]=?,
-      ~_lazy: bool=?,
-      ~lazyPreloadDistance: int=?,
-      ~lazyPlaceholder: React.component<{"route": route}>=?,
-      ~tabBar: materialTopTabBarProps => React.element=?,
-      ~tabBarPosition: [#top | #bottom]=?,
-      ~removeClippedSubviews: bool=?,
-      ~keyboardDismissMode: @string
-      [
-        | #auto
-        | @as("on-drag") #onDrag
-        | #none
-      ]=?,
-      // Setting `swipeEnabled` through props is deprecated.
-      // Set it through screen options instead!
-      ~swipeEnabled: bool=?,
-      ~swipeVelocityImpact: float=?,
-      ~sceneContainerStyle: ReactNative.Style.t=?,
-      ~style: ReactNative.Style.t=?,
+      ~screenOptions: screenOptionsParams => options=?,
+      ~backBehavior: backBehavior=?,
+      ~tabBarPosition: tabBarPosition=?,
+      ~keyboardDismissMode: keyboardDismissMode=?,
       ~initialLayout: layout=?,
-      ~key: string=?,
-      unit,
-    ) => navigatorProps = ""
-
-    let make = materialTopTabs["Navigator"]
-  }
-
-  module Group = {
-    @obj
-    external makeProps: (
-      ~screenOptions: optionsCallback=?,
+      ~sceneContainerStyle: Style.t=?,
+      ~style: Style.t=?,
+      ~tabBar: tabBarProps => React.element=?,
       ~children: React.element,
-      ~key: string=?,
-      unit,
-    ) => groupProps = ""
-    let make = materialTopTabs["Group"]
+    ) => React.element
   }
 
-  module MaterialTopTabBar = {
-    @module("@react-navigation/material-top-tabs") @react.component
-    external make: (
-      ~state: navigationState<M.params>,
-      ~navigation: navigation,
-      ~descriptors: descriptors,
-      ~layout: // SceneRendererProps from react-native-tab-view
-      layout,
-      ~position: animatedNode,
-      ~jumpTo: string => unit,
-      ~activeTintColor: // materialTopTabBarOptions
-      string=?,
-      ~inactiveTintColor: string=?,
-      ~iconStyle: ReactNative.Style.t=?,
-      ~showLabel: bool=?,
-      ~showIcon: bool=?,
-      ~allowFontScaling: bool=?,
-      ~scrollEnabled: bool=?,
-      ~pressColor: string=?,
-      ~pressOpacity: float=?,
-      ~tabStyle: ReactNative.Style.t=?,
-      ~indicatorStyle: ReactNative.Style.t=?,
-      ~labelStyle: ReactNative.Style.t=?,
-      ~style: ReactNative.Style.t=?,
-      ~renderIndicator: React.component<{"route": route}>=?,
-      unit,
-    ) => React.element = "MaterialTopTabBar"
+  module Screen: {
+    @react.component
+    let make: (
+      ~name: string,
+      ~navigationKey: string=?,
+      ~options: screenOptionsParams => options=?,
+      ~initialParams: 'params=?,
+      ~getId: getIdOptions=?,
+      ~component: React.component<screenProps>=?,
+      ~getComponent: unit => React.component<screenProps>=?,
+      ~children: screenProps => React.element=?,
+    ) => React.element
   }
+
+  module Group: {
+    @react.component
+    let make: (
+      ~navigationKey: string=?,
+      ~screenOptions: screenOptionsParams => options=?,
+    ) => React.element
+  }
+}
+
+type navigatorModule
+
+%%private(
+  @module("@react-navigation/material-top-tabs")
+  external createMaterialTopTabNavigator: unit => navigatorModule = "createMaterialTopTabNavigator"
+
+  @module("./Interop")
+  external adaptNavigatorModule: navigatorModule => module(NavigatorModule) = "adaptNavigatorModule"
+)
+
+module Make = () => unpack(createMaterialTopTabNavigator()->adaptNavigatorModule)
+
+module Navigation = {
+  @send external jumpTo: (navigation, string) => unit = "jumpTo"
+  @send
+  external jumpToWithParams: (navigation, string, 'params) => unit = "jumpTo"
+
+  @send
+  external addEventListener: (
+    navigation,
+    @string
+    [
+      | #tabPress(navigationEvent<unit> => unit)
+    ],
+  ) => unsubscribe = "addListener"
 }

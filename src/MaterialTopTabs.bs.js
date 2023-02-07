@@ -1,43 +1,14 @@
 'use strict';
 
-var Core$ReactNavigation = require("./Core.bs.js");
+var Interop = require("./Interop");
 var MaterialTopTabs = require("@react-navigation/material-top-tabs");
 
-var MaterialTopTabNavigationProp = Core$ReactNavigation.NavigationScreenProp;
-
-function Make(M) {
-  var M$1 = {};
-  var include = Core$ReactNavigation.NavigationScreenProp(M$1);
-  var Navigation = include;
-  var materialTopTabs = MaterialTopTabs.createMaterialTopTabNavigator();
-  var make = materialTopTabs.Screen;
-  var $$Screen = {
-    make: make
-  };
-  var make$1 = materialTopTabs.Screen;
-  var ScreenWithCallback = {
-    make: make$1
-  };
-  var make$2 = materialTopTabs.Navigator;
-  var $$Navigator = {
-    make: make$2
-  };
-  var make$3 = materialTopTabs.Group;
-  var Group = {
-    make: make$3
-  };
-  var MaterialTopTabBar = {};
-  return {
-          Navigation: Navigation,
-          materialTopTabs: materialTopTabs,
-          $$Screen: $$Screen,
-          ScreenWithCallback: ScreenWithCallback,
-          $$Navigator: $$Navigator,
-          Group: Group,
-          MaterialTopTabBar: MaterialTopTabBar
-        };
+function Make($star) {
+  return Interop.adaptNavigatorModule(MaterialTopTabs.createMaterialTopTabNavigator());
 }
 
-exports.MaterialTopTabNavigationProp = MaterialTopTabNavigationProp;
+var Navigation = {};
+
 exports.Make = Make;
-/* @react-navigation/material-top-tabs Not a pure module */
+exports.Navigation = Navigation;
+/* ./Interop Not a pure module */

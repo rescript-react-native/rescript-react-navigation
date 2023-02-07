@@ -1,159 +1,95 @@
+// https://reactnavigation.org/docs/material-bottom-tab-navigator
+
 open Core
-type layout = {"width": float, "height": float}
-type options
+open ReactNative
 
-module MaterialBottomTabNavigationProp = (
-  M: {
-    type params
-    type options
-  },
-) => {
-  include NavigationScreenProp(M)
-
-  type t = navigation
-
-  @send external jumpTo: (t, string) => unit = "jumpTo"
-  @send
-  external jumpToWithParams: (t, string, M.params) => unit = "jumpTo"
+type tabBarIconOptions = {
+  focused: bool,
+  color: string,
 }
 
-module Make = (
-  M: {
-    type params
-  },
-) => {
-  type route = route<M.params>
-  module Navigation = MaterialBottomTabNavigationProp({
-    include M
-    type options = options
-  })
+module TabBarBadge = {
+  type t
 
-  type animatedNode = ReactNative.Animated.Value.t
+  external boolean: bool => t = "%identity"
+  external int: int => t = "%identity"
+  external string: string => t = "%identity"
+}
 
-  type scene = {"route": route, "focused": bool, "tintColor": string}
+type options = {
+  title?: string,
+  tabBarIcon?: tabBarIconOptions => React.element,
+  tabBarColor?: Color.t,
+  tabBarLabel?: string,
+  tabBarBadge?: TabBarBadge.t,
+  tabBarAccessibilityLabel?: string,
+  tabBarTestID?: string,
+}
 
-  type accessibilityRole = string
-  type accessibilityStates = array<string>
-
-  module TabBarBadge = {
-    type t
-    @val @module("./Interop")
-    external t: @unwrap [#Bool(bool) | #Number(int) | #String(string)] => t = "identity"
-
-    let boolean = x => t(#Bool(x))
-    let number = x => t(#Number(x))
-    let string = x => t(#String(x))
-  }
-
-  @obj
-  external options: (
-    ~title: string=?,
-    ~tabBarColor: string=?,
-    ~tabBarLabel: string=?,
-    ~tabBarIcon: //TODO: dynamic, missing static option: React.ReactNode
-    scene => React.element=?,
-    ~tabBarBadge: TabBarBadge.t=?,
-    ~tabBarAccessibilityLabel: string=?,
-    ~tabBarTestID: string=?,
-    unit,
-  ) => options = ""
-
-  type optionsProps = {
-    navigation: navigation,
-    route: route,
-  }
-
-  type optionsCallback = optionsProps => options
-
-  type groupProps = {screenOptions: option<optionsCallback>}
-
-  type navigatorProps = {
-    initialRouteName: option<string>,
-    screenOptions: option<optionsCallback>,
-    backBehavior: option<string>,
-    shifting: option<bool>,
-    labeled: option<bool>,
-    activeColor: option<string>,
-    inactiveColor: option<string>,
-    barStyle: option<ReactNative.Style.t>,
-  }
-
-  type renderCallbackProp = {
-    navigation: navigation,
-    route: route,
-  }
-
-  type screenProps<'params> = {
-    name: string,
-    options: option<optionsCallback>,
-    initialParams: option<'params>,
-    component: option<React.component<{"navigation": navigation, "route": route}>>,
-    children: option<renderCallbackProp => React.element>,
-  }
-
-  @module("@react-navigation/material-bottom-tabs")
-  external make: unit => {
-    "Navigator": navigatorProps => React.element,
-    "Screen": screenProps<M.params> => React.element,
-    "Group": groupProps => React.element,
-  } = "createMaterialBottomTabNavigator"
-
-  let materialBottomTabs = make()
-
-  module Screen = {
-    @obj
-    external makeProps: (
-      ~name: string,
-      ~options: optionsCallback=?,
-      ~initialParams: M.params=?,
-      ~component: React.component<{"navigation": navigation}>,
-      ~key: string=?,
-      unit,
-    ) => screenProps<M.params> = ""
-    let make = materialBottomTabs["Screen"]
-  }
-
-  module ScreenWithCallback = {
-    @obj
-    external makeProps: (
-      ~name: string,
-      ~options: optionsCallback=?,
-      ~initialParams: M.params=?,
-      ~children: renderCallbackProp => React.element,
-      ~key: string=?,
-      unit,
-    ) => screenProps<M.params> = ""
-    let make = materialBottomTabs["Screen"]
-  }
-
-  module Navigator = {
-    @obj
-    external makeProps: (
+module type NavigatorModule = {
+  module Navigator: {
+    @react.component
+    let make: (
+      ~id: string=?,
       ~initialRouteName: string=?,
-      ~screenOptions: optionsCallback=?,
-      ~children: React.element,
-      ~backBehavior: [#firstRoute | #initialRoute | #order | #history | #none]=?,
+      ~screenOptions: screenOptionsParams => options=?,
+      ~backBehavior: backBehavior=?,
       ~shifting: bool=?,
       ~labeled: bool=?,
-      ~activeColor: string=?,
-      ~inactiveColor: string=?,
-      ~barStyle: ReactNative.Style.t=?,
-      ~key: //TODO: More? https://github.com/callstack/react-native-paper/blob/bd4296116d841ed355f3dbebb40cfbc3b87a79ff/src/components/BottomNavigation.tsx#L132-L196
-      string=?,
-      unit,
-    ) => navigatorProps = ""
-
-    let make = materialBottomTabs["Navigator"]
-  }
-
-  module Group = {
-    @obj
-    external makeProps: (
-      ~screenOptions: optionsCallback=?,
+      ~activeColor: Color.t=?,
+      ~inactiveColor: Color.t=?,
+      ~barStyle: Style.t=?,
       ~children: React.element,
-      ~key: string=?,
-      unit,
-    ) => groupProps = ""
-    let make = materialBottomTabs["Group"]
+    ) => React.element
   }
+
+  module Screen: {
+    @react.component
+    let make: (
+      ~name: string,
+      ~navigationKey: string=?,
+      ~options: screenOptionsParams => options=?,
+      ~initialParams: 'params=?,
+      ~getId: getIdOptions=?,
+      ~component: React.component<screenProps>=?,
+      ~getComponent: unit => React.component<screenProps>=?,
+      ~children: screenProps => React.element=?,
+    ) => React.element
+  }
+
+  module Group: {
+    @react.component
+    let make: (
+      ~navigationKey: string=?,
+      ~screenOptions: screenOptionsParams => options=?,
+    ) => React.element
+  }
+}
+
+type navigatorModule
+
+%%private(
+  @module("@react-navigation/material-bottom-tabs")
+  external createMaterialBottomTabNavigator: unit => navigatorModule =
+    "createMaterialBottomTabNavigator"
+
+  @module("./Interop")
+  external adaptNavigatorModule: navigatorModule => module(NavigatorModule) = "adaptNavigatorModule"
+)
+
+module Make = () => unpack(createMaterialBottomTabNavigator()->adaptNavigatorModule)
+
+module Navigation = {
+  @send external jumpTo: (navigation, string) => unit = "jumpTo"
+  @send
+  external jumpToWithParams: (navigation, string, 'params) => unit = "jumpTo"
+
+  @send
+  external addEventListener: (
+    navigation,
+    @string
+    [
+      | #tabPress(navigationEvent<unit> => unit)
+    ],
+  ) => unsubscribe = "addListener"
 }
