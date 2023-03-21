@@ -1,211 +1,252 @@
+// https://reactnavigation.org/docs/native-stack-navigator/
+
 open Core
+open ReactNative
 
 @module("react-native-screens")
 external enableScreens: unit => unit = "enableScreens"
 
-type options
+type animation = [
+  | #default
+  | #fade
+  | #fade_from_bottom
+  | #flip
+  | #simple_push
+  | #slide_from_bottom
+  | #slide_from_right
+  | #slide_from_left
+  | #none
+]
 
-module NativeStackNavigationScreenProp = (
-  M: {
-    type params
-    type options
-  },
-) => {
-  include NavigationScreenProp(M)
+type animationTypeForReplace = [#push | #pop]
 
-  type t = navigation
-
-  @send external push: (t, string) => unit = "push"
-  @send external pushWithParams: (t, string, M.params) => unit = "push"
-
-  @send external pop: (t, ~count: int=?, unit) => unit = "pop"
-
-  @send external popToTop: (t, unit) => unit = "popToTop"
+type headerBackTitleStyle = {
+  fontFamily?: string,
+  fontSize?: float,
 }
 
-module Make = (
-  M: {
-    type params
-  },
-) => {
-  type route = route<M.params>
-  module Navigation = NativeStackNavigationScreenProp({
-    include M
-    type options = options
-  })
+type blurEffect = [
+  | #extraLight
+  | #light
+  | #dark
+  | #regular
+  | #prominent
+  | #systemUltraThinMaterial
+  | #systemThinMaterial
+  | #systemMaterial
+  | #systemThickMaterial
+  | #systemChromeMaterial
+  | #systemUltraThinMaterialLight
+  | #systemThinMaterialLight
+  | #systemMaterialLight
+  | #systemThickMaterialLight
+  | #systemChromeMaterialLight
+  | #systemUltraThinMaterialDark
+  | #systemThinMaterialDark
+  | #systemMaterialDark
+  | #systemThickMaterialDark
+  | #systemChromeMaterialDark
+]
 
-  type headerBackTitleStyle = {fontFamily: option<string>, fontSize: option<float>}
-  type headerLargeStyle = {backgroundColor: option<ReactNative.Color.t>}
-  type headerLargeTitleStyle = {
-    fontFamily: option<string>,
-    fontSize: option<float>,
-    color: option<ReactNative.Color.t>,
-  }
-  type blurEffect = [
-    | #extraLight
-    | #light
-    | #dark
-    | #regular
-    | #prominent
-    | #systemUltraThinMaterial
-    | #systemThinMaterial
-    | #systemMaterial
-    | #systemThickMaterial
-    | #systemChromeMaterial
-    | #systemUltraThinMaterialLight
-    | #systemThinMaterialLight
-    | #systemMaterialLight
-    | #systemThickMaterialLight
-    | #systemChromeMaterialLight
-    | #systemUltraThinMaterialDark
-    | #systemThinMaterialDark
-    | #systemMaterialDark
-    | #systemThickMaterialDark
-    | #systemChromeMaterialDark
-  ]
-  type headerStyle = {backgroundColor: option<ReactNative.Color.t>}
-  type headerTitleStyle = {
-    fontFamily: option<string>,
-    fontSize: option<float>,
-    fontWeight: string, //ReactNative.Style.fontWeight,
-    color: option<ReactNative.Color.t>,
-  }
+type headerLargeStyle = {backgroundColor?: Color.t}
 
-  @obj
-  external options: (
-    ~backButtonInCustomView: bool=?,
-    ~animation: [#default | #fade | #flip | #slide_from_right | #slide_from_left | #none]=?,
-    ~animationTypeForReplace: [#push | #pop]=?,
-    ~contentStyle: ReactNative.Style.t=?,
-    ~gestureEnabled: bool=?,
-    ~headerBackTitle: string=?,
-    ~headerBackTitleStyle: headerBackTitleStyle=?,
-    ~headerBackTitleVisible: bool=?,
-    ~headerBackVisible: bool=?,
-    ~headerBlurEffect: blurEffect=?,
-    ~headerShadowVisible: bool=?,
-    ~headerLargeStyle: headerLargeStyle=?,
-    ~headerLargeTitle: bool=?,
-    ~headerLargeTitleShadowVisible: bool=?,
-    ~headerLargeTitleStyle: headerLargeTitleStyle=?,
-    ~headerLeft: unit => React.element=?,
-    ~headerRight: unit => React.element=?,
-    ~headerShown: bool=?,
-    ~headerStyle: headerStyle=?,
-    ~headerTintColor: ReactNative.Color.t=?,
-    ~headerTitle: string=?,
-    ~headerTitleStyle: headerTitleStyle=?,
-    ~headerTransparent: bool=?,
-    ~presentation: [
-      | #push
-      | #modal
-      | #transparentModal
-      | #containedModal
-      | #containedTransparentModal
-      | #fullScreenModal
-      | #formSheet
-    ]=?,
-    ~statusBarStyle: [#auto | #inverted | #light | #dark]=?,
-    ~statusBarAnimation: [#fade | #none | #slide]=?,
-    ~statusBarHidden: bool=?,
-    ~screenOrientation: [
-      | #default
-      | #all
-      | #portrait
-      | #portrait_up
-      | #portrait_down
-      | #landscape
-      | #landscape_left
-      | #landscape_right
-    ]=?,
-    ~title: string=?,
-    unit,
-  ) => options = ""
+type headerLargeTitleStyle = {
+  fontFamily: option<string>,
+  fontSize: option<float>,
+  color: option<Color.t>,
+}
 
-  type optionsProps = {
-    navigation: navigation,
-    route: route,
-  }
-  type optionsCallback = optionsProps => options
+type headerStyle = {backgroundColor?: Color.t}
 
-  type groupProps = {screenOptions: option<optionsCallback>}
+type headerTitleStyle = {
+  fontFamily?: string,
+  fontSize?: float,
+  fontWeight?: Style.fontWeight,
+  color?: Color.t,
+}
 
-  type navigatorProps = {
-    initialRouteName: option<string>,
-    screenOptions: option<optionsCallback>,
-  }
-  type renderCallbackProp = {
-    navigation: navigation,
-    route: route,
-  }
-  type screenProps<'params> = {
-    name: string,
-    options: option<optionsCallback>,
-    initialParams: option<'params>,
-    component: option<React.component<{"navigation": navigation, "route": route}>>,
-    children: option<renderCallbackProp => React.element>,
-  }
+type presentation = [
+  | #card
+  | #modal
+  | #transparentModal
+  | #containedModal
+  | #containedTransparentModal
+  | #fullScreenModal
+  | #formSheet
+]
 
-  @module("@react-navigation/native-stack")
-  external make: unit => {
-    "Navigator": navigatorProps => React.element,
-    "Screen": screenProps<M.params> => React.element,
-    "Group": groupProps => React.element,
-  } = "createNativeStackNavigator"
+type statusBarStyle = [#auto | #inverted | #light | #dark]
 
-  let stack = make()
-  module ScreenWithCallback = {
-    @obj
-    external makeProps: (
-      ~name: string,
-      ~options: optionsCallback=?,
-      ~initialParams: M.params=?,
-      ~children: renderCallbackProp => React.element,
-      ~key: string=?,
-      unit,
-    ) => screenProps<M.params> = ""
-    let make = stack["Screen"]
-  }
-  module Screen = {
-    type componentProps = {navigation: navigation}
-    @obj
-    external makeProps: (
-      ~name: string,
-      ~options: optionsCallback=?,
-      ~initialParams: M.params=?,
-      ~component: React.component<{"navigation": navigation, "route": route}>,
-      ~key: string=?,
-      unit,
-    ) => screenProps<M.params> = ""
+type statusBarAnimation = [#fade | #none | #slide]
 
-    let make = stack["Screen"]
-  }
+type orientation = [
+  | #default
+  | #all
+  | #portrait
+  | #portrait_up
+  | #portrait_down
+  | #landscape
+  | #landscape_left
+  | #landscape_right
+]
 
-  module Navigator = {
-    @obj
-    external makeProps: (
+type headerTitleAlign = [#left | #center]
+
+type inputType = [
+  | #text
+  | #phone
+  | #number
+  | #email
+]
+
+type headerSearchBarOptions = {
+  autoCapitalize?: TextInput.autoCapitalize,
+  autoFocus?: bool,
+  barTintColor?: Color.t,
+  cancelButtonText?: string,
+  disableBackButtonOverride?: bool,
+  hideNavigationBar?: bool,
+  hideWhenScrolling?: bool,
+  inputType?: inputType,
+  obscureBackground?: bool,
+  placeholder?: string,
+  textColor?: Color.t,
+  hintTextColor?: Color.t,
+  headerIconColor?: Color.t,
+  shouldShowHintSearchIcon?: bool,
+  onBlur?: Event.targetEvent => unit,
+  onCancelButtonPress?: Event.pressEvent => unit,
+  onChangeText?: string => unit,
+}
+
+type backOptions = {title?: string}
+
+type gestureDirection = [#vertical | #horizontal]
+
+type rec options = {
+  title?: string,
+  headerBackButtonMenuEnabled?: bool,
+  headerBackVisible?: bool,
+  headerBackTitle?: string,
+  headerBackTitleVisible?: bool,
+  headerBackTitleStyle?: headerBackTitleStyle,
+  headerBackImageSource?: string, // TODO
+  headerLargeStyle?: headerLargeStyle,
+  headerLargeTitle?: bool,
+  headerLargeTitleShadowVisible?: bool,
+  headerLargeTitleStyle?: headerLargeTitleStyle,
+  headerShown?: bool,
+  headerStyle?: headerStyle,
+  headerShadowVisible?: bool,
+  headerTransparent?: bool,
+  headerBlurEffect?: blurEffect,
+  headerBackground?: unit => React.element,
+  headerTintColor?: Color.t,
+  headerLeft?: unit => React.element,
+  headerRight?: unit => React.element,
+  headerTitle?: string,
+  headerTitleAlign?: headerTitleAlign,
+  headerTitleStyle?: headerTitleStyle,
+  headerSearchBarOptions?: headerSearchBarOptions,
+  header?: headerParams => React.element,
+  statusBarAnimation?: statusBarAnimation,
+  statusBarHidden?: bool,
+  statusBarStyle?: statusBarStyle,
+  statusBarColor?: Color.t,
+  statusBarTranslucent?: bool,
+  contentStyle?: Style.t,
+  customAnimationOnGesture?: bool,
+  fullScreenGestureEnabled?: bool,
+  gestureEnabled?: bool,
+  animationTypeForReplace?: animationTypeForReplace,
+  backButtonInCustomView?: bool,
+  animation?: animation,
+  presentation?: presentation,
+  orientation?: orientation,
+  autoHideHomeIndicator?: bool,
+  gestureDirection?: gestureDirection,
+  animationDuration?: float,
+  navigationBarColor?: Color.t,
+  navigationBarHidden?: bool,
+  freezeOnBlur?: bool,
+}
+and headerParams = {
+  navigation: navigation,
+  route: route,
+  options: options,
+  back: backOptions,
+}
+
+module type NavigatorModule = {
+  module Navigator: {
+    @react.component
+    let make: (
+      ~id: string=?,
       ~initialRouteName: string=?,
-      ~screenOptions: optionsCallback=?,
-      ~children: React.element,
-      ~key: string=?,
-      unit,
-    ) => navigatorProps = ""
-
-    let make = stack["Navigator"]
+      ~screenOptions: screenOptionsParams => options=?,
+      ~children: React.element=?,
+    ) => React.element
   }
 
-  module Group = {
-    @obj
-    external makeProps: (
-      ~screenOptions: optionsCallback=?,
-      ~children: React.element,
-      ~key: string=?,
-      unit,
-    ) => groupProps = ""
+  module Screen: {
+    @react.component
+    let make: (
+      ~name: string,
+      ~navigationKey: string=?,
+      ~options: screenOptionsParams => options=?,
+      ~initialParams: 'params=?,
+      ~getId: getIdOptions=?,
+      ~component: React.component<screenProps>=?,
+      ~getComponent: unit => React.component<screenProps>=?,
+      ~children: screenProps => React.element=?,
+    ) => React.element
+  }
 
-    let make = stack["Group"]
+  module Group: {
+    @react.component
+    let make: (
+      ~navigationKey: string=?,
+      ~screenOptions: screenOptionsParams => options=?,
+    ) => React.element
   }
 }
 
-@val
-external mergeOptions: (options, options) => options = "Object.assign"
+type navigatorModule
+
+%%private(
+  @module("@react-navigation/native-stack")
+  external createNativeStackNavigator: unit => navigatorModule = "createNativeStackNavigator"
+
+  @module("./Interop")
+  external adaptNavigatorModule: navigatorModule => module(NavigatorModule) = "adaptNavigatorModule"
+)
+
+module Make = () => unpack(createNativeStackNavigator()->adaptNavigatorModule)
+
+type screenEventData = {closing: int}
+
+module Navigation = {
+  @send
+  external setOptions: (navigation, options) => unit = "setOptions"
+
+  @send external replace: (navigation, string) => unit = "replace"
+  @send
+  external replaceWithParams: (navigation, string, 'params) => unit = "replace"
+
+  @send external push: (navigation, string) => unit = "push"
+  @send external pushWithParams: (navigation, string, 'params) => unit = "push"
+
+  @send external pop: (navigation, ~count: int=?, unit) => unit = "pop"
+
+  @send external popToTop: (navigation, unit) => unit = "popToTop"
+
+  @send
+  external addEventListener: (
+    navigation,
+    @string
+    [
+      | #transitionStart(navigationEvent<screenEventData> => unit)
+      | #transitionEnd(navigationEvent<screenEventData> => unit)
+    ],
+  ) => unsubscribe = "addListener"
+}
