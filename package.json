@@ -1,5 +1,5 @@
 {
-  "name": "rescript-react-navigation",
+  "name": "reason-react-navigation",
   "description": "ReScript bindings for react-navigation.",
   "version": "6.0.3",
   "publishConfig": {
@@ -11,9 +11,7 @@
     "@react-navigation/material-bottom-tabs": ">=6.0.0",
     "@react-navigation/material-top-tabs": ">=6.0.0",
     "@react-navigation/native": ">=6.0.0",
-    "@react-navigation/stack": ">=6.0.0",
-    "@rescript/react": ">=0.10.0",
-    "rescript-react-native": ">=0.64.3"
+    "@react-navigation/stack": ">=6.0.0"
   },
   "overrides": {
     "react": "17.0.2"
@@ -34,25 +32,20 @@
     "!src/**/*.bs.js"
   ],
   "scripts": {
-    "format:most": "prettier --write \"**/*.{md,json,js,css}\"",
-    "format:res": "rescript format -all",
-    "format": "yarn format:most && yarn format:res",
-    "re:start": "rescript build -w",
-    "re:build": "rescript",
-    "re:clean-build": "rescript clean && rescript",
-    "start": "yarn re:start",
-    "build": "yarn re:build",
-    "test": "yarn re:clean-build",
+    "clean": "bsb -clean-world",
+    "build": "bsb -make-world",
+    "watch": "bsb -make-world -w",
+    "prettier": "prettier --write \"**/*.{md,json,js,css}\"",
     "release": "npmpub"
   },
   "devDependencies": {
-    "@rescript/react": "^0.11.0",
+    "bs-platform": "^8.2.0",
     "husky": "^4.0.0",
     "lint-staged": "^10.0.0",
     "npmpub": "^5.0.0",
     "prettier": "^2.0.0",
-    "rescript": "^10.1.2",
-    "rescript-react-native": ">=0.70.0"
+    "reason-react": "^0.9.1",
+    "reason-react-native": "^0.64.0"
   },
   "prettier": {
     "trailingComma": "all"

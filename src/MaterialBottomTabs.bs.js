@@ -5,6 +5,10 @@ var MaterialBottomTabs = require("@react-navigation/material-bottom-tabs");
 
 var TabBarBadge = {};
 
+function adaptNavigatorModule(prim) {
+  return Interop.adaptNavigatorModule(prim);
+}
+
 function Make($star) {
   return Interop.adaptNavigatorModule(MaterialBottomTabs.createMaterialBottomTabNavigator());
 }
@@ -12,6 +16,7 @@ function Make($star) {
 var Navigation = {};
 
 exports.TabBarBadge = TabBarBadge;
+exports.adaptNavigatorModule = adaptNavigatorModule;
 exports.Make = Make;
 exports.Navigation = Navigation;
 /* ./Interop Not a pure module */
