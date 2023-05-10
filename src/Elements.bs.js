@@ -1,7 +1,20 @@
 'use strict';
 
 
-var Header = {};
+var _map = {"left":"left","center":"center"};
+
+function headerTitleAlignToJs(param) {
+  return param;
+}
+
+function headerTitleAlignFromJs(param) {
+  return _map[param];
+}
+
+var Header = {
+  headerTitleAlignToJs: headerTitleAlignToJs,
+  headerTitleAlignFromJs: headerTitleAlignFromJs
+};
 
 var HeaderBackground = {};
 
