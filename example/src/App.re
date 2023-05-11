@@ -26,23 +26,27 @@ module MainStackScreen = {
     <Navigator>
       <Screen
         name="Home"
-        component=HomeScreen.make
+        component={({navigation, route}) => <HomeScreen navigation route />}
         options={props =>
-          {
-            headerRight: _ =>
-              <Button
-                onPress={_ =>
-                  props.navigation->Core.Navigation.navigate("MyModal")
-                }
-                title="Info"
-                color="#f00"
-              />,
-            title:
+          Stack.options(
+            ~title=
               switch (props.route.params) {
-              | Some(params) => params->Core.Params.unsafeGetValue["name"]
+              // TODO: this wanted int rather than string
+              // | Some(params) => params->Core.Params.unsafeGetValue["name"]
+              | Some(params) => params->Core.Params.unsafeGetValue[0]
               | None => "Reason"
               },
-          }
+            ~headerRight=
+              _ =>
+                <Button
+                  onPress={_ =>
+                    props.navigation->Core.Navigation.navigate("MyModal")
+                  }
+                  title="Info"
+                  color="#f00"
+                />,
+            (),
+          )
         }
       />
     </Navigator>;
@@ -54,14 +58,24 @@ module RootStackScreen = {
   [@react.component]
   let make = () =>
     <Native.NavigationContainer>
-      <Navigator screenOptions={_ => {presentation: `modal}}>
-        <Screen name="Main" component=MainStackScreen.make />
+      <Navigator screenOptions={_ => Stack.options(~presentation=`modal, ())}>
+        <Screen
+          name="Main"
+          component={({navigation, route}) =>
+            <MainStackScreen navigation route />
+          }
+        />
         <Screen name="MyModal">
-          {({navigation, route}) => <ModalScreen navigation route />}
-        </Screen>
+          //{({navigation, route}) => <ModalScreen navigation route />}
+
+            {({navigation, route}) => <ModalScreen navigation route />}
+          </Screen>
       </Navigator>
     </Native.NavigationContainer>;
 };
+
+[@react.component]
+let app = () => <> <RootStackScreen /> </>;
 
 /**
  * Sample React Native App
@@ -70,6 +84,7 @@ module RootStackScreen = {
  * Converted from https://github.com/facebook/react-native/blob/724fe11472cb874ce89657b2c3e7842feff04205/template/App.js
  * With a few tweaks
  */;
+
 /*
  open ReactNative;
 
@@ -234,5 +249,4 @@ module RootStackScreen = {
        </ScrollView>
      </SafeAreaView>
    </>;
-
- */
+   */

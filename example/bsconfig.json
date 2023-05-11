@@ -13,10 +13,6 @@
     {
       "dir": "src",
       "subdirs": true
-    },
-    {
-      "dir": "../src",
-      "subdirs": true
     }
   ],
   "bsc-flags": ["-bs-no-version-header"],

@@ -46,6 +46,20 @@ The `example/` directory was based on this version of an old `reason-react-nativ
 
 The generator tool didn't work with this version, so I just copied the files from the template by hand.
 
+The files from `src/` need to be copied into the `example/src/vendor` folder for this example project to work.
+
+```sh
+> cd example && yarn reset-vendor
+```
+
+There is also a problem you have to manually fix with the older version of react-native Yoga dependency and newer Xcode:
+
+```sh
+> cd example/node_modules/react-native/ReactCommon/yoga/yoga/
+> $EDITOR Yoga.cpp
+# Change line 2283 single pipe `|` to `||`
+```
+
 ---
 
 # Below are the original README contents from rescript-react-navigation
