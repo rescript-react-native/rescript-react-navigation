@@ -40,6 +40,12 @@ There are a couple interesting things going on with the `Interop` module and som
 
 There were a lot of `#` string style polymorphic variants in the Rescript code. I changed these to normal polymorphic variants in the Reason code, but we might need to do something to make them convert to strings in the JS code.
 
+## Example
+
+The `example/` directory was based on this version of an old `reason-react-native` template: https://github.com/rescript-react-native/template/tree/0.63.0
+
+The generator tool didn't work with this version, so I just copied the files from the template by hand.
+
 ---
 
 # Below are the original README contents from rescript-react-navigation

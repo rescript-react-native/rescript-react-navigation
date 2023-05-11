@@ -13,6 +13,10 @@
     {
       "dir": "src",
       "subdirs": true
+    },
+    {
+      "dir": "../src",
+      "subdirs": true
     }
   ],
   "bs-dependencies": ["reason-react", "reason-react-native"]

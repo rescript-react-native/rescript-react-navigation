@@ -12,8 +12,9 @@ type route = {
   name: string,
   params: option(params),
   path: option(string),
-}
-and navigationState = {
+};
+
+type navigationState = {
   key: string,
   index: int,
   routeNames: array(string),

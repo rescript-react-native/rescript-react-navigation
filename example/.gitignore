@@ -64,3 +64,4 @@ buck-out/
 .merlin
 lib/bs
 lib/ocaml
+lib/src

@@ -26,7 +26,7 @@ module Header = {
   [@bs.deriving jsConverter]
   type headerTitleAlign = [ | `left | `center];
 
-  [@react.component [@bs.module "@react-navigation/elements"]]
+  [@react.component] [@bs.module "@react-navigation/elements"]
   external make:
     (
       ~title: string=?,
@@ -55,11 +55,9 @@ module Header = {
 };
 
 module HeaderBackground = {
-  [@react.component [@bs.module "@react-navigation/elements"]]
-  external make:
-    // actually all RN view props
-    (~children: React.element=?) =>
-    React.element =
+  [@react.component] [@bs.module "@react-navigation/elements"]
+  // actually all RN view props
+  external make: (~children: React.element=?) => React.element =
     "HeaderBackground";
 };
 
