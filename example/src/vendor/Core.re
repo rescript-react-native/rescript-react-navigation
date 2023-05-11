@@ -28,9 +28,16 @@ type screenOptionsParams = {
   route,
 };
 
+/*
+ type screenProps = {
+   navigation,
+   route,
+ };
+ */
 type screenProps = {
-  navigation,
-  route,
+  .
+  "navigation": navigation,
+  "route": route,
 };
 
 type getIdOptions = {params};

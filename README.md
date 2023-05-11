@@ -60,6 +60,16 @@ There is also a problem you have to manually fix with the older version of react
 # Change line 2283 single pipe `|` to `||`
 ```
 
+### Running the example
+
+```sh
+> cd example
+> yarn install
+> yarn react-native start --reset-cache # In one terminal
+> yarn run ios # In one terminal
+# :pray:
+```
+
 ---
 
 # Below are the original README contents from rescript-react-navigation

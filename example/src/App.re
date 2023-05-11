@@ -8,8 +8,21 @@ open ReactNative;
 
 module HomeScreen = {
   [@react.component]
+  let make = (~navigation, ~route as _) =>
+    <>
+      <Text> "Hello World!"->React.string </Text>
+      <Button
+        onPress={_ => navigation->Core.Navigation.navigate("TODO")}
+        title="TODO List"
+        color="#f00"
+      />
+    </>;
+};
+
+module ToDoScreen = {
+  [@react.component]
   let make = (~navigation as _, ~route as _) =>
-    <Text> "Hello Reasonable Person!"->React.string </Text>;
+    <> <Text> "TODO List"->React.string </Text> </>;
 };
 
 module ModalScreen = {
@@ -26,7 +39,7 @@ module MainStackScreen = {
     <Navigator>
       <Screen
         name="Home"
-        component={({navigation, route}) => <HomeScreen navigation route />}
+        component=HomeScreen.make
         options={props =>
           Stack.options(
             ~title=
@@ -49,6 +62,11 @@ module MainStackScreen = {
           )
         }
       />
+      <Screen
+        name="TODO"
+        component=ToDoScreen.make
+        options={_ => Stack.options()}
+      />
     </Navigator>;
 };
 
@@ -59,17 +77,8 @@ module RootStackScreen = {
   let make = () =>
     <Native.NavigationContainer>
       <Navigator screenOptions={_ => Stack.options(~presentation=`modal, ())}>
-        <Screen
-          name="Main"
-          component={({navigation, route}) =>
-            <MainStackScreen navigation route />
-          }
-        />
-        <Screen name="MyModal">
-          //{({navigation, route}) => <ModalScreen navigation route />}
-
-            {({navigation, route}) => <ModalScreen navigation route />}
-          </Screen>
+        <Screen name="Main" component=MainStackScreen.make />
+        <Screen name="MyModal"> ModalScreen.make </Screen>
       </Navigator>
     </Native.NavigationContainer>;
 };
