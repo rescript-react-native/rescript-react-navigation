@@ -1,7 +1,7 @@
-'use strict';
 
-var Interop = require("./Interop");
-var MaterialTopTabs = require("@react-navigation/material-top-tabs");
+
+import * as Interop from "./Interop";
+import * as MaterialTopTabs from "@react-navigation/material-top-tabs";
 
 var _map = {"top":"top","bottom":"bottom"};
 
@@ -35,11 +35,14 @@ function Make($star) {
 
 var Navigation = {};
 
-exports.tabBarPositionToJs = tabBarPositionToJs;
-exports.tabBarPositionFromJs = tabBarPositionFromJs;
-exports.keyboardDismissModeToJs = keyboardDismissModeToJs;
-exports.keyboardDismissModeFromJs = keyboardDismissModeFromJs;
-exports.adaptNavigatorModule = adaptNavigatorModule;
-exports.Make = Make;
-exports.Navigation = Navigation;
+export {
+  tabBarPositionToJs ,
+  tabBarPositionFromJs ,
+  keyboardDismissModeToJs ,
+  keyboardDismissModeFromJs ,
+  adaptNavigatorModule ,
+  Make ,
+  Navigation ,
+  
+}
 /* ./Interop Not a pure module */

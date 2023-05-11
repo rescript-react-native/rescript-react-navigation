@@ -1,7 +1,7 @@
-'use strict';
 
-var Interop = require("./Interop");
-var NativeStack = require("@react-navigation/native-stack");
+
+import * as Interop from "./Interop";
+import * as NativeStack from "@react-navigation/native-stack";
 
 var _map = {"default":"default","fade":"fade","fade_from_bottom":"fade_from_bottom","flip":"flip","simple_push":"simple_push","slide_from_bottom":"slide_from_bottom","slide_from_right":"slide_from_right","slide_from_left":"slide_from_left","none":"none"};
 
@@ -83,21 +83,24 @@ function Make($star) {
 
 var Navigation = {};
 
-exports.animationToJs = animationToJs;
-exports.animationFromJs = animationFromJs;
-exports.animationTypeForReplaceToJs = animationTypeForReplaceToJs;
-exports.animationTypeForReplaceFromJs = animationTypeForReplaceFromJs;
-exports.blurEffectToJs = blurEffectToJs;
-exports.blurEffectFromJs = blurEffectFromJs;
-exports.presentationToJs = presentationToJs;
-exports.presentationFromJs = presentationFromJs;
-exports.statusBarStyleToJs = statusBarStyleToJs;
-exports.statusBarStyleFromJs = statusBarStyleFromJs;
-exports.statusBarAnimationToJs = statusBarAnimationToJs;
-exports.statusBarAnimationFromJs = statusBarAnimationFromJs;
-exports.orientationToJs = orientationToJs;
-exports.orientationFromJs = orientationFromJs;
-exports.adaptNavigatorModule = adaptNavigatorModule;
-exports.Make = Make;
-exports.Navigation = Navigation;
+export {
+  animationToJs ,
+  animationFromJs ,
+  animationTypeForReplaceToJs ,
+  animationTypeForReplaceFromJs ,
+  blurEffectToJs ,
+  blurEffectFromJs ,
+  presentationToJs ,
+  presentationFromJs ,
+  statusBarStyleToJs ,
+  statusBarStyleFromJs ,
+  statusBarAnimationToJs ,
+  statusBarAnimationFromJs ,
+  orientationToJs ,
+  orientationFromJs ,
+  adaptNavigatorModule ,
+  Make ,
+  Navigation ,
+  
+}
 /* ./Interop Not a pure module */

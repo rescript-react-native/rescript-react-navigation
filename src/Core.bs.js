@@ -1,4 +1,4 @@
-'use strict';
+
 
 
 var Params = {};
@@ -17,9 +17,12 @@ var NavigationEvent = {};
 
 var Navigation = {};
 
-exports.Params = Params;
-exports.backBehaviorToJs = backBehaviorToJs;
-exports.backBehaviorFromJs = backBehaviorFromJs;
-exports.NavigationEvent = NavigationEvent;
-exports.Navigation = Navigation;
+export {
+  Params ,
+  backBehaviorToJs ,
+  backBehaviorFromJs ,
+  NavigationEvent ,
+  Navigation ,
+  
+}
 /* No side effect */

@@ -1,7 +1,7 @@
-'use strict';
 
-var Interop = require("./Interop");
-var Drawer = require("@react-navigation/drawer");
+
+import * as Interop from "./Interop";
+import * as Drawer from "@react-navigation/drawer";
 
 var _map = {"left":"left","right":"right"};
 
@@ -55,15 +55,18 @@ function Make($star) {
 
 var Navigation = {};
 
-exports.drawerPositionToJs = drawerPositionToJs;
-exports.drawerPositionFromJs = drawerPositionFromJs;
-exports.drawerTypeToJs = drawerTypeToJs;
-exports.drawerTypeFromJs = drawerTypeFromJs;
-exports.drawerStatusBarAnimationToJs = drawerStatusBarAnimationToJs;
-exports.drawerStatusBarAnimationFromJs = drawerStatusBarAnimationFromJs;
-exports.drawerStatusToJs = drawerStatusToJs;
-exports.drawerStatusFromJs = drawerStatusFromJs;
-exports.adaptNavigatorModule = adaptNavigatorModule;
-exports.Make = Make;
-exports.Navigation = Navigation;
+export {
+  drawerPositionToJs ,
+  drawerPositionFromJs ,
+  drawerTypeToJs ,
+  drawerTypeFromJs ,
+  drawerStatusBarAnimationToJs ,
+  drawerStatusBarAnimationFromJs ,
+  drawerStatusToJs ,
+  drawerStatusFromJs ,
+  adaptNavigatorModule ,
+  Make ,
+  Navigation ,
+  
+}
 /* ./Interop Not a pure module */

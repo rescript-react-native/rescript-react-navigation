@@ -1,4 +1,4 @@
-'use strict';
+
 
 
 var NavigationContainer = {};
@@ -9,8 +9,11 @@ var CommonActions = {};
 
 var Link = {};
 
-exports.NavigationContainer = NavigationContainer;
-exports.ServerContainer = ServerContainer;
-exports.CommonActions = CommonActions;
-exports.Link = Link;
+export {
+  NavigationContainer ,
+  ServerContainer ,
+  CommonActions ,
+  Link ,
+  
+}
 /* No side effect */

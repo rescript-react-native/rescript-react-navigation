@@ -1,7 +1,7 @@
-'use strict';
 
-var Interop = require("./Interop");
-var Stack = require("@react-navigation/stack");
+
+import * as Interop from "./Interop";
+import * as Stack from "@react-navigation/stack";
 
 var _map = {"card":"card","modal":"modal","transparentModal":"transparentModal"};
 
@@ -55,18 +55,21 @@ var HeaderStyleInterpolators = {};
 
 var TransitionPresets = {};
 
-exports.presentationToJs = presentationToJs;
-exports.presentationFromJs = presentationFromJs;
-exports.animationTypeForReplaceToJs = animationTypeForReplaceToJs;
-exports.animationTypeForReplaceFromJs = animationTypeForReplaceFromJs;
-exports.gestureDirectionToJs = gestureDirectionToJs;
-exports.gestureDirectionFromJs = gestureDirectionFromJs;
-exports.TransitionSpec = TransitionSpec;
-exports.adaptNavigatorModule = adaptNavigatorModule;
-exports.Make = Make;
-exports.Navigation = Navigation;
-exports.TransitionSpecs = TransitionSpecs;
-exports.CardStyleInterpolators = CardStyleInterpolators;
-exports.HeaderStyleInterpolators = HeaderStyleInterpolators;
-exports.TransitionPresets = TransitionPresets;
+export {
+  presentationToJs ,
+  presentationFromJs ,
+  animationTypeForReplaceToJs ,
+  animationTypeForReplaceFromJs ,
+  gestureDirectionToJs ,
+  gestureDirectionFromJs ,
+  TransitionSpec ,
+  adaptNavigatorModule ,
+  Make ,
+  Navigation ,
+  TransitionSpecs ,
+  CardStyleInterpolators ,
+  HeaderStyleInterpolators ,
+  TransitionPresets ,
+  
+}
 /* ./Interop Not a pure module */

@@ -1,7 +1,7 @@
-'use strict';
 
-var Interop = require("./Interop");
-var MaterialBottomTabs = require("@react-navigation/material-bottom-tabs");
+
+import * as Interop from "./Interop";
+import * as MaterialBottomTabs from "@react-navigation/material-bottom-tabs";
 
 var TabBarBadge = {};
 
@@ -15,8 +15,11 @@ function Make($star) {
 
 var Navigation = {};
 
-exports.TabBarBadge = TabBarBadge;
-exports.adaptNavigatorModule = adaptNavigatorModule;
-exports.Make = Make;
-exports.Navigation = Navigation;
+export {
+  TabBarBadge ,
+  adaptNavigatorModule ,
+  Make ,
+  Navigation ,
+  
+}
 /* ./Interop Not a pure module */

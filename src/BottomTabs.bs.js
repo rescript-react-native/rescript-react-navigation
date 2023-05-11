@@ -1,7 +1,7 @@
-'use strict';
 
-var Interop = require("./Interop");
-var BottomTabs = require("@react-navigation/bottom-tabs");
+
+import * as Interop from "./Interop";
+import * as BottomTabs from "@react-navigation/bottom-tabs";
 
 var _map = {"below_icon":"below-icon","beside_icon":"beside-icon"};
 
@@ -27,10 +27,13 @@ function Make($star) {
 
 var Navigation = {};
 
-exports.tabBarLabelPositionToJs = tabBarLabelPositionToJs;
-exports.tabBarLabelPositionFromJs = tabBarLabelPositionFromJs;
-exports.TabBarBadge = TabBarBadge;
-exports.adaptNavigatorModule = adaptNavigatorModule;
-exports.Make = Make;
-exports.Navigation = Navigation;
+export {
+  tabBarLabelPositionToJs ,
+  tabBarLabelPositionFromJs ,
+  TabBarBadge ,
+  adaptNavigatorModule ,
+  Make ,
+  Navigation ,
+  
+}
 /* ./Interop Not a pure module */

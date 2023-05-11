@@ -1,4 +1,4 @@
-'use strict';
+
 
 
 var _map = {"left":"left","center":"center"};
@@ -20,7 +20,10 @@ var HeaderBackground = {};
 
 var HeaderBackButton = {};
 
-exports.Header = Header;
-exports.HeaderBackground = HeaderBackground;
-exports.HeaderBackButton = HeaderBackButton;
+export {
+  Header ,
+  HeaderBackground ,
+  HeaderBackButton ,
+  
+}
 /* No side effect */

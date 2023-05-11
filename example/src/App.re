@@ -19,7 +19,7 @@ module ModalScreen = {
 };
 
 module MainStackScreen = {
-  //include Stack.Make();
+  include Stack.Make({});
 
   [@react.component]
   let make = (~navigation as _, ~route as _) =>
@@ -49,7 +49,7 @@ module MainStackScreen = {
 };
 
 module RootStackScreen = {
-  //include Stack.Make()
+  include Stack.Make({});
 
   [@react.component]
   let make = () =>

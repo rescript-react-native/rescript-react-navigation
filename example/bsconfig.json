@@ -19,5 +19,11 @@
       "subdirs": true
     }
   ],
+  "bsc-flags": ["-bs-no-version-header"],
+  "warnings": {
+    "error": true,
+    "number": "-30"
+  },
+  "warnings-number-30-is-useless": "https://github.com/ocaml/ocaml/pull/9046",
   "bs-dependencies": ["reason-react", "reason-react-native"]
 }

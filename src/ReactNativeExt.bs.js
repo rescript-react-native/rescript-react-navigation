@@ -1,4 +1,4 @@
-'use strict';
+
 
 
 var _map = {"normal":"normal","bold":"bold","_100":"100","_200":"200","_300":"300","_400":"400","_500":"500","_600":"600","_700":"700","_800":"800","_900":"900"};
@@ -13,6 +13,9 @@ function fontWeightFromJs(param) {
   return _revMap[param];
 }
 
-exports.fontWeightToJs = fontWeightToJs;
-exports.fontWeightFromJs = fontWeightFromJs;
+export {
+  fontWeightToJs ,
+  fontWeightFromJs ,
+  
+}
 /* No side effect */
