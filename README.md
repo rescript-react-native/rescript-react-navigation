@@ -34,11 +34,9 @@ There is also not a newer version of `reason-react-native` - the newer version o
 
 ## Port Status
 
-The code is ported and compiling, but I'm not sure if it works correctly at this point.
+The code is ported and compiling, and there is an example that appears to be working.
 
 There are a couple interesting things going on with the `Interop` module and some module unpacking in a few of the modules.
-
-There were a lot of `#` string style polymorphic variants in the Rescript code. I changed these to normal polymorphic variants in the Reason code, but we might need to do something to make them convert to strings in the JS code.
 
 ## Example
 
