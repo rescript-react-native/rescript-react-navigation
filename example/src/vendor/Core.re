@@ -1,6 +1,9 @@
 module Params = {
   type t;
 
+  // Convert the Params to a Js.t, so you can unsafely do `##myProp`
+  external asJs: t => Js.t(_) = "%identity";
+
   external toJson: t => Js.Json.t = "%identity";
   external unsafeGetValue: t => 'a = "%identity";
 };

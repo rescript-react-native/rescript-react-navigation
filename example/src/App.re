@@ -6,29 +6,72 @@
 // open ReactNavigation;
 open ReactNative;
 
-module HomeScreen = {
+module Screens = {
+  type t = {
+    name: string,
+    title: string,
+  };
+
+  let main = {name: "Main", title: "Main"};
+  let home = {name: "Home", title: "Home"};
+  let todo = {name: "TODO", title: "TODO List"};
+  let modal = {name: "Modal", title: "Modal"};
+};
+
+type todoParams = {items: list(string)};
+
+module Home = {
   [@react.component]
-  let make = (~navigation, ~route as _) =>
+  let make = (~navigation, ~route: Core.route) => {
+    Js.log(route);
+    Js.log(route.params);
+
     <>
-      <Text> "Hello World!"->React.string </Text>
+      <Text> "Home Page"->React.string </Text>
       <Button
-        onPress={_ => navigation->Core.Navigation.navigate("TODO")}
-        title="TODO List"
-        color="#f00"
+        onPress={_ =>
+          navigation->Core.Navigation.navigateWithParams(
+            Screens.todo.name,
+            {items: ["this", "that"]},
+          )
+        }
+        title={Screens.todo.title}
       />
     </>;
+  };
 };
 
-module ToDoScreen = {
+module TODOList = {
   [@react.component]
-  let make = (~navigation as _, ~route as _) =>
-    <> <Text> "TODO List"->React.string </Text> </>;
+  let make = (~navigation, ~route: Core.route) => {
+    Js.log(route);
+    Js.log(route.params);
+
+    let items: list(string) =
+      switch (route.params) {
+      | Some(params) => params->Core.Params.asJs##items
+      | None => []
+      };
+
+    <>
+      <Text> "My TODO List"->React.string </Text>
+      {React.array(
+         items
+         ->Belt.List.map(item => <Text key=item> item->React.string </Text>)
+         ->Belt.List.toArray,
+       )}
+      <Button
+        onPress={_ => navigation->Core.Navigation.goBack()}
+        title="Go Back"
+      />
+    </>;
+  };
 };
 
-module ModalScreen = {
+module Modal = {
   [@react.component]
   let make = (~navigation as _, ~route as _) =>
-    <Text> "Hello From Modal"->React.string </Text>;
+    <Text> "My Modal"->React.string </Text>;
 };
 
 module MainStackScreen = {
@@ -38,8 +81,8 @@ module MainStackScreen = {
   let make = (~navigation as _, ~route as _) =>
     <Navigator>
       <Screen
-        name="Home"
-        component=HomeScreen.make
+        name={Screens.home.name}
+        component=Home.make
         options={props =>
           Stack.options(
             ~title=
@@ -53,19 +96,26 @@ module MainStackScreen = {
               _ =>
                 <Button
                   onPress={_ =>
-                    props.navigation->Core.Navigation.navigate("MyModal")
+                    props.navigation
+                    ->Core.Navigation.navigate(Screens.modal.name)
                   }
-                  title="Info"
-                  color="#f00"
+                  title={Screens.modal.title}
                 />,
             (),
           )
         }
       />
       <Screen
-        name="TODO"
-        component=ToDoScreen.make
-        options={_ => Stack.options()}
+        name={Screens.todo.name}
+        component=TODOList.make
+        options={_ =>
+          Stack.options(
+            ~title={
+              Screens.todo.title;
+            },
+            (),
+          )
+        }
       />
     </Navigator>;
 };
@@ -77,8 +127,8 @@ module RootStackScreen = {
   let make = () =>
     <Native.NavigationContainer>
       <Navigator screenOptions={_ => Stack.options(~presentation=`modal, ())}>
-        <Screen name="Main" component=MainStackScreen.make />
-        <Screen name="MyModal"> ModalScreen.make </Screen>
+        <Screen name={Screens.main.name} component=MainStackScreen.make />
+        <Screen name={Screens.modal.name}> Modal.make </Screen>
       </Navigator>
     </Native.NavigationContainer>;
 };
