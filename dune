@@ -1,0 +1,38 @@
+(subdir
+ node_modules
+ (dirs reason-react-native reason-react)
+ (subdir
+  reason-react-native/src
+  (include_subdirs unqualified)
+  (library
+   (name reactNative)
+   (modes melange)
+   (preprocess
+    (pps melange.ppx reactjs-jsx-ppx))
+   (libraries reason_react)))
+ (subdir
+  reason-react/src
+  (include_subdirs unqualified)
+  (library
+   (name reason_react)
+   (modes melange)
+   (preprocess
+    (pps melange.ppx reactjs-jsx-ppx))
+   (wrapped false)
+   (flags :standard -w -9-20-27))))
+
+(subdir
+ src
+ (library
+  ; (public_name reason-react-navigation)
+  (name reactNavigation)
+  (modes melange)
+  (wrapped false)
+  (preprocess
+   (pps melange.ppx reactjs-jsx-ppx))
+  (libraries reactNative)))
+
+(melange.emit
+ (target foo)
+ (alias melol)
+ (libraries reactNative reactNavigation))
