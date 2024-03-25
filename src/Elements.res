@@ -2,23 +2,23 @@ open ReactNative
 
 module Header = {
   type headerTitleProps = {
-    allowFontScaling: bool,
-    tintColor: Color.t,
-    style: Style.t,
+    allowFontScaling: option<bool>,
+    tintColor: option<Color.t>,
+    style: option<Style.t>,
     children: string,
   }
 
   type headerLeftProps = {
-    tintColor: Color.t,
-    pressColor: Color.t,
-    pressOpacity: float,
-    labelVisible: bool,
+    tintColor: option<Color.t>,
+    pressColor: option<Color.t>,
+    pressOpacity: option<float>,
+    labelVisible: option<bool>,
   }
 
   type headerRightProps = {
-    tintColor: Color.t,
-    pressColor: Color.t,
-    pressOpacity: float,
+    tintColor: option<Color.t>,
+    pressColor: option<Color.t>,
+    pressOpacity: option<float>,
   }
 
   type headerBackgroundOptions = {style: option<Style.t>}

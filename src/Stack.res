@@ -123,7 +123,7 @@ type rec options = {
   headerShown?: bool,
   headerBackAllowFontScaling?: bool,
   headerBackAccessibilityLabel?: string,
-  headerBackImage?: headerBackImageProps,
+  headerBackImage?: headerBackImageProps => React.element,
   headerBackTitle?: string,
   headerBackTitleVisible?: bool,
   headerTruncatedBackTitle?: string,
