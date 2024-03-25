@@ -30,7 +30,7 @@ type rec options = {
   tabBarBadgeStyle?: Style.t,
   tabBarAccessibilityLabel?: string,
   tabBarTestID?: string,
-  tabBarButton: unit => React.element, // TODO: props
+  tabBarButton?: unit => React.element, // TODO: props
   tabBarColor?: Color.t,
   tabBarActiveTintColor?: string,
   tabBarInactiveTintColor?: string,
@@ -41,8 +41,8 @@ type rec options = {
   tabBarStyle?: Style.t,
   tabBarBackground?: unit => React.element,
   \"lazy"?: bool,
-  unmountOnBlur: bool,
-  freezeOnBlur: bool,
+  unmountOnBlur?: bool,
+  freezeOnBlur?: bool,
   header?: headerParams => React.element,
   headerShown?: bool,
   // Header props from https://reactnavigation.org/docs/elements#header
