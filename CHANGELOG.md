@@ -1,5 +1,12 @@
 # Changelog of `rescript-react-navigation`
 
+## 6.1.0 - 2024-04-08
+
+- fix BottomsTabs options type [22db822](https://github.com/rescript-react-native/rescript-react-navigation/commit/22db8227688dd08f7e36810351ca3b646dcb0f1a) by [@Freddy03h](https://github.com/Freddy03h)
+- fix some stack header props [9776174](https://github.com/rescript-react-native/rescript-react-navigation/commit/9776174ca6b030f8fcb6b4142d5d41c57519a00d) by [@Freddy03h](https://github.com/Freddy03h)
+- Full rewrite for JSX4, records with optional fields + simplicity [#58](https://github.com/rescript-react-native/rescript-react-navigation/pull/58) by [@cknitt](https://github.com/cknitt)
+- Add initialLayout prop to MaterialTopTabs Navigator [acbb2ce](https://github.com/rescript-react-native/rescript-react-navigation/commit/acbb2cec4ab7054fa185ed8b79fdd9d0e9dd9a2a) by [@Freddy03h](https://github.com/Freddy03h)
+
 ## 6.0.3 - 2022-04-16
 
 - Simplify peerDependencies [df75bda](https://github.com/rescript-react-native/rescript-react-navigation/commit/df75bda) by [@MoOx](https://github.com/MoOx)
