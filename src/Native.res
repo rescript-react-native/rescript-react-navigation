@@ -29,6 +29,7 @@ module NavigationContainer = {
     ~onReady: unit => unit=?,
     ~theme: theme=?,
     ~children: React.element,
+    ~independent: bool=?,
   ) => React.element = "NavigationContainer"
 }
 
