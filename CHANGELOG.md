@@ -1,5 +1,11 @@
 # Changelog of `rescript-react-navigation`
 
+## 6.2.0 - 2024-10-20
+
+- added independent param to NavigationContainer [#64](https://github.com/rescript-react-native/rescript-react-navigation/pull/64) by [@witcher-shailesh](https://github.com/witcher-shailesh)
+- add methodes on the NavigationContainer ref [9683e14](https://github.com/rescript-react-native/rescript-react-navigation/commit/9683e140d63dccbd14867180a26e58d86f5b65df) by [@Freddy03h](https://github.com/Freddy03h)
+- add useHeaderHeight hook to Elements [f7c6190](https://github.com/rescript-react-native/rescript-react-navigation/commit/f7c61906df8d9a09e0372e3a5f12e856619ae634) by [@Freddy03h](https://github.com/Freddy03h)
+
 ## 6.1.0 - 2024-04-08
 
 - fix BottomsTabs options type [22db822](https://github.com/rescript-react-native/rescript-react-navigation/commit/22db8227688dd08f7e36810351ca3b646dcb0f1a) by [@Freddy03h](https://github.com/Freddy03h)
