@@ -66,3 +66,6 @@ module HeaderBackButton = {
     ~onPress: unit => unit,
   ) => React.element = "HeaderBackButton"
 }
+
+@module("@react-navigation/elements")
+external useHeaderHeight: unit => float = "useHeaderHeight"
