@@ -31,6 +31,18 @@ module NavigationContainer = {
     ~children: React.element,
     ~independent: bool=?,
   ) => React.element = "NavigationContainer"
+
+  @send
+  external isReady: Core.navigation => bool = "isReady"
+
+  @send
+  external resetRoot: (Core.navigation, Core.navigationState) => unit = "resetRoot"
+
+  @send
+  external getRootState: Core.navigation => Js.nullable<Core.navigationState> = "getRootState"
+
+  @send
+  external getCurrentRoute: Core.navigation => Js.nullable<Core.route> = "getCurrentRoute"
 }
 
 @module("@react-navigation/native")
