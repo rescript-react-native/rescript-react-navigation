@@ -57,7 +57,7 @@ type rec options = {
   headerShown?: bool,
   header?: headerProps => React.element,
   // Header props from https://reactnavigation.org/docs/elements#header
-  headerTitle?: Header.headerTitleProps => React.element,
+  headerTitle?: Header.headerTitle,
   headerTitleAlign?: Header.headerTitleAlign,
   headerTitleAllowFontScaling?: bool,
   headerTitleStyle?: Style.t,

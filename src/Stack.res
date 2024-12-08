@@ -129,7 +129,7 @@ type rec options = {
   headerTruncatedBackTitle?: string,
   headerBackTitleStyle?: Style.t,
   // Header props from https://reactnavigation.org/docs/elements#header
-  headerTitle?: Header.headerTitleProps => React.element,
+  headerTitle?: Header.headerTitle,
   headerTitleAlign?: Header.headerTitleAlign,
   headerTitleAllowFontScaling?: bool,
   headerTitleStyle?: Style.t,

@@ -6,10 +6,20 @@ type themeColors = {
   border: string,
   notification: string,
 }
+
+type themeFonts = {
+  regular: ReactNative.Style.t,
+  medium: ReactNative.Style.t,
+  bold: ReactNative.Style.t,
+  heavy: ReactNative.Style.t,
+}
+
 type theme = {
   dark: bool,
   colors: themeColors,
+  fonts: themeFonts,
 }
+
 @module("@react-navigation/native")
 external defaultTheme: theme = "DefaultTheme"
 @module("@react-navigation/native")
@@ -122,3 +132,6 @@ module Link = {
     ~children: React.element,
   ) => React.element = "Link"
 }
+
+@module("@react-navigation/native")
+external getFocusedRouteNameFromRoute: Core.route => option<string> = "getFocusedRouteNameFromRoute"

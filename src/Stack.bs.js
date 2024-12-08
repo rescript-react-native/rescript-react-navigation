@@ -9,7 +9,7 @@ function Make($star) {
   return Interop.adaptNavigatorModule(Stack.createStackNavigator());
 }
 
-var Navigation = {};
+var $$Navigation = {};
 
 var TransitionSpecs = {};
 
@@ -21,7 +21,7 @@ var TransitionPresets = {};
 
 exports.TransitionSpec = TransitionSpec;
 exports.Make = Make;
-exports.Navigation = Navigation;
+exports.$$Navigation = $$Navigation;
 exports.TransitionSpecs = TransitionSpecs;
 exports.CardStyleInterpolators = CardStyleInterpolators;
 exports.HeaderStyleInterpolators = HeaderStyleInterpolators;

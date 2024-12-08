@@ -8,6 +8,11 @@ module Header = {
     children: string,
   }
 
+  @unboxed
+  type headerTitle =
+    | String(string)
+    | Function(headerTitleProps => React.element)
+
   type headerLeftProps = {
     tintColor: option<Color.t>,
     pressColor: option<Color.t>,
@@ -28,7 +33,7 @@ module Header = {
   @react.component @module("@react-navigation/elements")
   external make: (
     ~title: string=?,
-    ~headerTitle: headerTitleProps => React.element=?,
+    ~headerTitle: headerTitle=?,
     ~headerTitleAlign: headerTitleAlign=?,
     ~headerTitleAllowFontScaling: bool=?,
     ~headerTitleStyle: Style.t=?,

@@ -7,8 +7,8 @@ function Make($star) {
   return Interop.adaptNavigatorModule(Drawer.createDrawerNavigator());
 }
 
-var Navigation = {};
+var $$Navigation = {};
 
 exports.Make = Make;
-exports.Navigation = Navigation;
+exports.$$Navigation = $$Navigation;
 /* ./Interop Not a pure module */

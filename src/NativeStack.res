@@ -1,6 +1,7 @@
 // https://reactnavigation.org/docs/native-stack-navigator/
 
 open Core
+open Elements
 open ReactNative
 
 @module("react-native-screens")
@@ -140,11 +141,11 @@ type rec options = {
   headerShadowVisible?: bool,
   headerTransparent?: bool,
   headerBlurEffect?: blurEffect,
-  headerBackground?: unit => React.element,
+  headerBackground?: Header.headerBackgroundOptions => React.element,
   headerTintColor?: Color.t,
-  headerLeft?: unit => React.element,
-  headerRight?: unit => React.element,
-  headerTitle?: string,
+  headerLeft?: Header.headerLeftProps => React.element,
+  headerRight?: Header.headerRightProps => React.element,
+  headerTitle?: Header.headerTitle,
   headerTitleAlign?: headerTitleAlign,
   headerTitleStyle?: headerTitleStyle,
   headerSearchBarOptions?: headerSearchBarOptions,

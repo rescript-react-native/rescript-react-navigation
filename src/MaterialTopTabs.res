@@ -129,6 +129,9 @@ type navigatorModule
 module Make = () => unpack(createMaterialTopTabNavigator()->adaptNavigatorModule)
 
 module Navigation = {
+  @send
+  external setOptions: (navigation, options) => unit = "setOptions"
+
   @send external jumpTo: (navigation, string) => unit = "jumpTo"
   @send
   external jumpToWithParams: (navigation, string, 'params) => unit = "jumpTo"

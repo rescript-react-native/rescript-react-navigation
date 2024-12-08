@@ -5,9 +5,9 @@ var Params = {};
 
 var NavigationEvent = {};
 
-var Navigation = {};
+var $$Navigation = {};
 
 exports.Params = Params;
 exports.NavigationEvent = NavigationEvent;
-exports.Navigation = Navigation;
+exports.$$Navigation = $$Navigation;
 /* No side effect */
