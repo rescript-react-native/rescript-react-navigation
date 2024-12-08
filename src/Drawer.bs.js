@@ -9,6 +9,9 @@ function Make($star) {
 
 var $$Navigation = {};
 
+var DrawerItemList = {};
+
 exports.Make = Make;
 exports.$$Navigation = $$Navigation;
+exports.DrawerItemList = DrawerItemList;
 /* ./Interop Not a pure module */

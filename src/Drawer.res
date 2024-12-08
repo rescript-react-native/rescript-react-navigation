@@ -167,3 +167,8 @@ external useDrawerStatus: unit => drawerStatus = "useDrawerStatus"
 
 @module("@react-navigation/drawer")
 external getDrawerStatusFromState: navigationState => drawerStatus = "getDrawerStatusFromState"
+
+module DrawerItemList = {
+  @module("@react-navigation/drawer")
+  external make: React.component<contentComponentProps> = "DrawerItemList"
+}
