@@ -7,17 +7,9 @@ type themeColors = {
   notification: string,
 }
 
-type themeFonts = {
-  regular: ReactNative.Style.t,
-  medium: ReactNative.Style.t,
-  bold: ReactNative.Style.t,
-  heavy: ReactNative.Style.t,
-}
-
 type theme = {
   dark: bool,
   colors: themeColors,
-  fonts: themeFonts,
 }
 
 @module("@react-navigation/native")
