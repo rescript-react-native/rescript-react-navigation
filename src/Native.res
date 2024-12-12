@@ -19,6 +19,22 @@ external darkTheme: theme = "DarkTheme"
 @module("@react-navigation/native")
 external useTheme: unit => theme = "useTheme"
 
+module Linking = {
+  type rec config = {
+    path?: string,
+    exact?: bool,
+    initialRouteName?: string,
+    screens?: screens,
+  }
+  and screens = dict<config>
+
+  type t = {
+    enabled?: bool,
+    prefixes: array<string>,
+    config?: config,
+  }
+}
+
 module NavigationContainer = {
   type state = Js.Json.t
   type navigationState = state => unit
@@ -30,6 +46,7 @@ module NavigationContainer = {
     ~onStateChange: navigationState=?,
     ~onReady: unit => unit=?,
     ~theme: theme=?,
+    ~linking: Linking.t=?,
     ~children: React.element,
     ~independent: bool=?,
   ) => React.element = "NavigationContainer"
