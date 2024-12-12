@@ -48,7 +48,7 @@
     "lint-staged": "^10.0.0",
     "npmpub": "^5.0.0",
     "prettier": "^2.0.0",
-    "rescript": "^10.1.2",
+    "rescript": "^11.0.0",
     "rescript-react-native": ">=0.71.1"
   },
   "prettier": {

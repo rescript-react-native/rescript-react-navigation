@@ -57,7 +57,7 @@ type rec options = {
   headerShown?: bool,
   header?: headerProps => React.element,
   // Header props from https://reactnavigation.org/docs/elements#header
-  headerTitle?: Header.headerTitleProps => React.element,
+  headerTitle?: Header.headerTitle,
   headerTitleAlign?: Header.headerTitleAlign,
   headerTitleAllowFontScaling?: bool,
   headerTitleStyle?: Style.t,
@@ -167,3 +167,8 @@ external useDrawerStatus: unit => drawerStatus = "useDrawerStatus"
 
 @module("@react-navigation/drawer")
 external getDrawerStatusFromState: navigationState => drawerStatus = "getDrawerStatusFromState"
+
+module DrawerItemList = {
+  @module("@react-navigation/drawer")
+  external make: React.component<contentComponentProps> = "DrawerItemList"
+}

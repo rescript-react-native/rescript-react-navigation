@@ -9,9 +9,9 @@ function Make($star) {
   return Interop.adaptNavigatorModule(BottomTabs.createBottomTabNavigator());
 }
 
-var Navigation = {};
+var $$Navigation = {};
 
 exports.TabBarBadge = TabBarBadge;
 exports.Make = Make;
-exports.Navigation = Navigation;
+exports.$$Navigation = $$Navigation;
 /* ./Interop Not a pure module */
