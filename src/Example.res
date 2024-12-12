@@ -42,9 +42,40 @@ module MainStackScreen = {
 module RootStackScreen = {
   include Stack.Make()
 
+  let linking = {
+    open Native.Linking
+    {
+      prefixes: ["https://www.example.com"],
+      config: {
+        initialRouteName: "app",
+        screens: [
+          (
+            "app",
+            {
+              screens: [
+                (
+                  "tab1",
+                  {
+                    screens: [("home", {path: ""})]->Js.Dict.fromArray,
+                  },
+                ),
+                (
+                  "tab2",
+                  {
+                    screens: [("config", {path: "/config"})]->Js.Dict.fromArray,
+                  },
+                ),
+              ]->Js.Dict.fromArray,
+            },
+          ),
+        ]->Js.Dict.fromArray,
+      },
+    }
+  }
+
   @react.component
   let make = () =>
-    <Native.NavigationContainer>
+    <Native.NavigationContainer linking>
       <Navigator screenOptions={_ => {presentation: #modal}}>
         <Screen name="Main" component=MainStackScreen.make />
         <Screen name="MyModal">

@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require("react");
+var Js_dict = require("rescript/lib/js/js_dict.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var ReactNative = require("react-native");
 var Stack$ReactNavigation = require("./Stack.bs.js");
@@ -71,8 +72,49 @@ var $$Navigator$1 = include$1.$$Navigator;
 
 var $$Screen$1 = include$1.$$Screen;
 
+var linking_prefixes = ["https://www.example.com"];
+
+var linking_config = {
+  initialRouteName: "app",
+  screens: Js_dict.fromArray([[
+          "app",
+          {
+            screens: Js_dict.fromArray([
+                  [
+                    "tab1",
+                    {
+                      screens: Js_dict.fromArray([[
+                              "home",
+                              {
+                                path: ""
+                              }
+                            ]])
+                    }
+                  ],
+                  [
+                    "tab2",
+                    {
+                      screens: Js_dict.fromArray([[
+                              "config",
+                              {
+                                path: "/config"
+                              }
+                            ]])
+                    }
+                  ]
+                ])
+          }
+        ]])
+};
+
+var linking = {
+  prefixes: linking_prefixes,
+  config: linking_config
+};
+
 function Example$RootStackScreen(props) {
   return React.createElement(Native.NavigationContainer, {
+              linking: linking,
               children: React.createElement($$Navigator$1.make, {
                     screenOptions: (function (param) {
                         return {
@@ -101,6 +143,7 @@ var RootStackScreen = {
   $$Navigator: $$Navigator$1,
   $$Screen: $$Screen$1,
   Group: RootStackScreen_Group,
+  linking: linking,
   make: Example$RootStackScreen
 };
 
