@@ -1,5 +1,10 @@
 # Changelog of `rescript-react-navigation`
 
+## 6.3.0 - 2024-12-23
+
+- Linking [#71](https://github.com/rescript-react-native/rescript-react-navigation/pull/71) by [@Freddy03h](https://github.com/Freddy03h)
+- Various fixes and improvements [#69](https://github.com/rescript-react-native/rescript-react-navigation/pull/69) by [@cknitt](https://github.com/cknitt)
+
 ## 6.2.0 - 2024-10-20
 
 - added independent param to NavigationContainer [#64](https://github.com/rescript-react-native/rescript-react-navigation/pull/64) by [@witcher-shailesh](https://github.com/witcher-shailesh)
