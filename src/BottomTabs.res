@@ -29,7 +29,7 @@ type rec options = {
   tabBarBadge?: string,
   tabBarBadgeStyle?: Style.t,
   tabBarAccessibilityLabel?: string,
-  tabBarTestID?: string,
+  tabBarButtonTestID?: string,
   tabBarButton?: unit => React.element, // TODO: props
   tabBarColor?: Color.t,
   tabBarActiveTintColor?: string,
@@ -40,8 +40,9 @@ type rec options = {
   tabBarItemStyle?: Style.t,
   tabBarStyle?: Style.t,
   tabBarBackground?: unit => React.element,
+  sceneStyle?: Style.t,
   \"lazy"?: bool,
-  unmountOnBlur?: bool,
+  popToTopOnBlur?: bool,
   freezeOnBlur?: bool,
   header?: headerParams => React.element,
   headerShown?: bool,
@@ -82,7 +83,6 @@ module type NavigatorModule = {
       ~screenOptions: screenOptionsParams => options=?,
       ~backBehavior: backBehavior=?,
       ~detachInactiveScreens: bool=?,
-      ~sceneContainerStyle: Style.t=?,
       ~tabBar: unit => React.element=?,
       ~children: React.element,
     ) => React.element

@@ -1,14 +1,14 @@
 'use strict';
 
-var React = require("react");
 var Js_dict = require("rescript/lib/js/js_dict.js");
 var Caml_option = require("rescript/lib/js/caml_option.js");
 var ReactNative = require("react-native");
+var JsxRuntime = require("react/jsx-runtime");
 var Stack$ReactNavigation = require("./Stack.bs.js");
 var Native = require("@react-navigation/native");
 
 function Example$HomeScreen(props) {
-  return React.createElement(ReactNative.Text, {
+  return JsxRuntime.jsx(ReactNative.Text, {
               children: "Hello Reasonable Person!"
             });
 }
@@ -18,7 +18,7 @@ var HomeScreen = {
 };
 
 function Example$ModalScreen(props) {
-  return React.createElement(ReactNative.Text, {
+  return JsxRuntime.jsx(ReactNative.Text, {
               children: "Hello From Modal"
             });
 }
@@ -34,15 +34,15 @@ var $$Navigator = include.$$Navigator;
 var $$Screen = include.$$Screen;
 
 function Example$MainStackScreen(props) {
-  return React.createElement($$Navigator.make, {
-              children: Caml_option.some(React.createElement($$Screen.make, {
+  return JsxRuntime.jsx($$Navigator.make, {
+              children: Caml_option.some(JsxRuntime.jsx($$Screen.make, {
                         name: "Home",
                         options: (function (props) {
                             var params = props.route.params;
                             return {
                                     title: params !== undefined ? Caml_option.valFromOption(params).name : "Reason",
                                     headerRight: (function (param) {
-                                        return React.createElement(ReactNative.Button, {
+                                        return JsxRuntime.jsx(ReactNative.Button, {
                                                     color: "#f00",
                                                     onPress: (function (param) {
                                                         props.navigation.navigate("MyModal");
@@ -113,27 +113,30 @@ var linking = {
 };
 
 function Example$RootStackScreen(props) {
-  return React.createElement(Native.NavigationContainer, {
+  return JsxRuntime.jsx(Native.NavigationContainer, {
               linking: linking,
-              children: React.createElement($$Navigator$1.make, {
+              children: JsxRuntime.jsxs($$Navigator$1.make, {
                     screenOptions: (function (param) {
                         return {
                                 presentation: "modal"
                               };
                       }),
-                    children: Caml_option.some(null)
-                  }, React.createElement($$Screen$1.make, {
-                        name: "Main",
-                        component: Example$MainStackScreen
-                      }), React.createElement($$Screen$1.make, {
-                        name: "MyModal",
-                        children: (function (param) {
-                            return React.createElement(Example$ModalScreen, {
-                                        navigation: param.navigation,
-                                        route: param.route
-                                      });
+                    children: [
+                      JsxRuntime.jsx($$Screen$1.make, {
+                            name: "Main",
+                            component: Example$MainStackScreen
+                          }),
+                      JsxRuntime.jsx($$Screen$1.make, {
+                            name: "MyModal",
+                            children: (function (param) {
+                                return JsxRuntime.jsx(Example$ModalScreen, {
+                                            navigation: param.navigation,
+                                            route: param.route
+                                          });
+                              })
                           })
-                      }))
+                    ]
+                  })
             });
 }
 

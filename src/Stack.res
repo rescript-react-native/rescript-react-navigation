@@ -6,6 +6,18 @@ open ReactNative
 
 type presentation = [#card | #modal | #transparentModal]
 
+type animation = [
+  | #default
+  | #fade
+  | #fade_from_bottom
+  | #flip
+  | #simple_push
+  | #slide_from_bottom
+  | #slide_from_right
+  | #slide_from_left
+  | #none
+]
+
 type animationTypeForReplace = [#push | #pop]
 
 type gestureDirection = [#horizontal | #"horizontal-inverted" | #"vertical-inverted"]
@@ -92,6 +104,8 @@ type stackCardStyleInterpolator = cardInterpolationProps => cardInterpolatedStyl
 
 type headerMode = [#float | #screen]
 
+type headerBackButtonDisplayMode = [#default | #minimal]
+
 type headerBackImageProps = {tintColor: Color.t}
 
 type progress = {
@@ -107,12 +121,13 @@ type rec options = {
   cardOverlay?: unit => React.element,
   cardStyle?: Style.t,
   presentation?: presentation,
-  animationEnabled?: bool,
+  animation?: animation,
   animationTypeForReplace?: animationTypeForReplace,
   gestureEnabled?: bool,
   gestureResponseDistance?: float,
   gestureVelocityImpact?: float,
   gestureDirection?: gestureDirection,
+  keyboardHandlingEnabled?: bool,
   transitionSpec?: transitionSpec,
   cardStyleInterpolator?: stackCardStyleInterpolator,
   headerStyleInterpolator?: headerStyleInterpolator,
@@ -125,7 +140,7 @@ type rec options = {
   headerBackAccessibilityLabel?: string,
   headerBackImage?: headerBackImageProps => React.element,
   headerBackTitle?: string,
-  headerBackTitleVisible?: bool,
+  headerBackButtonDisplayMode?: headerBackButtonDisplayMode,
   headerTruncatedBackTitle?: string,
   headerBackTitleStyle?: Style.t,
   // Header props from https://reactnavigation.org/docs/elements#header
@@ -166,7 +181,6 @@ module type NavigatorModule = {
       ~initialRouteName: string=?,
       ~screenOptions: screenOptionsParams => options=?,
       ~detachInactiveScreens: bool=?,
-      ~keyboardHandlingEnabled: bool=?,
       ~children: React.element=?,
     ) => React.element
   }
@@ -220,6 +234,10 @@ module Navigation = {
   @send external pushWithParams: (navigation, string, 'params) => unit = "push"
 
   @send external pop: (navigation, ~count: int=?, unit) => unit = "pop"
+
+  @send external popTo: (navigation, string) => unit = "popTo"
+  @send
+  external popToWithParams: (navigation, string, 'params) => unit = "popTo"
 
   @send external popToTop: (navigation, unit) => unit = "popToTop"
 

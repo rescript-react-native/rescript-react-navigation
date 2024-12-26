@@ -1,12 +1,12 @@
 'use strict';
 
 var Interop = require("./Interop");
-var MaterialBottomTabs = require("@react-navigation/material-bottom-tabs");
+var ReactNavigation = require("react-native-paper/react-navigation");
 
 var TabBarBadge = {};
 
 function Make($star) {
-  return Interop.adaptNavigatorModule(MaterialBottomTabs.createMaterialBottomTabNavigator());
+  return Interop.adaptNavigatorModule(ReactNavigation.createMaterialBottomTabNavigator());
 }
 
 var $$Navigation = {};

@@ -69,7 +69,7 @@ module type NavigatorModule = {
 type navigatorModule
 
 %%private(
-  @module("@react-navigation/material-bottom-tabs")
+  @module("react-native-paper/react-navigation")
   external createMaterialBottomTabNavigator: unit => navigatorModule =
     "createMaterialBottomTabNavigator"
 

@@ -2,8 +2,7 @@
   "name": "rescript-react-navigation",
   "namespace": "react-navigation",
   "jsx": {
-    "version": 4,
-    "mode": "classic"
+    "version": 4
   },
   "package-specs": {
     "module": "commonjs",

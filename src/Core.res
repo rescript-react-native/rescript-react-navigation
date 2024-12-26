@@ -61,6 +61,10 @@ module Navigation = {
   @send
   external navigateWithParams: (t, string, 'params) => unit = "navigate"
 
+  @send external navigateDeprecated: (t, string) => unit = "navigateDeprecated"
+  @send
+  external navigateDeprecatedWithParams: (t, string, 'params) => unit = "navigateDeprecated"
+
   @send external goBack: (navigation, unit) => unit = "goBack"
 
   @send

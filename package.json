@@ -6,14 +6,16 @@
     "access": "public"
   },
   "peerDependencies": {
-    "@react-navigation/bottom-tabs": ">=6.1.0",
-    "@react-navigation/drawer": ">=6.1.0",
-    "@react-navigation/material-bottom-tabs": ">=6.1.0",
-    "@react-navigation/material-top-tabs": ">=6.1.0",
-    "@react-navigation/native": ">=6.1.0",
-    "@react-navigation/stack": ">=6.1.0",
-    "@rescript/react": ">=0.11.0",
-    "rescript-react-native": ">=0.71.0"
+    "@react-navigation/bottom-tabs": ">=7.0.0",
+    "@react-navigation/drawer": ">=7.0.0",
+    "@react-navigation/material-top-tabs": ">=7.0.0",
+    "@react-navigation/native": ">=7.0.0",
+    "@react-navigation/stack": ">=7.0.0",
+    "@rescript/react": ">=0.12.0",
+    "rescript-react-native": ">=0.73.1"
+  },
+  "overrides": {
+    "react": "^18.0.0"
   },
   "repository": "https://github.com/rescript-react-native/react-navigation.git",
   "license": "MIT",
@@ -43,13 +45,13 @@
     "release": "npmpub"
   },
   "devDependencies": {
-    "@rescript/react": "^0.11.0",
+    "@rescript/react": "^0.12.2",
     "husky": "^4.0.0",
     "lint-staged": "^10.0.0",
     "npmpub": "^5.0.0",
     "prettier": "^2.0.0",
-    "rescript": "^11.0.0",
-    "rescript-react-native": ">=0.71.1"
+    "rescript": "^11.0.1",
+    "rescript-react-native": "^0.73.1"
   },
   "prettier": {
     "trailingComma": "all"
