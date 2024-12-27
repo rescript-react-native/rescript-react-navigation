@@ -70,6 +70,10 @@ module Navigation = {
   @send
   external reset: (navigation, navigationState) => unit = "reset"
 
+  @send external preload: (t, string) => unit = "preload"
+  @send
+  external preloadWithParams: (t, string, 'params) => unit = "preload"
+
   @send external isFocused: (navigation, unit) => bool = "isFocused"
 
   @send
