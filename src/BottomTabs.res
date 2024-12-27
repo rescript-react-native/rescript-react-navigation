@@ -6,6 +6,16 @@ open ReactNative
 
 type tabBarLabelPosition = [#"below-icon" | #"beside-icon"]
 
+type tabBarPosition = [#bottom | #top | #left | #right]
+
+type tabBarVariant = [#uikit | #material]
+
+type animation = [
+  | #fade
+  | #shift
+  | #none
+]
+
 type tabBarIconOptions = {
   focused: bool,
   color: string,
@@ -31,7 +41,6 @@ type rec options = {
   tabBarAccessibilityLabel?: string,
   tabBarButtonTestID?: string,
   tabBarButton?: unit => React.element, // TODO: props
-  tabBarColor?: Color.t,
   tabBarActiveTintColor?: string,
   tabBarInactiveTintColor?: string,
   tabBarActiveBackgroundColor?: string,
@@ -40,12 +49,15 @@ type rec options = {
   tabBarItemStyle?: Style.t,
   tabBarStyle?: Style.t,
   tabBarBackground?: unit => React.element,
+  tabBarPosition?: tabBarPosition,
+  tabBarVariant?: tabBarVariant,
   sceneStyle?: Style.t,
   \"lazy"?: bool,
   popToTopOnBlur?: bool,
   freezeOnBlur?: bool,
   header?: headerParams => React.element,
   headerShown?: bool,
+  animation?: animation,
   // Header props from https://reactnavigation.org/docs/elements#header
   headerTitle?: Header.headerTitle,
   headerTitleAlign?: Header.headerTitleAlign,
