@@ -104,6 +104,7 @@ module type NavigatorModule = {
       ~detachInactiveScreens: bool=?,
       ~useLegacyImplementation: bool=?,
       ~drawerContent: React.component<contentComponentProps>=?,
+      ~layout: layoutNavigatorParams => React.element=?,
       ~children: React.element=?,
     ) => React.element
   }

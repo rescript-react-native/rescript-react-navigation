@@ -84,6 +84,7 @@ module type NavigatorModule = {
       ~backBehavior: backBehavior=?,
       ~detachInactiveScreens: bool=?,
       ~tabBar: unit => React.element=?,
+      ~layout: layoutNavigatorParams => React.element=?,
       ~children: React.element,
     ) => React.element
   }

@@ -39,6 +39,7 @@ module type NavigatorModule = {
       ~activeColor: Color.t=?,
       ~inactiveColor: Color.t=?,
       ~barStyle: Style.t=?,
+      ~layout: layoutNavigatorParams => React.element=?,
       ~children: React.element,
     ) => React.element
   }

@@ -54,6 +54,13 @@ type stateEventData = {state: navigationState}
 
 type action
 
+type layoutNavigatorParams = {
+  state: navigationState,
+  navigation: navigation,
+  descriptors: descriptors,
+  children: React.element,
+}
+
 module Navigation = {
   type t = navigation
 

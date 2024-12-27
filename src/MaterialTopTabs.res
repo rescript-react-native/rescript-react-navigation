@@ -89,6 +89,7 @@ module type NavigatorModule = {
       ~initialLayout: layout=?,
       ~style: Style.t=?,
       ~tabBar: tabBarProps => React.element=?,
+      ~layout: layoutNavigatorParams => React.element=?,
       ~children: React.element,
     ) => React.element
   }

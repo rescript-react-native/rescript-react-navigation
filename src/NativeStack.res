@@ -185,6 +185,7 @@ module type NavigatorModule = {
       ~id: string=?,
       ~initialRouteName: string=?,
       ~screenOptions: screenOptionsParams => options=?,
+      ~layout: layoutNavigatorParams => React.element=?,
       ~children: React.element=?,
     ) => React.element
   }
