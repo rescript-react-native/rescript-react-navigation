@@ -141,7 +141,7 @@ type rec options = {
   headerBackImage?: headerBackImageProps => React.element,
   headerBackTitle?: string,
   headerBackButtonDisplayMode?: headerBackButtonDisplayMode,
-  headerTruncatedBackTitle?: string,
+  headerBackTruncatedTitle?: string,
   headerBackTitleStyle?: Style.t,
   // Header props from https://reactnavigation.org/docs/elements#header
   headerTitle?: Header.headerTitle,
