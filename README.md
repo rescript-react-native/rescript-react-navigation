@@ -31,7 +31,7 @@ yarn add rescript-react-navigation
 ```
 
 `rescript-react-navigation` should be added to `bs-dependencies` in your
-`bsconfig.json`:
+`rescript.json`:
 
 ```diff
 {

@@ -13,11 +13,13 @@ module Header = {
     | String(string)
     | Function(headerTitleProps => React.element)
 
+  type displayMode = [#default | #generic | #minimal]
+
   type headerLeftProps = {
     tintColor: option<Color.t>,
     pressColor: option<Color.t>,
     pressOpacity: option<float>,
-    labelVisible: option<bool>,
+    displayMode: option<displayMode>,
   }
 
   type headerRightProps = {
@@ -66,7 +68,7 @@ module HeaderBackground = {
 module HeaderBackButton = {
   @react.component @module("@react-navigation/elements")
   external make: (
-    ~labelVisible: bool=?,
+    ~displayMode: Header.displayMode=?,
     ~tintColor: Color.t=?,
     ~onPress: unit => unit,
   ) => React.element = "HeaderBackButton"

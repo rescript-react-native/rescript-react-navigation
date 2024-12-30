@@ -129,7 +129,7 @@ type rec options = {
   headerBackButtonMenuEnabled?: bool,
   headerBackVisible?: bool,
   headerBackTitle?: string,
-  headerBackTitleVisible?: bool,
+  headerBackButtonDisplayMode?: Stack.headerBackButtonDisplayMode,
   headerBackTitleStyle?: headerBackTitleStyle,
   headerBackImageSource?: string, // TODO
   headerLargeStyle?: headerLargeStyle,
@@ -153,10 +153,10 @@ type rec options = {
   statusBarAnimation?: statusBarAnimation,
   statusBarHidden?: bool,
   statusBarStyle?: statusBarStyle,
-  statusBarColor?: Color.t,
+  statusBarBackgroundColor?: Color.t,
   statusBarTranslucent?: bool,
   contentStyle?: Style.t,
-  customAnimationOnGesture?: bool,
+  animationMatchesGesture?: bool,
   fullScreenGestureEnabled?: bool,
   gestureEnabled?: bool,
   animationTypeForReplace?: animationTypeForReplace,
@@ -185,6 +185,7 @@ module type NavigatorModule = {
       ~id: string=?,
       ~initialRouteName: string=?,
       ~screenOptions: screenOptionsParams => options=?,
+      ~layout: layoutNavigatorParams => React.element=?,
       ~children: React.element=?,
     ) => React.element
   }
@@ -238,6 +239,10 @@ module Navigation = {
   @send external pushWithParams: (navigation, string, 'params) => unit = "push"
 
   @send external pop: (navigation, ~count: int=?, unit) => unit = "pop"
+
+  @send external popTo: (navigation, string) => unit = "popTo"
+  @send
+  external popToWithParams: (navigation, string, 'params) => unit = "popTo"
 
   @send external popToTop: (navigation, unit) => unit = "popToTop"
 
