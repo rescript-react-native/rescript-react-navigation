@@ -2,9 +2,9 @@ open ReactNative
 
 module Header = {
   type headerTitleProps = {
-    allowFontScaling?: bool,
-    tintColor?: Color.t,
-    style?: Style.t,
+    allowFontScaling: option<bool>,
+    tintColor: option<Color.t>,
+    style: option<Style.t>,
     children: string,
   }
 
@@ -15,23 +15,19 @@ module Header = {
 
   type displayMode = [#default | #generic | #minimal]
 
-  type headerButtonCommonProps = {
-    tintColor?: Color.t,
-    pressColor?: Color.t,
-    pressOpacity?: float,
-  }
-
   type headerRightProps = {
-    ...headerButtonCommonProps,
-    canGoBack?: bool,
+    tintColor: option<Color.t>,
+    pressColor: option<Color.t>,
+    pressOpacity: option<float>,
+    canGoBack: option<bool>,
   }
   type headerLeftProps = {
     ...headerRightProps,
-    displayMode?: displayMode,
-    href?: string,
+    displayMode: option<displayMode>,
+    href: option<string>,
   }
 
-  type headerBackgroundOptions = {style?: Style.t}
+  type headerBackgroundOptions = {style: option<Style.t>}
 
   type headerTitleAlign = [#left | #center]
 
@@ -110,7 +106,9 @@ module HeaderTitle = {
 
 module HeaderButton = {
   type headerButtonProps = {
-    ...Header.headerButtonCommonProps,
+    tintColor?: Color.t,
+    pressColor?: Color.t,
+    pressOpacity?: float,
     onPress?: unit => unit,
     href?: string,
     disabled?: bool,
