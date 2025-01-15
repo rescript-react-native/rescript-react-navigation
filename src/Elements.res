@@ -55,25 +55,29 @@ module Header = {
     placeholder?: string,
   }
 
-  type headerOptions = {
+  type headerCommonOptions = {
     headerTitle?: headerTitle,
     headerTitleAlign?: headerTitleAlign,
-    headerTitleAllowFontScaling?: bool,
-    headerTitleStyle?: Style.t,
-    headerTitleContainerStyle?: Style.t,
     headerLeft?: headerLeftProps => React.element,
-    headerLeftContainerStyle?: Style.t,
     headerRight?: headerRightProps => React.element,
+    headerTintColor?: Color.t,
+    headerBackground?: headerBackgroundOptions => React.element,
+    headerTransparent?: bool,
+    headerShadowVisible?: bool,
+  }
+
+  type headerOptions = {
+    ...headerCommonOptions,
+    headerTitleStyle?: Style.t,
+    headerTitleAllowFontScaling?: bool,
+    headerTitleContainerStyle?: Style.t,
+    headerLeftContainerStyle?: Style.t,
     headerRightContainerStyle?: Style.t,
     headerSearchBarOptions?: headerSearchBarOptions,
     headerPressColor?: Color.t,
     headerPressOpacity?: float,
-    headerTintColor?: Color.t,
-    headerBackground?: headerBackgroundOptions => React.element,
     headerBackgroundContainerStyle?: Style.t,
-    headerTransparent?: bool,
     headerStyle?: Style.t,
-    headerShadowVisible?: bool,
     headerStatusBarHeight?: Style.size,
   }
 

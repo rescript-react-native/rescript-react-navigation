@@ -115,6 +115,7 @@ type progress = {
 }
 
 type rec options = {
+  ...Header.headerOptions,
   title?: string,
   cardShadowEnabled?: bool,
   cardOverlayEnabled?: bool,
@@ -143,26 +144,6 @@ type rec options = {
   headerBackButtonDisplayMode?: headerBackButtonDisplayMode,
   headerBackTruncatedTitle?: string,
   headerBackTitleStyle?: Style.t,
-  // Header props from https://reactnavigation.org/docs/elements#header
-  headerTitle?: Header.headerTitle,
-  headerTitleAlign?: Header.headerTitleAlign,
-  headerTitleAllowFontScaling?: bool,
-  headerTitleStyle?: Style.t,
-  headerTitleContainerStyle?: Style.t,
-  headerLeft?: Header.headerLeftProps => React.element,
-  headerLeftLabelVisible?: bool,
-  headerLeftContainerStyle?: Style.t,
-  headerRight?: Header.headerRightProps => React.element,
-  headerRightContainerStyle?: Style.t,
-  headerPressColor?: Color.t,
-  headerPressOpacity?: float,
-  headerTintColor?: Color.t,
-  headerBackground?: Header.headerBackgroundOptions => React.element,
-  headerBackgroundContainerStyle?: Style.t,
-  headerTransparent?: bool,
-  headerStyle?: Style.t,
-  headerShadowVisible?: bool,
-  headerStatusBarHeight?: Style.size,
 }
 and headerParams = {
   navigation: navigation,
