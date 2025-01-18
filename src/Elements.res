@@ -123,7 +123,7 @@ module HeaderButton = {
   }
 
   @module("@react-navigation/elements")
-  external make: React.component<props> = "HeaderTitle"
+  external make: React.component<props> = "HeaderButton"
 }
 
 module HeaderBackButton = {
