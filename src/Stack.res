@@ -208,18 +208,17 @@ module Navigation = {
   @send
   external setOptions: (navigation, options) => unit = "setOptions"
 
-  @send external replace: (navigation, string) => unit = "replace"
-  @send
+  @send external replace: (navigation, string, ~params: 'params=?) => unit = "replace"
+  @deprecated("Use `replace` with `~params` instead") @send
   external replaceWithParams: (navigation, string, 'params) => unit = "replace"
 
-  @send external push: (navigation, string) => unit = "push"
-  @send external pushWithParams: (navigation, string, 'params) => unit = "push"
+  @send external push: (navigation, string, ~params: 'params=?) => unit = "push"
+  @deprecated("Use `push` with `~params` instead") @send
+  external pushWithParams: (navigation, string, 'params) => unit = "push"
 
   @send external pop: (navigation, ~count: int=?, unit) => unit = "pop"
 
-  @send external popTo: (navigation, string) => unit = "popTo"
-  @send
-  external popToWithParams: (navigation, string, 'params) => unit = "popTo"
+  @send external popTo: (navigation, string, ~params: 'params=?) => unit = "popTo"
 
   @send external popToTop: (navigation, unit) => unit = "popToTop"
 

@@ -64,22 +64,18 @@ type layoutNavigatorParams = {
 module Navigation = {
   type t = navigation
 
-  @send external navigate: (t, string) => unit = "navigate"
-  @send
+  @send external navigate: (t, string, ~params: 'params=?) => unit = "navigate"
+  @deprecated("Use `navigate` with `~params` instead") @send
   external navigateWithParams: (t, string, 'params) => unit = "navigate"
 
-  @send external navigateDeprecated: (t, string) => unit = "navigateDeprecated"
-  @send
-  external navigateDeprecatedWithParams: (t, string, 'params) => unit = "navigateDeprecated"
+  @send external navigateDeprecated: (t, string, ~params: 'params=?) => unit = "navigateDeprecated"
 
   @send external goBack: (navigation, unit) => unit = "goBack"
 
   @send
   external reset: (navigation, navigationState) => unit = "reset"
 
-  @send external preload: (t, string) => unit = "preload"
-  @send
-  external preloadWithParams: (t, string, 'params) => unit = "preload"
+  @send external preload: (t, string, ~params: 'params=?) => unit = "preload"
 
   @send external isFocused: (navigation, unit) => bool = "isFocused"
 

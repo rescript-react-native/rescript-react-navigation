@@ -84,8 +84,8 @@ module Navigation = {
   @send
   external setOptions: (navigation, options) => unit = "setOptions"
 
-  @send external jumpTo: (navigation, string) => unit = "jumpTo"
-  @send
+  @send external jumpTo: (navigation, string, ~params: 'params=?) => unit = "jumpTo"
+  @deprecated("Use `jumpTo` with `~params` instead") @send
   external jumpToWithParams: (navigation, string, 'params) => unit = "jumpTo"
 
   @send

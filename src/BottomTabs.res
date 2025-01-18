@@ -137,8 +137,8 @@ type navigatorModule
 module Make = () => unpack(createBottomTabNavigator()->adaptNavigatorModule)
 
 module Navigation = {
-  @send external jumpTo: (navigation, string) => unit = "jumpTo"
-  @send
+  @send external jumpTo: (navigation, string, ~params: 'params=?) => unit = "jumpTo"
+  @deprecated("Use `jumpTo` with `~params` instead") @send
   external jumpToWithParams: (navigation, string, 'params) => unit = "jumpTo"
 
   @send

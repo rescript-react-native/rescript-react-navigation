@@ -40,7 +40,6 @@ function Example$MainStackScreen(props) {
                         options: (function (props) {
                             var params = props.route.params;
                             return {
-                                    title: params !== undefined ? Caml_option.valFromOption(params).name : "Reason",
                                     headerRight: (function (param) {
                                         return JsxRuntime.jsx(ReactNative.Button, {
                                                     color: "#f00",
@@ -49,7 +48,8 @@ function Example$MainStackScreen(props) {
                                                       }),
                                                     title: "Info"
                                                   });
-                                      })
+                                      }),
+                                    title: params !== undefined ? Caml_option.valFromOption(params).name : "Reason"
                                   };
                           }),
                         component: Example$HomeScreen
