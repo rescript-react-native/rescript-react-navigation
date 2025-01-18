@@ -232,11 +232,11 @@ module Navigation = {
   @deprecated("Use `push` with `~params` instead") @send
   external pushWithParams: (navigation, string, 'params) => unit = "push"
 
-  @send external pop: (navigation, ~count: int=?, unit) => unit = "pop"
+  @send external pop: (navigation, ~count: int=?) => unit = "pop"
 
   @send external popTo: (navigation, string, ~params: 'params=?) => unit = "popTo"
 
-  @send external popToTop: (navigation, unit) => unit = "popToTop"
+  @send external popToTop: navigation => unit = "popToTop"
 
   @send
   external addEventListener: (

@@ -70,19 +70,19 @@ module Navigation = {
 
   @send external navigateDeprecated: (t, string, ~params: 'params=?) => unit = "navigateDeprecated"
 
-  @send external goBack: (navigation, unit) => unit = "goBack"
+  @send external goBack: navigation => unit = "goBack"
 
   @send
   external reset: (navigation, navigationState) => unit = "reset"
 
   @send external preload: (t, string, ~params: 'params=?) => unit = "preload"
 
-  @send external isFocused: (navigation, unit) => bool = "isFocused"
+  @send external isFocused: navigation => bool = "isFocused"
 
   @send
   external dispatch: (t, action) => unit = "dispatch"
 
-  @send external canGoBack: (navigation, unit) => bool = "canGoBack"
+  @send external canGoBack: navigation => bool = "canGoBack"
 
   @send external setParams: (navigation, 'params) => unit = "setParams"
 

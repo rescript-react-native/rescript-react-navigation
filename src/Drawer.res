@@ -148,7 +148,7 @@ module Navigation = {
   @send
   external setOptions: (navigation, options) => unit = "setOptions"
 
-  @send external jumpTo: (navigation, ~name: string, ~params: 'params=?, unit) => unit = "jumpTo"
+  @send external jumpTo: (navigation, ~name: string, ~params: 'params=?) => unit = "jumpTo"
   @send external openDrawer: navigation => unit = "openDrawer"
   @send external closeDrawer: navigation => unit = "closeDrawer"
   @send external toggleDrawer: navigation => unit = "toggleDrawer"
