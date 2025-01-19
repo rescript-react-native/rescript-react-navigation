@@ -39,6 +39,7 @@ module type NavigatorModule = {
       ~activeColor: Color.t=?,
       ~inactiveColor: Color.t=?,
       ~barStyle: Style.t=?,
+      ~layout: layoutNavigatorParams => React.element=?,
       ~children: React.element,
     ) => React.element
   }
@@ -69,7 +70,7 @@ module type NavigatorModule = {
 type navigatorModule
 
 %%private(
-  @module("@react-navigation/material-bottom-tabs")
+  @module("react-native-paper/react-navigation")
   external createMaterialBottomTabNavigator: unit => navigatorModule =
     "createMaterialBottomTabNavigator"
 
@@ -83,8 +84,8 @@ module Navigation = {
   @send
   external setOptions: (navigation, options) => unit = "setOptions"
 
-  @send external jumpTo: (navigation, string) => unit = "jumpTo"
-  @send
+  @send external jumpTo: (navigation, string, ~params: 'params=?) => unit = "jumpTo"
+  @deprecated("Use `jumpTo` with `~params` instead") @send
   external jumpToWithParams: (navigation, string, 'params) => unit = "jumpTo"
 
   @send

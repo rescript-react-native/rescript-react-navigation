@@ -6,6 +6,16 @@ open ReactNative
 
 type tabBarLabelPosition = [#"below-icon" | #"beside-icon"]
 
+type tabBarPosition = [#bottom | #top | #left | #right]
+
+type tabBarVariant = [#uikit | #material]
+
+type animation = [
+  | #fade
+  | #shift
+  | #none
+]
+
 type tabBarIconOptions = {
   focused: bool,
   color: string,
@@ -29,9 +39,8 @@ type rec options = {
   tabBarBadge?: string,
   tabBarBadgeStyle?: Style.t,
   tabBarAccessibilityLabel?: string,
-  tabBarTestID?: string,
+  tabBarButtonTestID?: string,
   tabBarButton?: unit => React.element, // TODO: props
-  tabBarColor?: Color.t,
   tabBarActiveTintColor?: string,
   tabBarInactiveTintColor?: string,
   tabBarActiveBackgroundColor?: string,
@@ -40,11 +49,15 @@ type rec options = {
   tabBarItemStyle?: Style.t,
   tabBarStyle?: Style.t,
   tabBarBackground?: unit => React.element,
+  tabBarPosition?: tabBarPosition,
+  tabBarVariant?: tabBarVariant,
+  sceneStyle?: Style.t,
   \"lazy"?: bool,
-  unmountOnBlur?: bool,
+  popToTopOnBlur?: bool,
   freezeOnBlur?: bool,
   header?: headerParams => React.element,
   headerShown?: bool,
+  animation?: animation,
   // Header props from https://reactnavigation.org/docs/elements#header
   headerTitle?: Header.headerTitle,
   headerTitleAlign?: Header.headerTitleAlign,
@@ -82,8 +95,8 @@ module type NavigatorModule = {
       ~screenOptions: screenOptionsParams => options=?,
       ~backBehavior: backBehavior=?,
       ~detachInactiveScreens: bool=?,
-      ~sceneContainerStyle: Style.t=?,
       ~tabBar: unit => React.element=?,
+      ~layout: layoutNavigatorParams => React.element=?,
       ~children: React.element,
     ) => React.element
   }
@@ -124,8 +137,8 @@ type navigatorModule
 module Make = () => unpack(createBottomTabNavigator()->adaptNavigatorModule)
 
 module Navigation = {
-  @send external jumpTo: (navigation, string) => unit = "jumpTo"
-  @send
+  @send external jumpTo: (navigation, string, ~params: 'params=?) => unit = "jumpTo"
+  @deprecated("Use `jumpTo` with `~params` instead") @send
   external jumpToWithParams: (navigation, string, 'params) => unit = "jumpTo"
 
   @send

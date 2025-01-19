@@ -7,9 +7,17 @@ type themeColors = {
   notification: string,
 }
 
+type themeFonts = {
+  regular: ReactNative.Style.t,
+  medium: ReactNative.Style.t,
+  bold: ReactNative.Style.t,
+  heavy: ReactNative.Style.t,
+}
+
 type theme = {
   dark: bool,
   colors: themeColors,
+  fonts: themeFonts,
 }
 
 @module("@react-navigation/native")
@@ -35,6 +43,11 @@ module Linking = {
   }
 }
 
+module NavigationIndependentTree = {
+  @module("@react-navigation/native") @react.component
+  external make: unit => React.element = "NavigationIndependentTree"
+}
+
 module NavigationContainer = {
   type state = Js.Json.t
   type navigationState = state => unit
@@ -48,7 +61,7 @@ module NavigationContainer = {
     ~theme: theme=?,
     ~linking: Linking.t=?,
     ~children: React.element,
-    ~independent: bool=?,
+    ~navigationInChildEnabled: bool=?,
   ) => React.element = "NavigationContainer"
 
   @send
@@ -115,9 +128,11 @@ module CommonActions = {
 @module("@react-navigation/native")
 external useLinkTo: string => unit = "useLinkTo"
 
-type linkPropsIn = {
-  to_: string,
-  action: unit => unit,
+type linkPropsIn<'params> = {
+  screen?: string,
+  params?: 'params,
+  action?: Core.action,
+  href?: string,
 }
 type linkPropsOut = {
   href: string,
@@ -126,20 +141,24 @@ type linkPropsOut = {
 }
 
 @module("@react-navigation/native")
-external useLinkProps: linkPropsIn => linkPropsOut = "useLinkProps"
+external useLinkProps: linkPropsIn<'params> => linkPropsOut = "useLinkProps"
 
-type linkBuilderOut<'a> = (string, 'a) => string
+type linkBuilderOut<'params> = {
+  buildHref: (string, 'params) => string,
+  buildAction: string => Core.action,
+}
 
 @module("@react-navigation/native")
-external useLinkBuilder: unit => linkBuilderOut<'a> = "useLinkBuilder"
+external useLinkBuilder: unit => linkBuilderOut<'params> = "useLinkBuilder"
 
 module Link = {
-  @module("@react-navigation/native") @react.component
-  external make: (
-    ~to_: string=?,
-    ~action: unit => unit=?,
-    ~children: React.element,
-  ) => React.element = "Link"
+  type props<'params> = {
+    ...linkPropsIn<'params>,
+    children: React.element,
+  }
+
+  @module("@react-navigation/native")
+  external make: props<'params> => React.element = "Link"
 }
 
 @module("@react-navigation/native")

@@ -125,38 +125,31 @@ type backOptions = {title?: string}
 type gestureDirection = [#vertical | #horizontal]
 
 type rec options = {
+  ...Header.headerCommonOptions,
   title?: string,
   headerBackButtonMenuEnabled?: bool,
   headerBackVisible?: bool,
   headerBackTitle?: string,
-  headerBackTitleVisible?: bool,
+  headerBackButtonDisplayMode?: Stack.headerBackButtonDisplayMode,
   headerBackTitleStyle?: headerBackTitleStyle,
-  headerBackImageSource?: string, // TODO
+  headerBackImageSource?: Image.Source.t,
   headerLargeStyle?: headerLargeStyle,
   headerLargeTitle?: bool,
   headerLargeTitleShadowVisible?: bool,
   headerLargeTitleStyle?: headerLargeTitleStyle,
   headerShown?: bool,
   headerStyle?: headerStyle,
-  headerShadowVisible?: bool,
-  headerTransparent?: bool,
   headerBlurEffect?: blurEffect,
-  headerBackground?: Header.headerBackgroundOptions => React.element,
-  headerTintColor?: Color.t,
-  headerLeft?: Header.headerLeftProps => React.element,
-  headerRight?: Header.headerRightProps => React.element,
-  headerTitle?: Header.headerTitle,
-  headerTitleAlign?: headerTitleAlign,
   headerTitleStyle?: headerTitleStyle,
   headerSearchBarOptions?: headerSearchBarOptions,
   header?: headerParams => React.element,
   statusBarAnimation?: statusBarAnimation,
   statusBarHidden?: bool,
   statusBarStyle?: statusBarStyle,
-  statusBarColor?: Color.t,
+  statusBarBackgroundColor?: Color.t,
   statusBarTranslucent?: bool,
   contentStyle?: Style.t,
-  customAnimationOnGesture?: bool,
+  animationMatchesGesture?: bool,
   fullScreenGestureEnabled?: bool,
   gestureEnabled?: bool,
   animationTypeForReplace?: animationTypeForReplace,
@@ -185,6 +178,7 @@ module type NavigatorModule = {
       ~id: string=?,
       ~initialRouteName: string=?,
       ~screenOptions: screenOptionsParams => options=?,
+      ~layout: layoutNavigatorParams => React.element=?,
       ~children: React.element=?,
     ) => React.element
   }
@@ -230,16 +224,19 @@ module Navigation = {
   @send
   external setOptions: (navigation, options) => unit = "setOptions"
 
-  @send external replace: (navigation, string) => unit = "replace"
-  @send
+  @send external replace: (navigation, string, ~params: 'params=?) => unit = "replace"
+  @deprecated("Use `replace` with `~params` instead") @send
   external replaceWithParams: (navigation, string, 'params) => unit = "replace"
 
-  @send external push: (navigation, string) => unit = "push"
-  @send external pushWithParams: (navigation, string, 'params) => unit = "push"
+  @send external push: (navigation, string, ~params: 'params=?) => unit = "push"
+  @deprecated("Use `push` with `~params` instead") @send
+  external pushWithParams: (navigation, string, 'params) => unit = "push"
 
-  @send external pop: (navigation, ~count: int=?, unit) => unit = "pop"
+  @send external pop: (navigation, ~count: int=?) => unit = "pop"
 
-  @send external popToTop: (navigation, unit) => unit = "popToTop"
+  @send external popTo: (navigation, string, ~params: 'params=?) => unit = "popTo"
+
+  @send external popToTop: navigation => unit = "popToTop"
 
   @send
   external addEventListener: (

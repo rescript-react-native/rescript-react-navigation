@@ -54,24 +54,35 @@ type stateEventData = {state: navigationState}
 
 type action
 
+type layoutNavigatorParams = {
+  state: navigationState,
+  navigation: navigation,
+  descriptors: descriptors,
+  children: React.element,
+}
+
 module Navigation = {
   type t = navigation
 
-  @send external navigate: (t, string) => unit = "navigate"
-  @send
+  @send external navigate: (t, string, ~params: 'params=?) => unit = "navigate"
+  @deprecated("Use `navigate` with `~params` instead") @send
   external navigateWithParams: (t, string, 'params) => unit = "navigate"
 
-  @send external goBack: (navigation, unit) => unit = "goBack"
+  @send external navigateDeprecated: (t, string, ~params: 'params=?) => unit = "navigateDeprecated"
+
+  @send external goBack: navigation => unit = "goBack"
 
   @send
   external reset: (navigation, navigationState) => unit = "reset"
 
-  @send external isFocused: (navigation, unit) => bool = "isFocused"
+  @send external preload: (t, string, ~params: 'params=?) => unit = "preload"
+
+  @send external isFocused: navigation => bool = "isFocused"
 
   @send
   external dispatch: (t, action) => unit = "dispatch"
 
-  @send external canGoBack: (navigation, unit) => bool = "canGoBack"
+  @send external canGoBack: navigation => bool = "canGoBack"
 
   @send external setParams: (navigation, 'params) => unit = "setParams"
 

@@ -45,14 +45,14 @@ type rec options = {
   drawerHideStatusBarOnOpen?: bool,
   drawerStatusBarAnimation?: drawerStatusBarAnimation,
   overlayColor?: Color.t,
-  sceneContainerStyle?: Style.t,
+  sceneStyle?: Style.t,
   gestureEnabled?: bool,
   gestureHandlerProps?: gestureHandlerProps,
   swipeEnabled?: bool,
   swipeEdgeWidth?: float,
   swipeMinDistance?: float,
   keyboardDismissMode?: keyboardDismissMode,
-  unmountOnBlur?: bool,
+  popToTopOnBlur?: bool,
   freezeOnBlur?: bool,
   headerShown?: bool,
   header?: headerProps => React.element,
@@ -104,6 +104,7 @@ module type NavigatorModule = {
       ~detachInactiveScreens: bool=?,
       ~useLegacyImplementation: bool=?,
       ~drawerContent: React.component<contentComponentProps>=?,
+      ~layout: layoutNavigatorParams => React.element=?,
       ~children: React.element=?,
     ) => React.element
   }
@@ -147,7 +148,7 @@ module Navigation = {
   @send
   external setOptions: (navigation, options) => unit = "setOptions"
 
-  @send external jumpTo: (navigation, ~name: string, ~params: 'params=?, unit) => unit = "jumpTo"
+  @send external jumpTo: (navigation, ~name: string, ~params: 'params=?) => unit = "jumpTo"
   @send external openDrawer: navigation => unit = "openDrawer"
   @send external closeDrawer: navigation => unit = "closeDrawer"
   @send external toggleDrawer: navigation => unit = "toggleDrawer"

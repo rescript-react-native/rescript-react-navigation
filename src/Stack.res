@@ -6,6 +6,18 @@ open ReactNative
 
 type presentation = [#card | #modal | #transparentModal]
 
+type animation = [
+  | #default
+  | #fade
+  | #fade_from_bottom
+  | #flip
+  | #simple_push
+  | #slide_from_bottom
+  | #slide_from_right
+  | #slide_from_left
+  | #none
+]
+
 type animationTypeForReplace = [#push | #pop]
 
 type gestureDirection = [#horizontal | #"horizontal-inverted" | #"vertical-inverted"]
@@ -92,6 +104,8 @@ type stackCardStyleInterpolator = cardInterpolationProps => cardInterpolatedStyl
 
 type headerMode = [#float | #screen]
 
+type headerBackButtonDisplayMode = [#default | #minimal]
+
 type headerBackImageProps = {tintColor: Color.t}
 
 type progress = {
@@ -101,18 +115,20 @@ type progress = {
 }
 
 type rec options = {
+  ...Header.headerOptions,
   title?: string,
   cardShadowEnabled?: bool,
   cardOverlayEnabled?: bool,
   cardOverlay?: unit => React.element,
   cardStyle?: Style.t,
   presentation?: presentation,
-  animationEnabled?: bool,
+  animation?: animation,
   animationTypeForReplace?: animationTypeForReplace,
   gestureEnabled?: bool,
   gestureResponseDistance?: float,
   gestureVelocityImpact?: float,
   gestureDirection?: gestureDirection,
+  keyboardHandlingEnabled?: bool,
   transitionSpec?: transitionSpec,
   cardStyleInterpolator?: stackCardStyleInterpolator,
   headerStyleInterpolator?: headerStyleInterpolator,
@@ -125,29 +141,9 @@ type rec options = {
   headerBackAccessibilityLabel?: string,
   headerBackImage?: headerBackImageProps => React.element,
   headerBackTitle?: string,
-  headerBackTitleVisible?: bool,
-  headerTruncatedBackTitle?: string,
+  headerBackButtonDisplayMode?: headerBackButtonDisplayMode,
+  headerBackTruncatedTitle?: string,
   headerBackTitleStyle?: Style.t,
-  // Header props from https://reactnavigation.org/docs/elements#header
-  headerTitle?: Header.headerTitle,
-  headerTitleAlign?: Header.headerTitleAlign,
-  headerTitleAllowFontScaling?: bool,
-  headerTitleStyle?: Style.t,
-  headerTitleContainerStyle?: Style.t,
-  headerLeft?: Header.headerLeftProps => React.element,
-  headerLeftLabelVisible?: bool,
-  headerLeftContainerStyle?: Style.t,
-  headerRight?: Header.headerRightProps => React.element,
-  headerRightContainerStyle?: Style.t,
-  headerPressColor?: Color.t,
-  headerPressOpacity?: float,
-  headerTintColor?: Color.t,
-  headerBackground?: Header.headerBackgroundOptions => React.element,
-  headerBackgroundContainerStyle?: Style.t,
-  headerTransparent?: bool,
-  headerStyle?: Style.t,
-  headerShadowVisible?: bool,
-  headerStatusBarHeight?: Style.size,
 }
 and headerParams = {
   navigation: navigation,
@@ -166,7 +162,7 @@ module type NavigatorModule = {
       ~initialRouteName: string=?,
       ~screenOptions: screenOptionsParams => options=?,
       ~detachInactiveScreens: bool=?,
-      ~keyboardHandlingEnabled: bool=?,
+      ~layout: layoutNavigatorParams => React.element=?,
       ~children: React.element=?,
     ) => React.element
   }
@@ -212,16 +208,19 @@ module Navigation = {
   @send
   external setOptions: (navigation, options) => unit = "setOptions"
 
-  @send external replace: (navigation, string) => unit = "replace"
-  @send
+  @send external replace: (navigation, string, ~params: 'params=?) => unit = "replace"
+  @deprecated("Use `replace` with `~params` instead") @send
   external replaceWithParams: (navigation, string, 'params) => unit = "replace"
 
-  @send external push: (navigation, string) => unit = "push"
-  @send external pushWithParams: (navigation, string, 'params) => unit = "push"
+  @send external push: (navigation, string, ~params: 'params=?) => unit = "push"
+  @deprecated("Use `push` with `~params` instead") @send
+  external pushWithParams: (navigation, string, 'params) => unit = "push"
 
-  @send external pop: (navigation, ~count: int=?, unit) => unit = "pop"
+  @send external pop: (navigation, ~count: int=?) => unit = "pop"
 
-  @send external popToTop: (navigation, unit) => unit = "popToTop"
+  @send external popTo: (navigation, string, ~params: 'params=?) => unit = "popTo"
+
+  @send external popToTop: navigation => unit = "popToTop"
 
   @send
   external addEventListener: (
