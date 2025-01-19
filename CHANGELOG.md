@@ -1,5 +1,13 @@
 # Changelog of `rescript-react-navigation`
 
+## 7.0.0 - 2025-01-19
+
+- upgrade to `react-navigation` v7 [#72](https://github.com/rescript-react-native/rescript-react-navigation/pull/72) by [Freddy03h](https://github.com/Freddy03h)
+  - All changes listed in [Upgrading from 6.x](https://reactnavigation.org/docs/upgrading-from-6.x/)
+  - more bindings for `Elements`
+  - upgrade to rescript 11.1
+  - remove unnecessary trailing unit, and deprecate `___WithParams` functions
+
 ## 6.3.0 - 2024-12-23
 
 - Linking [#71](https://github.com/rescript-react-native/rescript-react-navigation/pull/71) by [@Freddy03h](https://github.com/Freddy03h)

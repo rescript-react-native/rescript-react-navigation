@@ -12,11 +12,6 @@ Exposed as `ReactNavigation` module.
 `rescript-react-navigation` X.y.\* means it's compatible with `react-navigation`
 X.y.\*
 
-## Status
-
-⚠️ Work in progress. These bindings are used successfully in several apps, but
-are not complete yet and still subject to change.
-
 ## Installation
 
 When
@@ -48,7 +43,7 @@ yarn add rescript-react-navigation
 
 ## Example
 
-See <./src/Example.re>
+See [Example.res](https://github.com/rescript-react-native/rescript-react-navigation/blob/main/src/Example.res)
 
 ---
 
