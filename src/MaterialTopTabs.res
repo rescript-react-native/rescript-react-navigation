@@ -42,6 +42,7 @@ type options = {
   \"lazy"?: bool,
   lazyPreloadDistance?: float,
   lazyPlaceholder?: unit => React.element,
+  sceneStyle?: Style.t,
 }
 
 type tabBarPosition = [#top | #bottom]
@@ -57,7 +58,6 @@ type tabBarProps = {
   tabStyle?: Style.t,
   indicatorStyle?: Style.t,
   labelStyle?: Style.t,
-  sceneStyle?: Style.t,
   style?: Style.t,
   renderIndicator?: React.component<{"route": route}>,
   activeTintColor?: string,
