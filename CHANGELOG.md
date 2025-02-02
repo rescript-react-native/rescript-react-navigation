@@ -1,5 +1,9 @@
 # Changelog of `rescript-react-navigation`
 
+## 7.0.1 - 2025-02-02
+
+- MaterialTopTabs: fix sceneStyle [#73](https://github.com/rescript-react-native/rescript-react-navigation/pull/73) by @cknitt
+
 ## 7.0.0 - 2025-01-19
 
 - upgrade to `react-navigation` v7 [#72](https://github.com/rescript-react-native/rescript-react-navigation/pull/72) by [Freddy03h](https://github.com/Freddy03h)
