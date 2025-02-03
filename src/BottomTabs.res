@@ -18,9 +18,13 @@ module TabBarBadge = {
   external string: string => t = "%identity"
 }
 
+@unboxed
+type rec tabBarLabel = String(string) | Function(tabBarLabelArgs => React.element)
+and tabBarLabelArgs = {focused: bool, color: string}
+
 type rec options = {
   title?: string,
-  tabBarLabel?: string,
+  tabBarLabel?: tabBarLabel,
   tabBarShowLabel?: bool,
   tabBarLabelPosition?: tabBarLabelPosition,
   tabBarLabelStyle?: Style.t,
