@@ -1,5 +1,9 @@
 # Changelog of `rescript-react-navigation`
 
+## 7.0.2 - 2025-02-12
+
+- Screen: fix getId prop [#74](https://github.com/rescript-react-native/rescript-react-navigation/pull/74) by @Freddy03h
+
 ## 7.0.1 - 2025-02-02
 
 - MaterialTopTabs: fix sceneStyle [#73](https://github.com/rescript-react-native/rescript-react-navigation/pull/73) by @cknitt
