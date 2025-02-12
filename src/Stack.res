@@ -174,7 +174,7 @@ module type NavigatorModule = {
       ~navigationKey: string=?,
       ~options: screenOptionsParams => options=?,
       ~initialParams: 'params=?,
-      ~getId: getIdOptions=?,
+      ~getId: getIdOptions => option<string>=?,
       ~component: React.component<screenProps>=?,
       ~getComponent: unit => React.component<screenProps>=?,
       ~children: screenProps => React.element=?,
