@@ -20,7 +20,11 @@ module TabBarBadge = {
 
 @unboxed
 type rec tabBarLabel = String(string) | Function(tabBarLabelArgs => React.element)
-and tabBarLabelArgs = {focused: bool, color: string}
+and tabBarLabelArgs = {
+  focused: bool,
+  color: string,
+  position: tabBarLabelPosition,
+}
 
 type rec options = {
   title?: string,
