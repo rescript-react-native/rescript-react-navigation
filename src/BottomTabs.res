@@ -18,13 +18,15 @@ module TabBarBadge = {
   external string: string => t = "%identity"
 }
 
-@unboxed
-type rec tabBarLabel = String(string) | Function(tabBarLabelArgs => React.element)
-and tabBarLabelArgs = {
+type tabBarLabelArgs = {
   focused: bool,
   color: string,
   position: tabBarLabelPosition,
+  children: string,
 }
+
+@unboxed
+type tabBarLabel = String(string) | Function(tabBarLabelArgs => React.element)
 
 type rec options = {
   title?: string,
