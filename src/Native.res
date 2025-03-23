@@ -45,7 +45,7 @@ module Linking = {
 
 module NavigationIndependentTree = {
   @module("@react-navigation/native") @react.component
-  external make: unit => React.element = "NavigationIndependentTree"
+  external make: (~children: React.element) => React.element = "NavigationIndependentTree"
 }
 
 module NavigationContainer = {
