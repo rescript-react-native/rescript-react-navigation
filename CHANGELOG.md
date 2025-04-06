@@ -1,5 +1,9 @@
 # Changelog of `rescript-react-navigation`
 
+## 7.0.4 - 2025-04-06
+
+- Add `children` to NavigationIndependentTree [#76](https://github.com/rescript-react-native/rescript-react-navigation/pull/76) by @sookcha
+
 ## 7.0.3 - 2025-03-05
 
 - Update binding of `tabBarLabel` in BottomTabs and MaterialBottomTabs [#75](https://github.com/rescript-react-native/rescript-react-navigation/pull/75) by @namenu
