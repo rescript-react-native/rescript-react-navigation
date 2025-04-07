@@ -35,59 +35,68 @@ type options = {
   tabBarTestID?: string,
 }
 
+type navigatorProps = {
+  id?: string,
+  initialRouteName?: string,
+  screenOptions?: screenOptionsParams => options,
+  backBehavior?: backBehavior,
+  shifting?: bool,
+  labeled?: bool,
+  activeColor?: Color.t,
+  inactiveColor?: Color.t,
+  barStyle?: Style.t,
+  layout?: layoutNavigatorParams => React.element,
+  children: React.element,
+}
+
+type screenProps<'params> = {
+  name: string,
+  navigationKey?: string,
+  options?: screenOptionsParams => options,
+  initialParams?: 'params,
+  getId?: getIdOptions => option<string>,
+  component?: React.component<screenProps>,
+  getComponent?: unit => React.component<screenProps>,
+  children?: screenProps => React.element,
+}
+
+type groupProps = {
+  navigationKey?: string,
+  screenOptions?: screenOptionsParams => options,
+}
+
 module type NavigatorModule = {
   module Navigator: {
-    @react.component
-    let make: (
-      ~id: string=?,
-      ~initialRouteName: string=?,
-      ~screenOptions: screenOptionsParams => options=?,
-      ~backBehavior: backBehavior=?,
-      ~shifting: bool=?,
-      ~labeled: bool=?,
-      ~activeColor: Color.t=?,
-      ~inactiveColor: Color.t=?,
-      ~barStyle: Style.t=?,
-      ~layout: layoutNavigatorParams => React.element=?,
-      ~children: React.element,
-    ) => React.element
+    let make: React.component<navigatorProps>
   }
 
   module Screen: {
-    @react.component
-    let make: (
-      ~name: string,
-      ~navigationKey: string=?,
-      ~options: screenOptionsParams => options=?,
-      ~initialParams: 'params=?,
-      ~getId: getIdOptions => option<string>=?,
-      ~component: React.component<screenProps>=?,
-      ~getComponent: unit => React.component<screenProps>=?,
-      ~children: screenProps => React.element=?,
-    ) => React.element
+    let make: React.component<screenProps<'params>>
   }
 
   module Group: {
-    @react.component
-    let make: (
-      ~navigationKey: string=?,
-      ~screenOptions: screenOptionsParams => options=?,
-    ) => React.element
+    let make: React.component<groupProps>
   }
 }
 
-type navigatorModule
+module Make = (): NavigatorModule => {
+  @module("@react-navigation/material-bottom-tabs")
+  external createMaterialBottomTabNavigator: unit => {..} = "createMaterialBottomTabNavigator"
 
-%%private(
-  @module("react-native-paper/react-navigation")
-  external createMaterialBottomTabNavigator: unit => navigatorModule =
-    "createMaterialBottomTabNavigator"
+  let internal = createMaterialBottomTabNavigator()
 
-  @module("./Interop")
-  external adaptNavigatorModule: navigatorModule => module(NavigatorModule) = "adaptNavigatorModule"
-)
+  module Navigator = {
+    let make = internal["Navigator"]
+  }
 
-module Make = () => unpack(createMaterialBottomTabNavigator()->adaptNavigatorModule)
+  module Screen = {
+    let make = internal["Screen"]
+  }
+
+  module Group = {
+    let make = internal["Group"]
+  }
+}
 
 module Navigation = {
   @send

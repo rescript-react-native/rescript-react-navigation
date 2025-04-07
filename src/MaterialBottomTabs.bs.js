@@ -1,12 +1,28 @@
 'use strict';
 
-var Interop = require("./Interop");
-var ReactNavigation = require("react-native-paper/react-navigation");
+var MaterialBottomTabs = require("@react-navigation/material-bottom-tabs");
 
 var TabBarBadge = {};
 
 function Make($star) {
-  return Interop.adaptNavigatorModule(ReactNavigation.createMaterialBottomTabNavigator());
+  var internal = MaterialBottomTabs.createMaterialBottomTabNavigator();
+  var make = internal.Navigator;
+  var $$Navigator = {
+    make: make
+  };
+  var make$1 = internal.Screen;
+  var $$Screen = {
+    make: make$1
+  };
+  var make$2 = internal.Group;
+  var Group = {
+    make: make$2
+  };
+  return {
+          $$Navigator: $$Navigator,
+          $$Screen: $$Screen,
+          Group: Group
+        };
 }
 
 var $$Navigation = {};
@@ -14,4 +30,4 @@ var $$Navigation = {};
 exports.TabBarBadge = TabBarBadge;
 exports.Make = Make;
 exports.$$Navigation = $$Navigation;
-/* ./Interop Not a pure module */
+/* @react-navigation/material-bottom-tabs Not a pure module */

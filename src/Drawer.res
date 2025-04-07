@@ -92,57 +92,67 @@ type contentComponentProps = {
 
 type drawerStatus = [#"open" | #closed]
 
+type navigatorProps = {
+  id?: string,
+  initialRouteName?: string,
+  screenOptions?: screenOptionsParams => options,
+  backBehavior?: backBehavior,
+  defaultStatus?: drawerStatus,
+  detachInactiveScreens?: bool,
+  useLegacyImplementation?: bool,
+  drawerContent?: React.component<contentComponentProps>,
+  layout?: layoutNavigatorParams => React.element,
+  children?: React.element,
+}
+
+type screenProps<'params> = {
+  name: string,
+  navigationKey?: string,
+  options?: screenOptionsParams => options,
+  initialParams?: 'params,
+  getId?: getIdOptions => option<string>,
+  component?: React.component<screenProps>,
+  getComponent?: unit => React.component<screenProps>,
+  children?: screenProps => React.element,
+}
+
+type groupProps = {
+  navigationKey?: string,
+  screenOptions?: screenOptionsParams => options,
+}
+
 module type NavigatorModule = {
   module Navigator: {
-    @react.component
-    let make: (
-      ~id: string=?,
-      ~initialRouteName: string=?,
-      ~screenOptions: screenOptionsParams => options=?,
-      ~backBehavior: backBehavior=?,
-      ~defaultStatus: drawerStatus=?,
-      ~detachInactiveScreens: bool=?,
-      ~useLegacyImplementation: bool=?,
-      ~drawerContent: React.component<contentComponentProps>=?,
-      ~layout: layoutNavigatorParams => React.element=?,
-      ~children: React.element=?,
-    ) => React.element
+    let make: React.component<navigatorProps>
   }
 
   module Screen: {
-    @react.component
-    let make: (
-      ~name: string,
-      ~navigationKey: string=?,
-      ~options: screenOptionsParams => options=?,
-      ~initialParams: 'params=?,
-      ~getId: getIdOptions => option<string>=?,
-      ~component: React.component<screenProps>=?,
-      ~getComponent: unit => React.component<screenProps>=?,
-      ~children: screenProps => React.element=?,
-    ) => React.element
+    let make: React.component<screenProps<'params>>
   }
 
   module Group: {
-    @react.component
-    let make: (
-      ~navigationKey: string=?,
-      ~screenOptions: screenOptionsParams => options=?,
-    ) => React.element
+    let make: React.component<groupProps>
   }
 }
 
-type navigatorModule
-
-%%private(
+module Make = (): NavigatorModule => {
   @module("@react-navigation/drawer")
-  external createDrawerNavigator: unit => navigatorModule = "createDrawerNavigator"
+  external createDrawerNavigator: unit => {..} = "createDrawerNavigator"
 
-  @module("./Interop")
-  external adaptNavigatorModule: navigatorModule => module(NavigatorModule) = "adaptNavigatorModule"
-)
+  let internal = createDrawerNavigator()
 
-module Make = () => unpack(createDrawerNavigator()->adaptNavigatorModule)
+  module Navigator = {
+    let make = internal["Navigator"]
+  }
+
+  module Screen = {
+    let make = internal["Screen"]
+  }
+
+  module Group = {
+    let make = internal["Group"]
+  }
+}
 
 module Navigation = {
   @send
