@@ -1,14 +1,30 @@
 'use strict';
 
-var Interop = require("./Interop");
 var MaterialTopTabs = require("@react-navigation/material-top-tabs");
 
 function Make($star) {
-  return Interop.adaptNavigatorModule(MaterialTopTabs.createMaterialTopTabNavigator());
+  var internal = MaterialTopTabs.createMaterialTopTabNavigator();
+  var make = internal.Navigator;
+  var $$Navigator = {
+    make: make
+  };
+  var make$1 = internal.Screen;
+  var $$Screen = {
+    make: make$1
+  };
+  var make$2 = internal.Group;
+  var Group = {
+    make: make$2
+  };
+  return {
+          $$Navigator: $$Navigator,
+          $$Screen: $$Screen,
+          Group: Group
+        };
 }
 
 var $$Navigation = {};
 
 exports.Make = Make;
 exports.$$Navigation = $$Navigation;
-/* ./Interop Not a pure module */
+/* @react-navigation/material-top-tabs Not a pure module */
