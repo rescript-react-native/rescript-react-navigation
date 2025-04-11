@@ -1,5 +1,9 @@
 # Changelog of `rescript-react-navigation`
 
+## 7.0.5 - 2025-04-11
+
+- ReScript 12 compatibility [#79](https://github.com/rescript-react-native/rescript-react-navigation/pull/79) by @cknitt
+
 ## 7.0.4 - 2025-04-06
 
 - Add `children` to NavigationIndependentTree [#76](https://github.com/rescript-react-native/rescript-react-navigation/pull/76) by @sookcha
