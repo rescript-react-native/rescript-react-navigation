@@ -171,10 +171,20 @@ and headerParams = {
   back: backOptions,
 }
 
+type screenEventData = {closing: bool}
+
+type listeners = {
+  ...Core.eventListeners,
+  transitionStart?: navigationEvent<screenEventData> => unit,
+  transitionEnd?: navigationEvent<screenEventData> => unit,
+  gestureCancel?: navigationEvent<unit> => unit,
+}
+
 type navigatorProps = {
   id?: string,
   initialRouteName?: string,
   screenOptions?: screenOptionsParams => options,
+  screenListeners?: screenOptionsParams => listeners,
   layout?: layoutNavigatorParams => React.element,
   children?: React.element,
 }
@@ -183,6 +193,7 @@ type screenProps<'params> = {
   name: string,
   navigationKey?: string,
   options?: screenOptionsParams => options,
+  listeners?: screenOptionsParams => listeners,
   initialParams?: 'params,
   getId?: getIdOptions => option<string>,
   component?: React.component<screenProps>,
@@ -228,8 +239,6 @@ module Make = (): NavigatorModule => {
   }
 }
 
-type screenEventData = {closing: int}
-
 module Navigation = {
   @send
   external setOptions: (navigation, options) => unit = "setOptions"
@@ -255,6 +264,7 @@ module Navigation = {
     [
       | #transitionStart(navigationEvent<screenEventData> => unit)
       | #transitionEnd(navigationEvent<screenEventData> => unit)
+      | #gestureCancel(navigationEvent<unit> => unit)
     ],
   ) => unsubscribe = "addListener"
 }

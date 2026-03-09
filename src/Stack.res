@@ -154,10 +154,22 @@ and headerParams = {
   styleInterpolator: headerStyleInterpolator,
 }
 
+type screenEventData = {closing: bool}
+
+type listeners = {
+  ...Core.eventListeners,
+  transitionStart?: navigationEvent<screenEventData> => unit,
+  transitionEnd?: navigationEvent<screenEventData> => unit,
+  gestureStart?: navigationEvent<unit> => unit,
+  gestureEnd?: navigationEvent<unit> => unit,
+  gestureCancel?: navigationEvent<unit> => unit,
+}
+
 type navigatorProps = {
   id?: string,
   initialRouteName?: string,
   screenOptions?: screenOptionsParams => options,
+  screenListeners?: screenOptionsParams => listeners,
   detachInactiveScreens?: bool,
   layout?: layoutNavigatorParams => React.element,
   children?: React.element,
@@ -167,6 +179,7 @@ type screenProps<'params> = {
   name: string,
   navigationKey?: string,
   options?: screenOptionsParams => options,
+  listeners?: screenOptionsParams => listeners,
   initialParams?: 'params,
   getId?: getIdOptions => option<string>,
   component?: React.component<screenProps>,
@@ -211,8 +224,6 @@ module Make = (): NavigatorModule => {
     let make = internal["Group"]
   }
 }
-
-type screenEventData = {closing: int}
 
 module Navigation = {
   @send

@@ -90,12 +90,18 @@ type contentComponentProps = {
   descriptors: descriptors,
 }
 
+type listeners = {
+  ...Core.eventListeners,
+  drawerItemPress?: navigationEvent<unit> => unit,
+}
+
 type drawerStatus = [#"open" | #closed]
 
 type navigatorProps = {
   id?: string,
   initialRouteName?: string,
   screenOptions?: screenOptionsParams => options,
+  screenListeners?: screenOptionsParams => listeners,
   backBehavior?: backBehavior,
   defaultStatus?: drawerStatus,
   detachInactiveScreens?: bool,
@@ -109,6 +115,7 @@ type screenProps<'params> = {
   name: string,
   navigationKey?: string,
   options?: screenOptionsParams => options,
+  listeners?: screenOptionsParams => listeners,
   initialParams?: 'params,
   getId?: getIdOptions => option<string>,
   component?: React.component<screenProps>,

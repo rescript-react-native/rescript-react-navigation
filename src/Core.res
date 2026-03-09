@@ -54,6 +54,15 @@ type stateEventData = {state: navigationState}
 
 type action
 
+type beforeRemoveEventData = {action: action}
+
+type eventListeners = {
+  focus?: navigationEvent<unit> => unit,
+  blur?: navigationEvent<unit> => unit,
+  state?: navigationEvent<stateEventData> => unit,
+  beforeRemove?: navigationEvent<beforeRemoveEventData> => unit,
+}
+
 type layoutNavigatorParams = {
   state: navigationState,
   navigation: navigation,
@@ -100,6 +109,7 @@ module Navigation = {
       | #focus(navigationEvent<unit> => unit)
       | #blur(navigationEvent<unit> => unit)
       | #state(navigationEvent<stateEventData> => unit)
+      | #beforeRemove(navigationEvent<beforeRemoveEventData> => unit)
     ],
   ) => unsubscribe = "addListener"
 }
