@@ -35,10 +35,17 @@ type options = {
   tabBarTestID?: string,
 }
 
+type listeners = {
+  ...Core.eventListeners,
+  tabPress?: navigationEvent<unit> => unit,
+  tabLongPress?: navigationEvent<unit> => unit,
+}
+
 type navigatorProps = {
   id?: string,
   initialRouteName?: string,
   screenOptions?: screenOptionsParams => options,
+  screenListeners?: screenOptionsParams => listeners,
   backBehavior?: backBehavior,
   shifting?: bool,
   labeled?: bool,
@@ -53,6 +60,7 @@ type screenProps<'params> = {
   name: string,
   navigationKey?: string,
   options?: screenOptionsParams => options,
+  listeners?: screenOptionsParams => listeners,
   initialParams?: 'params,
   getId?: getIdOptions => option<string>,
   component?: React.component<screenProps>,
@@ -112,6 +120,7 @@ module Navigation = {
     @string
     [
       | #tabPress(navigationEvent<unit> => unit)
+      | #tabLongPress(navigationEvent<unit> => unit)
     ],
   ) => unsubscribe = "addListener"
 }

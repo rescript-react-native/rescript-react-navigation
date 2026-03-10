@@ -96,10 +96,19 @@ and headerParams = {
   layout: layout,
 }
 
+type listeners = {
+  ...Core.eventListeners,
+  tabPress?: navigationEvent<unit> => unit,
+  tabLongPress?: navigationEvent<unit> => unit,
+  transitionStart?: navigationEvent<unit> => unit,
+  transitionEnd?: navigationEvent<unit> => unit,
+}
+
 type navigatorProps = {
   id?: string,
   initialRouteName?: string,
   screenOptions?: screenOptionsParams => options,
+  screenListeners?: screenOptionsParams => listeners,
   backBehavior?: backBehavior,
   detachInactiveScreens?: bool,
   tabBar?: unit => React.element,
@@ -111,6 +120,7 @@ type screenProps<'params> = {
   name: string,
   navigationKey?: string,
   options?: screenOptionsParams => options,
+  listeners?: screenOptionsParams => listeners,
   initialParams?: 'params,
   getId?: getIdOptions => option<string>,
   component?: React.component<screenProps>,
@@ -167,6 +177,9 @@ module Navigation = {
     @string
     [
       | #tabPress(navigationEvent<unit> => unit)
+      | #tabLongPress(navigationEvent<unit> => unit)
+      | #transitionStart(navigationEvent<unit> => unit)
+      | #transitionEnd(navigationEvent<unit> => unit)
     ],
   ) => unsubscribe = "addListener"
 }
